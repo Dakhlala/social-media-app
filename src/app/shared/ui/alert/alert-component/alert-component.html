@@ -14,7 +14,7 @@
         <div class="flex-1 min-w-0 pr-1">
             <div class="flex items-center justify-between gap-2">
                 @if (title()) {
-                <h3 class="font-headline-sm text-headline-sm font-serif" [class]="config().titleClass">
+                <h3 class="font-serif text-lg font-medium" [class]="config().titleClass">
                     {{ title() }}
                 </h3>
                 }
@@ -27,7 +27,7 @@
             </div>
 
             @if (message()) {
-            <p class="font-body-md text-body-md mt-1" [class]="config().messageClass">
+            <p class="text-sm mt-1" [class]="config().messageClass">
                 {{ message() }}
             </p>
             }

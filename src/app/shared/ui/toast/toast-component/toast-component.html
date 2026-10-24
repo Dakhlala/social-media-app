@@ -9,14 +9,14 @@
         </span>
         <!-- Text Details -->
         <div class="flex flex-col flex-1">
-            <span class="text-label-md font-label-md">{{ toast.title }}</span>
+            <span class="text-xs sm:text-sm font-semibold">{{ toast.title }}</span>
             @if (toast.message) {
             <span class="text-[12px] text-secondary-fixed">{{ toast.message }}</span>
             }
         </div>
         <!-- Dismiss Button -->
         <button type="button" aria-label="Dismiss toast" (click)="toastService.dismiss(toast.id)"
-            class="ml-2 text-secondary-fixed hover:text-inverse-on-surface p-1 rounded transition-colors">
+            class="ml-2 text-secondary-fixed hover:text-inverse-on-surface p-1 rounded transition-colors cursor-pointer">
             <span class="material-symbols-outlined text-[16px]">close</span>
         </button>
     </aside>

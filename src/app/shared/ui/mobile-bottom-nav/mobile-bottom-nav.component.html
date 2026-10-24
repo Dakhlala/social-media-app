@@ -7,14 +7,14 @@
     <a routerLink="/home" routerLinkActive="text-primary font-semibold"
       class="flex-1 flex flex-col items-center justify-center h-full min-w-11 py-1 text-secondary hover:text-primary transition-colors duration-150 group cursor-pointer">
       <span class="material-symbols-outlined text-[22px] transition-transform group-active:scale-90">newspaper</span>
-      <span class="text-[11px] font-label-sm tracking-tight mt-0.5">Feed</span>
+      <span class="text-[11px] font-medium tracking-tight mt-0.5">Feed</span>
     </a>
 
     <!-- 2. ARCHIVES -->
     <a routerLink="/archives" routerLinkActive="text-primary font-semibold"
       class="flex-1 flex flex-col items-center justify-center h-full min-w-11 py-1 text-secondary hover:text-primary transition-colors duration-150 group cursor-pointer">
       <span class="material-symbols-outlined text-[22px] transition-transform group-active:scale-90">source</span>
-      <span class="text-[11px] font-label-sm tracking-tight mt-0.5">Archives</span>
+      <span class="text-[11px] font-medium tracking-tight mt-0.5">Archives</span>
     </a>
 
     <!-- 3. CENTER CTA: NEW DISPATCH ENTRY -->
@@ -37,7 +37,7 @@
           class="absolute -top-0.5 -right-1 w-2.5 h-2.5 rounded-full bg-primary ring-2 ring-surface animate-pulse"></span>
         }
       </div>
-      <span class="text-[11px] font-label-sm tracking-tight mt-0.5">Notifications</span>
+      <span class="text-[11px] font-medium tracking-tight mt-0.5">Notifications</span>
     </a>
 
     <!-- 5. AUTHOR PROFILE -->
@@ -48,7 +48,7 @@
         <img [src]="currentUser()?.photo || defaultPhoto" [alt]="currentUser()?.name || 'Author'"
           class="w-full h-full object-cover" />
       </div>
-      <span class="text-[11px] font-label-sm tracking-tight mt-0.5">Profile</span>
+      <span class="text-[11px] font-medium tracking-tight mt-0.5">Profile</span>
     </a>
 
   </div>

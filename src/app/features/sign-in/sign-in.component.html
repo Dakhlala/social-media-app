@@ -1,187 +1,253 @@
 <div
-  class="bg-background text-on-background min-h-screen flex flex-col font-body-md text-body-md antialiased selection:bg-surface-variant selection:text-primary">
-  <!-- Top Brand & Context Header -->
+  class="bg-[#F7F7F2] text-[#202925] min-h-screen flex flex-col justify-between selection:bg-secondary-fixed selection:text-primary antialiased">
 
-  <!-- Main Canvas: Split Editorial Layout -->
-  <main
-    class="flex-1 max-w-7xl w-full mx-auto px-space-md sm:px-space-xl py-space-xl grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center">
-    <!-- Left Column: Editorial Vignette -->
-    <section class="lg:col-span-7 flex flex-col justify-center pr-0 lg:pr-space-xl space-y-space-lg">
-      <div class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container rounded-md w-fit">
-        <span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
-        <span class="font-label-sm text-label-sm text-primary tracking-wide">ISSUE NO. XLVIII · AUTUMN FORUM</span>
+  <!-- ==================== TOP BRAND HEADER ==================== -->
+  <header class="w-full border-b border-outline-variant/60 bg-white/80 backdrop-blur-md sticky top-0 z-30 py-3.5 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a routerLink="/sign-in" class="flex items-center gap-2 group">
+        <span class="font-serif text-2xl text-primary italic font-bold">Gather</span>
+        <span class="text-xs text-secondary hidden sm:inline-block border-l border-outline-variant/60 pl-2 tracking-wide">
+          The Literary Commons
+        </span>
+      </a>
+      <div class="flex items-center gap-2 text-xs sm:text-sm">
+        <span class="text-secondary hidden sm:inline">New scholar?</span>
+        <a routerLink="/sign-up"
+          class="font-semibold text-primary hover:text-[#1a5747] transition-colors underline underline-offset-4 decoration-outline-variant hover:decoration-primary">
+          Create Account
+        </a>
       </div>
-      <div class="space-y-4">
-        <h1 class="font-display text-display text-on-background leading-tight">
-          Welcome back to the dialogue.
-        </h1>
-        <p class="font-body-lg text-body-lg text-secondary max-w-xl">
-          An unhurried space for essays, critique, and collective thought. Return to your active manuscripts, community
-          annotations, and ongoing correspondence.
-        </p>
-      </div>
-      <!-- Editorial Quote Vignette -->
-      <div class="p-6 bg-surface-container-low border-l-2 border-primary-container rounded-r-lg space-y-3">
-        <p class="font-headline-sm text-headline-sm italic text-on-surface leading-relaxed">
-          “To gather is not merely to amass words, but to prepare soil wherein slow convictions may strike deep root.”
-        </p>
-        <div
-          class="flex items-center justify-between text-secondary pt-2 border-t border-outline-variant/30 font-label-sm text-label-sm">
-          <span>H. V. Aris Thorne — <span class="italic text-on-surface-variant">The Architecture of
-              Reading</span></span>
-          <span class="text-outline">Folio 112</span>
-        </div>
-      </div>
-      <!-- Feature Badges -->
-      <div class="grid grid-cols-3 gap-4 pt-2">
-        <div class="flex items-start gap-2.5">
-          <span class="material-symbols-outlined text-primary text-[20px] mt-0.5">verified_user</span>
-          <div>
-            <h4 class="font-label-md text-label-md text-on-surface">Distraction Free</h4>
-            <p class="font-body-sm text-body-sm text-secondary">Zero algorithmic feeds</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-2.5">
-          <span class="material-symbols-outlined text-primary text-[20px] mt-0.5">history_edu</span>
-          <div>
-            <h4 class="font-label-md text-label-md text-on-surface">Permanent Canon</h4>
-            <p class="font-body-sm text-body-sm text-secondary">Archived in perpetuity</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-2.5">
-          <span class="material-symbols-outlined text-primary text-[20px] mt-0.5">groups</span>
-          <div>
-            <h4 class="font-label-md text-label-md text-on-surface">Peer Deliberation</h4>
-            <p class="font-body-sm text-body-sm text-secondary">Invited editorial circles</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
+  </header>
 
-    <!-- Right Column: Authentication Card -->
-    <section class="lg:col-span-5 w-full">
-      <div
-        class="bg-surface-container-lowest rounded-xl p-space-lg sm:p-space-xl border border-outline-variant shadow-[0_4px_20px_-2px_rgba(32,41,37,0.06)] relative overflow-hidden">
-        <!-- Switcher -->
-        <div class="flex items-center justify-between border-b border-outline-variant/60 pb-3 mb-space-lg">
-          <div class="flex items-center space-x-6">
-            <button
-              class="font-label-md text-label-md text-primary border-b-2 border-primary-container pb-3 -mb-3 transition-colors"
-              type="button">
+  <!-- ==================== MAIN CANVAS ==================== -->
+  <main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12 flex items-center justify-center">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full">
+
+      <!-- LEFT COLUMN: EDITORIAL VIGNETTE (Shown on Desktop / Tablet) -->
+      <section class="hidden lg:flex lg:col-span-7 flex-col justify-center pr-0 lg:pr-8 space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container rounded-md w-fit">
+          <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+          <span class="text-xs font-semibold text-primary tracking-wider uppercase">Issue No. XLVIII · Autumn Forum</span>
+        </div>
+
+        <div class="space-y-3">
+          <h1 class="font-serif text-4xl lg:text-5xl text-[#151d1a] leading-tight tracking-tight">
+            Welcome back to the dialogue.
+          </h1>
+          <p class="font-serif text-base lg:text-lg text-secondary max-w-xl leading-relaxed">
+            An unhurried space for essays, critique, and collective thought. Return to your active manuscripts, community annotations, and ongoing correspondence.
+          </p>
+        </div>
+
+        <!-- Editorial Quote Vignette -->
+        <div class="p-6 bg-white border-l-4 border-primary rounded-r-2xl border-y border-r border-outline-variant/50 shadow-xs space-y-3">
+          <p class="font-serif text-lg italic text-[#202925] leading-relaxed">
+            “To gather is not merely to amass words, but to prepare soil wherein slow convictions may strike deep root.”
+          </p>
+          <div class="flex items-center justify-between text-secondary pt-3 border-t border-outline-variant/40 text-xs">
+            <span class="font-medium text-[#151d1a]">
+              H. V. Aris Thorne — <span class="italic text-secondary">The Architecture of Reading</span>
+            </span>
+            <span class="font-mono text-outline">Folio 112</span>
+          </div>
+        </div>
+
+        <!-- Feature Pillars -->
+        <div class="grid grid-cols-3 gap-4 pt-2">
+          <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/70 border border-outline-variant/40">
+            <span class="material-symbols-outlined text-primary text-[22px] mt-0.5">verified_user</span>
+            <div>
+              <h4 class="text-xs font-bold text-[#151d1a]">Distraction Free</h4>
+              <p class="text-[11px] text-secondary mt-0.5">Zero algorithmic noise</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/70 border border-outline-variant/40">
+            <span class="material-symbols-outlined text-primary text-[22px] mt-0.5">history_edu</span>
+            <div>
+              <h4 class="text-xs font-bold text-[#151d1a]">Permanent Canon</h4>
+              <p class="text-[11px] text-secondary mt-0.5">Archived in perpetuity</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/70 border border-outline-variant/40">
+            <span class="material-symbols-outlined text-primary text-[22px] mt-0.5">groups</span>
+            <div>
+              <h4 class="text-xs font-bold text-[#151d1a]">Peer Deliberation</h4>
+              <p class="text-[11px] text-secondary mt-0.5">Scholarly discourse</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN: SIGN-IN CARD (Mobile-First Focus) -->
+      <section class="w-full max-w-md mx-auto lg:max-w-none lg:col-span-5">
+
+        <!-- Mobile-Only Context Header -->
+        <div class="lg:hidden text-center mb-6 space-y-1.5">
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container text-primary text-xs font-medium mb-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+            <span>The Literary Commons</span>
+          </div>
+          <h1 class="font-serif text-3xl text-[#151d1a] tracking-tight">Welcome Back</h1>
+          <p class="font-serif text-sm text-secondary">
+            Sign in to access your dispatches, reading archives, and peer discussions.
+          </p>
+        </div>
+
+        <!-- Authentication Card -->
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-outline-variant/60 shadow-sm relative overflow-hidden">
+
+          <!-- Tactile Segmented Tab Bar -->
+          <div class="grid grid-cols-2 p-1 bg-surface-container rounded-xl mb-6">
+            <button type="button"
+              class="py-2.5 rounded-lg bg-primary text-white text-xs sm:text-sm font-semibold shadow-xs text-center transition-all cursor-default">
               Sign In
             </button>
-            <a class="font-label-md text-label-md text-secondary hover:text-primary pb-3 -mb-3 transition-colors"
-              routerLink="/sign-up">
+            <a routerLink="/sign-up"
+              class="py-2.5 rounded-lg text-secondary hover:text-primary text-xs sm:text-sm font-medium text-center transition-all">
               Create Account
             </a>
           </div>
-          <span class="font-label-sm text-label-sm text-outline">v2.4 Core</span>
-        </div>
 
+          <!-- Sign-In Form -->
+          <form class="space-y-4" [formGroup]="signInForm" (ngSubmit)="onSubmit()" novalidate>
 
-        <!-- Form -->
-        <form class="space-y-space-md" id="signin-form" [formGroup]="signInForm" (ngSubmit)='onSubmit()' novalidate>
-          <!-- Email Field -->
-          <div class="space-y-1.5">
-            <div class="flex items-center justify-between">
-              <label class="font-label-md text-label-md text-on-surface" for="email">
-                Email Address
-              </label>
-              <span class="font-body-sm text-body-sm text-secondary">Author ID</span>
-            </div>
-            <div class="relative rounded-lg">
-              <input autocomplete="email"
-                class="w-full bg-surface-container-lowest border border-outline-variant text-on-background placeholder:text-outline font-body-md text-body-md px-4 py-3 rounded-lg focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all"
-                id="email" name="email" placeholder="author@gather.org" type="email" formControlName="email"
-                value="elena.vance@gather.org">
-              <div class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-secondary">
-                <span class="material-symbols-outlined text-[18px]">alternate_email</span>
+            <!-- Email Field -->
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-semibold text-[#151d1a]" for="email">
+                  Email Address <span class="text-red-600">*</span>
+                </label>
+                <span class="text-[11px] text-secondary">Author ID</span>
               </div>
+              <div class="relative">
+                <input autocomplete="email"
+                  class="w-full h-12 bg-white border text-base text-[#151d1a] placeholder:text-secondary/70 px-4 pr-11 rounded-xl transition-all outline-none"
+                  [class.border-outline-variant]="!signInForm.get('email')?.invalid || (!signInForm.get('email')?.touched && !isSubmitted())"
+                  [class.border-red-500]="signInForm.get('email')?.invalid && (signInForm.get('email')?.touched || isSubmitted())"
+                  [class.focus:border-primary]="!signInForm.get('email')?.invalid"
+                  [class.focus:ring-2]="true"
+                  [class.focus:ring-primary/20]="!signInForm.get('email')?.invalid"
+                  [class.focus:ring-red-500/20]="signInForm.get('email')?.invalid && (signInForm.get('email')?.touched || isSubmitted())"
+                  id="email" name="email" placeholder="author@gather.org" type="email" formControlName="email">
+                <div class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-secondary">
+                  <span class="material-symbols-outlined text-[18px]">alternate_email</span>
+                </div>
+              </div>
+              @if (signInForm.get('email')?.invalid && (signInForm.get('email')?.touched || isSubmitted())) {
+              <p class="text-xs text-red-600 flex items-center gap-1 pt-0.5">
+                <span class="material-symbols-outlined text-[14px]">error</span>
+                <span>Please enter a valid email address.</span>
+              </p>
+              }
             </div>
-          </div>
-          <!-- Password Field -->
-          <div class="space-y-1.5">
-            <div class="flex items-center justify-between">
-              <label class="font-label-md text-label-md text-on-surface" for="password">
-                Secret Phrase / Password
+
+            <!-- Password Field -->
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-semibold text-[#151d1a]" for="password">
+                  Secret Phrase / Password <span class="text-red-600">*</span>
+                </label>
+                <span class="text-[11px] text-secondary">Secured</span>
+              </div>
+              <div class="relative">
+                <input autocomplete="current-password"
+                  class="w-full h-12 bg-white border text-base text-[#151d1a] placeholder:text-secondary/70 px-4 pr-12 rounded-xl transition-all outline-none"
+                  [class.border-outline-variant]="!signInForm.get('password')?.invalid || (!signInForm.get('password')?.touched && !isSubmitted())"
+                  [class.border-red-500]="signInForm.get('password')?.invalid && (signInForm.get('password')?.touched || isSubmitted())"
+                  [class.focus:border-primary]="!signInForm.get('password')?.invalid"
+                  [class.focus:ring-2]="true"
+                  [class.focus:ring-primary/20]="!signInForm.get('password')?.invalid"
+                  [class.focus:ring-red-500/20]="signInForm.get('password')?.invalid && (signInForm.get('password')?.touched || isSubmitted())"
+                  id="password" name="password" placeholder="Enter your password"
+                  [type]="showPassword() ? 'text' : 'password'"
+                  formControlName="password">
+                <button aria-label="Toggle password visibility"
+                  class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-secondary hover:text-primary transition-colors cursor-pointer w-11 justify-center active:scale-95"
+                  id="toggle-password" type="button" (click)="togglePasswordVisibility()">
+                  <span class="material-symbols-outlined text-[20px]">
+                    {{ showPassword() ? 'visibility_off' : 'visibility' }}
+                  </span>
+                </button>
+              </div>
+              @if (signInForm.get('password')?.invalid && (signInForm.get('password')?.touched || isSubmitted())) {
+              <p class="text-xs text-red-600 flex items-center gap-1 pt-0.5">
+                <span class="material-symbols-outlined text-[14px]">error</span>
+                <span>Password is required.</span>
+              </p>
+              }
+            </div>
+
+            <!-- Session Duration & Security Info -->
+            <div class="flex items-center justify-between pt-1">
+              <label class="flex items-center gap-2 cursor-pointer select-none">
+                <input checked
+                  class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary/30 accent-primary cursor-pointer"
+                  id="remember_session" name="remember_session" type="checkbox">
+                <span class="text-xs text-[#202925]">Stay signed in for 7 days</span>
               </label>
-              <a class="font-label-sm text-label-sm text-primary hover:underline" href="#reset">
-                Forgot phrase?
-              </a>
+              <span class="text-[11px] text-secondary flex items-center gap-1"
+                title="Encrypted cookie storage with strict same-site safety">
+                <span class="material-symbols-outlined text-[13px]">lock</span>
+                <span class="hidden sm:inline">Encrypted Session</span>
+              </span>
             </div>
-            <div class="relative rounded-lg">
-              <input autocomplete="current-password"
-                class="w-full  bg-surface-container-lowest border border-outline-variant text-on-background placeholder:text-outline font-body-md text-body-md px-4 py-3 pr-11 rounded-lg focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all"
-                #passWord id="password" name="password" placeholder="••••••••••••" type="password"
-                formControlName="password">
-              <button aria-label="Toggle password visibility"
-                class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-secondary hover:text-on-surface transition-colors"
-                id="toggle-password" type="button" (click)="showPassword(passWord)">
-                <span class="material-symbols-outlined text-[20px]" id="eye-icon">visibility</span>
+
+            <!-- Submit Button (Thumb-Friendly Height) -->
+            <div class="pt-2">
+              <button
+                class="w-full h-12 bg-primary hover:bg-[#1a5747] text-white text-sm sm:text-base font-semibold rounded-xl flex items-center justify-center gap-2 shadow-sm transition-all duration-150 active:scale-[0.99] disabled:opacity-60 cursor-pointer"
+                id="submit-button" type="submit" [disabled]="isLoading()">
+                @if (isLoading()) {
+                <span class="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>
+                <span>Signing in...</span>
+                } @else {
+                <span>Sign In to Gather</span>
+                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                }
               </button>
             </div>
+          </form>
+
+          <!-- Alternative Registration Link -->
+          <div class="mt-6 text-center text-xs text-secondary">
+            New to Gather?
+            <a class="font-semibold text-primary hover:underline ml-1" routerLink="/sign-up">
+              Create an author account
+            </a>
           </div>
-          <!-- Session Duration -->
-          <div class="flex items-center justify-between pt-1">
-            <label class="flex items-center gap-2.5 cursor-pointer select-none">
-              <input checked
-                class="w-4 h-4 rounded border-outline-variant text-primary-container focus:ring-primary-container focus:ring-offset-0 bg-surface-container-lowest cursor-pointer"
-                id="remember_session" name="remember_session" type="checkbox">
-              <span class="font-body-sm text-body-sm text-on-surface">Stay signed in for 7 days</span>
-            </label>
-            <span class="font-label-sm text-label-sm text-outline flex items-center gap-1"
-              title="Encrypted cookie storage with strict same-site safety">
-              <span class="material-symbols-outlined text-[14px]">lock</span>
-              Secure Session
-            </span>
+
+          <div class="mt-4 pt-3 border-t border-outline-variant/40 text-center">
+            <p class="text-[11px] text-secondary leading-tight">
+              Protected by Gather Protocol · Encrypted with modern standards.
+            </p>
           </div>
-          <!-- Submit Button -->
-          <div class="pt-2">
-            <button
-              class="w-full h-11 bg-primary-container text-surface-container-lowest hover:bg-primary font-label-md text-label-md rounded-lg flex items-center justify-center gap-2 transition-all duration-150 active:scale-[0.99] disabled:opacity-60 cursor-pointer"
-              id="submit-button" type="submit">
-              @if (isLoading()) {
-              <span class="material-symbols-outlined animate-spin text-[18px] hidden"
-                id="btn-spinner">progress_activity</span>
-              }
-
-              <span id="btn-text">Sign In to Gather</span>
-              <span class="material-symbols-outlined text-[18px]" id="btn-arrow">arrow_forward</span>
-            </button>
-          </div>
-        </form>
-
-
-
-        <div class="mt-space-lg text-center font-body-sm text-body-sm text-secondary">
-          New to Gather?
-          <a class="font-label-md text-label-md text-primary hover:underline ml-1" routerLink="/sign-up">
-            Create an author account
-          </a>
         </div>
 
-        <div class="mt-4 pt-3 border-t border-outline-variant/40 flex items-center justify-center text-center">
-          <p class="font-label-sm text-label-sm text-outline leading-tight">
-            Protected by Gather Protocol 1.2 · Encrypted with post-quantum standards.
+        <!-- Mobile Literary Quote Card (Appears under form on phone screens) -->
+        <div class="lg:hidden mt-6 p-4 rounded-xl bg-white/70 border border-outline-variant/50 text-center space-y-1">
+          <p class="font-serif text-xs italic text-secondary leading-relaxed">
+            “To gather is to prepare soil wherein slow convictions may strike deep root.”
           </p>
+          <span class="text-[10px] text-outline font-mono">Folio 112 · The Architecture of Reading</span>
         </div>
-      </div>
-    </section>
+      </section>
+
+    </div>
   </main>
 
-  <!-- Editorial Footer -->
-  <footer class="w-full py-6 mt-auto border-t border-outline-variant/40 bg-surface">
+  <!-- ==================== EDITORIAL FOOTER ==================== -->
+  <footer class="w-full py-4 border-t border-outline-variant/40 bg-white/60 text-xs text-secondary">
     <div
-      class="max-w-7xl mx-auto px-space-lg sm:px-space-xl flex flex-col sm:flex-row items-center justify-between gap-4 font-body-sm text-body-sm text-secondary">
-      <div class="flex items-center gap-3">
-        <span class="font-headline-sm italic text-primary">Gather</span>
+      class="max-w-7xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+      <div class="flex items-center gap-2">
+        <span class="font-serif italic font-bold text-primary">Gather</span>
         <span class="text-outline-variant">·</span>
         <span>Dedicated to the Preservation of Digital Deliberation.</span>
       </div>
-      <div class="flex items-center gap-6 font-label-sm text-label-sm">
+      <div class="flex items-center gap-4 text-xs font-medium">
         <a class="hover:text-primary transition-colors" href="#">Manifesto</a>
-        <a class="hover:text-primary transition-colors" href="#">Code of Conduct</a>
-        <a class="hover:text-primary transition-colors" href="#">Colophon</a>
+        <a class="hover:text-primary transition-colors" href="#">Reading Charter</a>
         <a class="hover:text-primary transition-colors" href="#">Terms &amp; Privacy</a>
       </div>
     </div>

@@ -8,8 +8,8 @@
         <div class="space-y-6">
           <div class="px-2 pt-2">
             <a routerLink="/home"
-              class="font-headline-md text-headline-md text-primary italic leading-none hover:opacity-90">Gather</a>
-            <p class="font-label-sm text-label-sm text-secondary mt-1">The Literary Commons</p>
+              class="font-serif text-2xl text-primary font-bold italic leading-none hover:opacity-90">Gather</a>
+            <p class="text-xs text-secondary mt-1">The Literary Commons</p>
           </div>
           <!-- SideNavBar Action CTA -->
 
@@ -18,25 +18,25 @@
             <a class="text-secondary flex items-center gap-space-sm px-4 py-3 rounded-lg hover:bg-surface-container-low transition-colors duration-150"
               routerLink="/home">
               <span class="material-symbols-outlined text-[20px]">newspaper</span>
-              <span class="font-label-md text-label-md">Feed</span>
+              <span class="text-sm font-medium">Feed</span>
             </a>
             <a class="text-secondary flex items-center gap-space-sm px-4 py-3 rounded-lg hover:bg-surface-container-low transition-colors duration-150"
               routerLink="/notifications">
               <span class="material-symbols-outlined text-[20px]">notifications</span>
-              <span class="font-label-md text-label-md">Notifications</span>
+              <span class="text-sm font-medium">Notifications</span>
             </a>
             <a class="text-secondary flex items-center gap-space-sm px-4 py-3 rounded-lg hover:bg-surface-container-low transition-colors duration-150"
               routerLink="/archives">
               <span class="material-symbols-outlined text-[20px]">source</span>
-              <span class="font-label-md text-label-md">Archives</span>
+              <span class="text-sm font-medium">Archives</span>
             </a>
             <a class="text-secondary flex items-center gap-space-sm px-4 py-3 rounded-lg hover:bg-surface-container-low transition-colors duration-150"
               routerLink="/author">
               <span class="material-symbols-outlined text-[20px]">account_circle</span>
-              <span class="font-label-md text-label-md">Profile</span>
+              <span class="text-sm font-medium">Profile</span>
             </a>
             <a routerLink="/home"
-              class="w-full bg-primary-container text-on-primary py-2.5 px-4 rounded-xl font-label-md text-label-md flex items-center justify-center gap-space-xs hover:opacity-95 transition-all cursor-pointer">
+              class="w-full bg-primary-container text-on-primary py-2.5 px-4 rounded-xl text-sm font-medium flex items-center justify-center gap-space-xs hover:opacity-95 transition-all cursor-pointer">
               <span class="material-symbols-outlined text-[18px]">edit</span>
               <span>New Entry</span>
             </a>
@@ -47,7 +47,7 @@
           <a class="text-secondary flex items-center gap-space-sm px-4 py-2.5 rounded-lg hover:bg-surface-container-low transition-colors duration-150"
             routerLink="/author">
             <span class="material-symbols-outlined text-[20px]">settings</span>
-            <span class="font-label-md text-label-md">Settings</span>
+            <span class="text-sm font-medium">Settings</span>
           </a>
           <!-- User Profile Capsule -->
           <a routerLink="/author"
@@ -56,9 +56,9 @@
               [src]="currentUser()?.photo || 'https://pub-3cba56bacf9f4965bbb0989e07dada12.r2.dev/linkedPosts/default-profile.png'"
               [alt]="currentUser()?.name || 'Author'">
             <div class="min-w-0 flex-1">
-              <p class="font-label-md text-label-md text-on-surface truncate leading-tight">{{ currentUser()?.name ||
+              <p class="text-sm text-on-surface truncate leading-tight font-semibold">{{ currentUser()?.name ||
                 'Author' }}</p>
-              <p class="font-label-sm text-label-sm text-secondary truncate">&#64;{{ currentUser()?.username || 'member'
+              <p class="text-xs text-secondary truncate">&#64;{{ currentUser()?.username || 'member'
                 }}</p>
             </div>
             <span class="material-symbols-outlined text-secondary text-[18px]">more_vert</span>
@@ -74,14 +74,14 @@
         class="sticky top-16 bg-surface/90 backdrop-blur-md z-20 px-4 md:px-8 py-3.5 flex items-center justify-between border-b border-outline-variant/60">
         <div class="flex items-center gap-3">
           <a routerLink="/home"
-            class="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors text-label-md font-label-md group cursor-pointer">
+            class="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors text-xs sm:text-sm font-medium group cursor-pointer">
             <span
               class="material-symbols-outlined text-[18px] group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
             <span>Back to Dispatches</span>
           </a>
           <span class="text-outline-variant">/</span>
           <span
-            class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-surface-container text-primary font-label-sm text-label-sm border border-outline-variant/60">
+            class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-surface-container text-primary text-xs font-semibold border border-outline-variant/60">
             Folio Dispatch
           </span>
         </div>
@@ -100,39 +100,37 @@
         </div>
       </header>
 
-      <!-- Content Layout -->
-      <main class="flex-1 max-w-7xl mx-auto w-full px-4 md:px-8 py-6 grid grid-cols-1  gap-8 items-start">
-        <!-- Primary Article & Discussion Column -->
-        <div class="lg:col-span-8 flex flex-col items-center">
-          <div class="w-full max-w-170 space-y-8">
-
-            <!-- Loading State for Main Post -->
+      <!-- Content Area -->
+      <main class="flex-1 max-w-4xl w-full mx-auto px-4 md:px-8 py-8">
+        <div class="space-y-8">
+          <!-- Central Article Card -->
+          <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 md:p-8 space-y-6">
+            <!-- Loading Skeleton -->
             @if (isLoadingPost()) {
-            <div
-              class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8 space-y-6 animate-pulse">
-              <div class="flex items-center gap-3.5 pb-4 border-b border-outline-variant/70">
-                <div class="w-11 h-11 rounded-full bg-surface-container"></div>
+            <div class="space-y-4 animate-pulse">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-full bg-surface-container"></div>
                 <div class="space-y-2 flex-1">
                   <div class="w-32 h-4 bg-surface-container rounded"></div>
-                  <div class="w-24 h-3 bg-surface-container-low rounded"></div>
+                  <div class="w-20 h-3 bg-surface-container-low rounded"></div>
                 </div>
               </div>
-              <div class="space-y-3">
-                <div class="w-full h-4 bg-surface-container rounded"></div>
-                <div class="w-5/6 h-4 bg-surface-container rounded"></div>
-                <div class="w-3/4 h-4 bg-surface-container rounded"></div>
+              <div class="space-y-2 pt-2">
+                <div class="w-full h-4 bg-surface-container-low rounded"></div>
+                <div class="w-5/6 h-4 bg-surface-container-low rounded"></div>
+                <div class="w-4/6 h-4 bg-surface-container-low rounded"></div>
               </div>
-              <div class="w-full h-72 bg-surface-container rounded-lg"></div>
             </div>
-            } @else if (post()) {
-            <!-- FULL ORIGINAL POST (EXPANDED VIEW) -->
-            <article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 md:p-8 space-y-6">
+            }
+
+            <!-- Loaded Post -->
+            @if (!isLoadingPost() && post()) {
+            <article class="space-y-6">
               <!-- Author Header -->
-              <div class="flex items-center justify-between pb-4 border-b border-outline-variant/70">
+              <div class="flex items-center justify-between flex-wrap gap-4 pb-4 border-b border-outline-variant">
                 <div class="flex items-center gap-3.5">
                   <a [routerLink]="['/author', post()!.user._id]">
-                    <img
-                      class="w-11 h-11 rounded-full object-cover border border-outline-variant hover:opacity-90 transition-opacity cursor-pointer"
+                    <img class="w-12 h-12 rounded-full object-cover border border-outline-variant hover:opacity-90 transition-opacity cursor-pointer"
                       [src]="post()!.user.photo || 'https://pub-3cba56bacf9f4965bbb0989e07dada12.r2.dev/linkedPosts/default-profile.png'"
                       [alt]="post()!.user.name || 'Author'">
                   </a>
@@ -141,17 +139,17 @@
                       <a [routerLink]="['/author', post()!.user._id]"
                         class="hover:text-primary transition-colors cursor-pointer">
                         <span
-                          class="font-title-md text-title-md text-on-surface leading-snug hover:text-primary font-semibold">
+                          class="text-lg text-on-surface leading-snug hover:text-primary font-semibold">
                           {{ post()!.user.name || 'Author' }}
                         </span>
                       </a>
                       <a [routerLink]="['/author', post()!.user._id]"
                         class="hover:text-primary transition-colors cursor-pointer">
-                        <span class="text-secondary font-label-sm text-label-sm">&#64;{{ post()!.user.username ||
+                        <span class="text-secondary text-xs">&#64;{{ post()!.user.username ||
                           'scholar' }}</span>
                       </a>
                     </div>
-                    <div class="flex items-center gap-2 text-secondary font-label-sm text-label-sm mt-0.5">
+                    <div class="flex items-center gap-2 text-secondary text-xs mt-0.5">
                       <span>{{ post()!.createdAt | date:'mediumDate' }}</span>
                       <span>·</span>
                       <span class="inline-flex items-center gap-1 text-primary">
@@ -166,13 +164,13 @@
                 <div class="flex items-center gap-2">
                   @if (isAuthorOfPost()) {
                   <button (click)="openEditModal()"
-                    class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-container text-label-sm font-label-sm transition-colors cursor-pointer"
+                    class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-container text-xs font-medium transition-colors cursor-pointer"
                     type="button" title="Edit dispatch">
                     <span class="material-symbols-outlined text-[16px] text-primary">edit</span>
                     <span>Edit</span>
                   </button>
                   <button (click)="promptDeletePost()"
-                    class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-outline-variant text-error hover:bg-error-container/30 text-label-sm font-label-sm transition-colors cursor-pointer"
+                    class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-outline-variant text-error hover:bg-error-container/30 text-xs font-medium transition-colors cursor-pointer"
                     type="button" title="Permanently delete dispatch">
                     <span class="material-symbols-outlined text-[16px]">delete</span>
                     <span>Delete</span>
@@ -180,8 +178,8 @@
                   } @else {
                   <button (click)="onToggleFollowAuthor()" [disabled]="isFollowLoading()" type="button"
                     [class]="isFollowingAuthor()
-                          ? 'inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-outline-variant bg-surface-container text-on-surface hover:bg-surface-container-high text-label-sm font-label-sm transition-colors cursor-pointer'
-                          : 'inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-primary text-on-primary hover:opacity-90 text-label-sm font-label-sm transition-colors cursor-pointer shadow-xs'">
+                          ? 'inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-outline-variant bg-surface-container text-on-surface hover:bg-surface-container-high text-xs font-medium transition-colors cursor-pointer'
+                          : 'inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-primary text-on-primary hover:opacity-90 text-xs font-medium transition-colors cursor-pointer shadow-xs'">
                     <span class="material-symbols-outlined text-[15px]">{{ isFollowingAuthor() ? 'done' : 'person_add'
                       }}</span>
                     <span>{{ isFollowingAuthor() ? 'Following' : 'Follow Author' }}</span>
@@ -192,7 +190,7 @@
 
               <!-- Post Body Content -->
               <div class="space-y-5">
-                <p class="font-body-lg text-body-lg text-on-surface font-normal leading-relaxed whitespace-pre-line">
+                <p class="text-base text-on-surface font-normal leading-relaxed whitespace-pre-line">
                   {{ post()!.body }}
                 </p>
               </div>
@@ -202,7 +200,7 @@
               <div class="overflow-hidden rounded-lg border border-outline-variant bg-surface-container">
                 <img class="w-full max-h-120 object-cover" [src]="post()!.image" alt="Dispatch Plate Image">
                 <div
-                  class="px-4 py-2 bg-surface-container-low text-secondary font-label-sm text-label-sm flex justify-between items-center border-t border-outline-variant/60">
+                  class="px-4 py-2 bg-surface-container-low text-secondary text-xs flex justify-between items-center border-t border-outline-variant/60">
                   <span>Folio Plate Attachment</span>
                   <span class="text-[11px] uppercase tracking-wider font-semibold text-primary">High-Res
                     Monograph</span>
@@ -212,7 +210,7 @@
 
               <!-- Post Metadata Bar -->
               <div
-                class="pt-2 flex flex-wrap items-center justify-between text-secondary font-label-sm text-label-sm border-t border-outline-variant/60">
+                class="pt-2 flex flex-wrap items-center justify-between text-secondary text-xs border-t border-outline-variant/60">
                 <div class="flex items-center gap-2">
                   <span class="material-symbols-outlined text-[15px]">schedule</span>
                   <span>Published {{ post()!.createdAt | date:'medium' }}</span>
@@ -234,11 +232,11 @@
                     type="button" title="Appreciate dispatch">
                     <span class="material-symbols-outlined text-[20px]"
                       [style.font-variation-settings]="post()!.isLikedByMe ? '\'FILL\' 1' : '\'FILL\' 0'">favorite</span>
-                    <span class="font-label-md text-label-md">{{ post()!.likesCount || 0 }}</span>
+                    <span class="text-xs sm:text-sm font-semibold">{{ post()!.likesCount || 0 }}</span>
                   </button>
 
                   <!-- Comments Counter -->
-                  <div class="flex items-center gap-1.5 text-secondary font-label-md text-label-md">
+                  <div class="flex items-center gap-1.5 text-secondary text-xs sm:text-sm font-semibold">
                     <span class="material-symbols-outlined text-[20px]">chat_bubble</span>
                     <span>{{ totalComments() }} comments</span>
                   </div>
@@ -267,15 +265,15 @@
             <section class="space-y-6 pt-4">
               <div class="flex items-center justify-between pb-3 border-b border-outline-variant">
                 <div class="flex items-center gap-2">
-                  <h2 class="font-headline-sm text-headline-sm text-on-surface">Conversation &amp; Annotations</h2>
+                  <h2 class="font-serif text-xl font-medium text-on-surface">Conversation &amp; Annotations</h2>
                   <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-surface-container text-primary">
                     {{ totalComments() }}
                   </span>
                 </div>
-                <div class="flex items-center gap-1.5 text-secondary text-label-sm font-label-sm">
+                <div class="flex items-center gap-1.5 text-secondary text-xs">
                   <span>Sort by:</span>
                   <select (change)="onSortChange($event)"
-                    class="bg-transparent border-none text-on-surface font-semibold text-label-sm py-0 pl-1 pr-6 focus:ring-0 cursor-pointer">
+                    class="bg-transparent border-none text-on-surface font-semibold text-xs py-0 pl-1 pr-6 focus:ring-0 cursor-pointer">
                     <option value="Latest" selected>Chronological (Latest)</option>
                     <option value="Earliest">Earliest</option>
                   </select>
@@ -292,16 +290,16 @@
                   <div class="flex-1 space-y-2">
                     <textarea [ngModel]="newCommentContent()" (ngModelChange)="newCommentContent.set($event)"
                       name="commentBody"
-                      class="w-full bg-surface-container-low/50 border border-outline-variant rounded-lg p-3 text-body-md font-body-md text-on-surface placeholder:text-secondary focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all resize-none"
+                      class="w-full bg-surface-container-low/50 border border-outline-variant rounded-lg p-3 text-sm text-on-surface placeholder:text-secondary focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all resize-none"
                       placeholder="Contribute a thoughtful reflection, critique, or inquiry..." rows="3"></textarea>
 
                     <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
-                      <span class="text-secondary text-label-sm font-label-sm">
+                      <span class="text-secondary text-xs">
                         {{ newCommentContent().length }} characters
                       </span>
 
                       <button [disabled]="isSubmittingComment() || !newCommentContent().trim()"
-                        class="bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-xl hover:opacity-95 transition-opacity disabled:opacity-50 cursor-pointer flex items-center gap-1.5"
+                        class="bg-primary text-on-primary text-xs sm:text-sm font-semibold px-4 py-2 rounded-xl hover:opacity-95 transition-opacity disabled:opacity-50 cursor-pointer flex items-center gap-1.5"
                         type="submit">
                         @if (isSubmittingComment()) {
                         <span class="material-symbols-outlined text-[16px] animate-spin">progress_activity</span>
@@ -337,8 +335,8 @@
                 <div
                   class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8 text-center space-y-2">
                   <span class="material-symbols-outlined text-3xl text-secondary">forum</span>
-                  <p class="font-headline-sm text-headline-sm text-on-surface">No Annotations Yet</p>
-                  <p class="font-body-sm text-body-sm text-secondary max-w-sm mx-auto">
+                  <p class="font-serif text-xl font-medium text-on-surface">No Annotations Yet</p>
+                  <p class="text-xs text-secondary max-w-sm mx-auto">
                     Be the first to record a critical reflection or scholarly annotation on this dispatch.
                   </p>
                 </div>
@@ -358,36 +356,36 @@
                         <div class="flex items-center gap-2">
                           <a [routerLink]="['/author', comment.commentCreator._id]"
                             class="hover:text-primary transition-colors cursor-pointer">
-                            <span class="font-label-md text-label-md text-on-surface font-semibold hover:text-primary">
+                            <span class="text-xs sm:text-sm font-semibold text-on-surface hover:text-primary">
                               {{ comment.commentCreator.name || 'Scholar' }}
                             </span>
                           </a>
                           @if (comment.commentCreator._id === post()?.user?._id) {
                           <span
-                            class="px-1.5 py-0.2 bg-surface-container text-primary font-label-sm text-[11px] rounded">Author</span>
+                            class="px-1.5 py-0.2 bg-surface-container text-primary text-[11px] font-semibold rounded">Author</span>
                           }
-                          <span class="text-secondary text-label-sm">&#64;{{ comment.commentCreator.username || 'member'
+                          <span class="text-secondary text-xs">&#64;{{ comment.commentCreator.username || 'member'
                             }}</span>
                         </div>
-                        <span class="text-secondary text-label-sm">{{ comment.createdAt | date:'mediumDate' }}</span>
+                        <span class="text-secondary text-xs">{{ comment.createdAt | date:'mediumDate' }}</span>
                       </div>
                     </div>
 
                     <!-- Comment Actions -->
                     @if (comment.commentCreator._id === currentUser()?._id) {
                     <button (click)="onDeleteComment(comment)"
-                      class="text-secondary hover:text-tertiary text-label-sm font-label-sm px-2 py-1 rounded hover:bg-surface-container transition-colors cursor-pointer"
+                      class="text-secondary hover:text-tertiary text-xs px-2 py-1 rounded hover:bg-surface-container transition-colors cursor-pointer"
                       type="button">
                       Delete
                     </button>
                     }
                   </div>
 
-                  <p class="font-body-md text-body-md text-on-surface leading-relaxed pl-11 whitespace-pre-line">
+                  <p class="text-sm text-on-surface leading-relaxed pl-11 whitespace-pre-line">
                     {{ comment.content }}
                   </p>
 
-                  <div class="pl-11 flex items-center gap-4 text-secondary text-label-sm">
+                  <div class="pl-11 flex items-center gap-4 text-secondary text-xs">
                     <button (click)="onToggleLikeComment(comment)" [class]="comment.isLikedByMe
                             ? 'flex items-center gap-1 text-primary font-semibold transition-colors cursor-pointer'
                             : 'flex items-center gap-1 hover:text-tertiary transition-colors cursor-pointer'"

@@ -1,5 +1,5 @@
 <div
-  class="bg-surface text-on-surface h-full antialiased font-body-md text-body-md flex selection:bg-primary selection:text-on-primary min-h-screen">
+  class="bg-surface text-on-surface h-full antialiased text-sm flex selection:bg-primary selection:text-on-primary min-h-screen">
   <!-- ==================== SIDE NAVIGATION ==================== -->
   <aside
     class="fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 border-r border-outline-variant bg-surface z-20 hidden md:block">
@@ -10,9 +10,9 @@
         <div class="px-2 pt-2">
           <div class="flex items-center gap-space-sm mb-1">
             <a routerLink="/home"
-              class="font-headline-md text-headline-md text-primary italic leading-none hover:opacity-90">Gather</a>
+              class="font-serif text-2xl text-primary font-bold italic leading-none hover:opacity-90">Gather</a>
           </div>
-          <p class="font-label-sm text-label-sm text-secondary tracking-normal">The Literary Commons</p>
+          <p class="text-xs text-secondary tracking-normal">The Literary Commons</p>
         </div>
         <!-- Primary CTA Button -->
 
@@ -21,26 +21,26 @@
           <a class="text-secondary flex items-center gap-space-sm px-4 py-3 rounded-lg hover:bg-surface-container-low transition-colors duration-150"
             routerLink="/home">
             <span class="material-symbols-outlined">newspaper</span>
-            <span class="font-label-md text-label-md">Feed</span>
+            <span class="text-sm font-medium">Feed</span>
           </a>
           <a class="text-secondary flex items-center gap-space-sm px-4 py-3 rounded-lg hover:bg-surface-container-low transition-colors duration-150"
             routerLink="/notifications">
             <span class="material-symbols-outlined">notifications</span>
-            <span class="font-label-md text-label-md">Notifications</span>
+            <span class="text-sm font-medium">Notifications</span>
           </a>
           <a class="text-secondary flex items-center gap-space-sm px-4 py-3 rounded-lg hover:bg-surface-container-low transition-colors duration-150"
             routerLink="/archives">
             <span class="material-symbols-outlined">source</span>
-            <span class="font-label-md text-label-md">Archives</span>
+            <span class="text-sm font-medium">Archives</span>
           </a>
           <!-- Profile Item (Active) -->
           <a class="text-primary mb-2 font-bold flex items-center gap-space-sm px-4 py-3 rounded-lg bg-surface-container transition-colors duration-150"
             routerLink="/author">
             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_circle</span>
-            <span class="font-label-md text-label-md">Profile</span>
+            <span class="text-sm font-medium">Profile</span>
           </a>
           <a routerLink="/home"
-            class="w-full bg-primary-container text-surface-container-lowest font-label-md text-label-md py-2.5 px-4 rounded-xl flex items-center justify-center gap-space-xs hover:opacity-95 transition-colors duration-150 shadow-none cursor-pointer">
+            class="w-full bg-primary-container text-surface-container-lowest text-sm font-medium py-2.5 px-4 rounded-xl flex items-center justify-center gap-space-xs hover:opacity-95 transition-colors duration-150 shadow-none cursor-pointer">
             <span class="material-symbols-outlined">edit_square</span>
             <span>New Entry</span>
           </a>
@@ -51,7 +51,7 @@
         <a class="text-secondary flex items-center gap-space-sm px-4 py-2.5 rounded-lg hover:bg-surface-container-low transition-colors duration-150"
           routerLink="/author">
           <span class="material-symbols-outlined">settings</span>
-          <span class="font-label-md text-label-md">Settings</span>
+          <span class="text-sm font-medium">Settings</span>
         </a>
         <a routerLink="/author"
           class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-container-low/60 hover:bg-surface-container transition-colors duration-150 cursor-pointer">
@@ -59,9 +59,9 @@
             [src]="currentUser()?.photo || 'https://pub-3cba56bacf9f4965bbb0989e07dada12.r2.dev/linkedPosts/default-profile.png'"
             [alt]="currentUser()?.name || 'Author'">
           <div class="flex flex-col min-w-0 flex-1">
-            <span class="font-label-md text-label-sm text-on-surface truncate">{{ currentUser()?.name || 'Signed In
+            <span class="text-xs sm:text-sm font-semibold text-on-surface truncate">{{ currentUser()?.name || 'Signed In
               Author' }}</span>
-            <span class="font-label-sm text-[11px] text-secondary truncate">&#64;{{ currentUser()?.username || 'author'
+            <span class="text-[11px] text-secondary truncate">&#64;{{ currentUser()?.username || 'author'
               }}</span>
           </div>
           <span class="material-symbols-outlined text-secondary">more_vert</span>
@@ -87,7 +87,7 @@
                 [alt]="(author()?.name || 'Author') + ' Cover Art'">
               <div class="absolute inset-0 bg-linear-to-t from-on-surface/40 via-transparent to-transparent"></div>
               <div
-                class="absolute top-4 right-4 bg-surface-container-lowest/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-label-sm text-primary border border-outline-variant/60 flex items-center gap-1.5 shadow-sm">
+                class="absolute top-4 right-4 bg-surface-container-lowest/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-primary border border-outline-variant/60 flex items-center gap-1.5 shadow-sm">
                 <span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
                 <span>{{ isCurrentUser() ? 'Authenticated Fellow Folio' : 'Archival Fellow' }}</span>
               </div>
@@ -110,7 +110,7 @@
                     title="Change profile picture"
                     class="absolute inset-0 rounded-full bg-black/45 text-white opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center cursor-pointer">
                     <span class="material-symbols-outlined text-[24px]">photo_camera</span>
-                    <span class="text-[10px] font-label-sm font-medium mt-0.5">Change</span>
+                    <span class="text-[10px] font-medium mt-0.5">Change</span>
                   </button>
 
                   <!-- Quick camera action badge -->
@@ -137,15 +137,15 @@
                   @if (isCurrentUser()) {
                   <button type="button"
                     (click)="triggerPhotoInput()"
-                    class="inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-on-primary hover:bg-primary-container font-label-md text-label-md rounded-xl transition-colors duration-150 cursor-pointer shadow-xs">
+                    class="inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-on-primary hover:bg-primary-container text-xs sm:text-sm font-semibold rounded-xl transition-colors duration-150 cursor-pointer shadow-xs">
                     <span class="material-symbols-outlined text-[18px]">photo_camera</span>
                     <span>Update Photo</span>
                   </button>
                   } @else {
                   <button (click)="onToggleFollow()" [disabled]="isFollowLoading()"
                     [class]="isFollowing()
-                        ? 'inline-flex items-center gap-1.5 px-4 py-2 bg-surface-container text-on-surface border border-outline-variant hover:bg-surface-container-high font-label-md text-label-md rounded-xl transition-colors duration-150'
-                        : 'inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-on-primary hover:opacity-90 font-label-md text-label-md rounded-xl transition-colors duration-150 shadow-xs'"
+                        ? 'inline-flex items-center gap-1.5 px-4 py-2 bg-surface-container text-on-surface border border-outline-variant hover:bg-surface-container-high text-xs sm:text-sm font-semibold rounded-xl transition-colors duration-150'
+                        : 'inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-on-primary hover:opacity-90 text-xs sm:text-sm font-semibold rounded-xl transition-colors duration-150 shadow-xs'"
                     type="button">
                     <span class="material-symbols-outlined text-[18px]">
                       {{ isFollowing() ? 'done' : 'person_add' }}
@@ -165,11 +165,11 @@
               <!-- Author Meta -->
               <div class="space-y-3">
                 <div>
-                  <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+                  <h1 class="font-serif text-3xl sm:text-4xl text-on-surface tracking-tight font-normal">
                     {{ author()?.name || 'Literary Author' }}
                   </h1>
                   <div
-                    class="flex flex-wrap items-center gap-x-3 gap-y-1 mt-0.5 text-secondary font-label-sm text-label-sm">
+                    class="flex flex-wrap items-center gap-x-3 gap-y-1 mt-0.5 text-secondary text-xs">
                     <span class="font-medium text-on-surface-variant">&#64;{{ author()?.username || 'scholar' }}</span>
                     @if (author()?.email) {
                     <span class="text-outline-variant">·</span>
@@ -191,7 +191,7 @@
                 </div>
 
                 <!-- Stats Row -->
-                <div class="flex flex-wrap items-center gap-6 pt-1 text-label-md text-label-sm text-secondary">
+                <div class="flex flex-wrap items-center gap-6 pt-1 text-xs sm:text-sm text-secondary">
                   <div>
                     <span class="font-bold text-on-surface text-base">{{ author()?.followersCount || 0 }}</span>
                     <span class="ml-1 text-secondary">Readers</span>
@@ -206,22 +206,22 @@
                   </div>
                 </div>
 
-                <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+                <p class="text-base text-on-surface-variant max-w-2xl leading-relaxed">
                   {{ author()?.bio || 'Cataloging architectural monographs, typographic histories, and Scandinavian
                   library archives.' }}
                 </p>
 
                 <div class="flex flex-wrap gap-2 pt-1">
                   <span
-                    class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-label-sm bg-surface-container text-primary">
+                    class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-surface-container text-primary">
                     #ViipuriMonographs
                   </span>
                   <span
-                    class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-label-sm bg-surface-container text-primary">
+                    class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-surface-container text-primary">
                     #NordicTypographics
                   </span>
                   <span
-                    class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-label-sm bg-surface-container text-primary">
+                    class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-surface-container text-primary">
                     #BookBindingHistories
                   </span>
                 </div>
@@ -231,13 +231,13 @@
             <!-- 2. PROFILE NAVIGATION TABS -->
             <div class="border-t border-outline-variant px-6 flex items-center gap-6 bg-surface-container-low/40">
               <button (click)="setActiveTab('dispatches')" type="button" [class]="activeTab() === 'dispatches'
-                  ? 'py-3 text-sm font-label-md font-semibold text-primary border-b-2 border-primary transition-colors'
-                  : 'py-3 text-sm font-label-md font-medium text-secondary hover:text-on-surface transition-colors'">
+                  ? 'py-3 text-sm font-semibold text-primary border-b-2 border-primary transition-colors'
+                  : 'py-3 text-sm font-medium text-secondary hover:text-on-surface transition-colors'">
                 Dispatches ({{ totalPosts() }})
               </button>
               <button (click)="setActiveTab('plates')" type="button" [class]="activeTab() === 'plates'
-                  ? 'py-3 text-sm font-label-md font-semibold text-primary border-b-2 border-primary transition-colors'
-                  : 'py-3 text-sm font-label-md font-medium text-secondary hover:text-on-surface transition-colors'">
+                  ? 'py-3 text-sm font-semibold text-primary border-b-2 border-primary transition-colors'
+                  : 'py-3 text-sm font-medium text-secondary hover:text-on-surface transition-colors'">
                 Plates &amp; Folios ({{ totalPlates() }})
               </button>
             </div>
@@ -270,8 +270,8 @@
             <div
               class="bg-surface-container-lowest rounded-xl border border-outline-variant p-10 text-center space-y-3">
               <span class="material-symbols-outlined text-4xl text-secondary">article</span>
-              <h3 class="font-headline-sm text-headline-sm text-on-surface">No Dispatches Recorded</h3>
-              <p class="font-body-md text-body-md text-secondary max-w-md mx-auto">
+              <h3 class="font-serif text-xl font-medium text-on-surface">No Dispatches Recorded</h3>
+              <p class="text-sm text-secondary max-w-md mx-auto">
                 @if (activeTab() === 'plates') {
                 No plates or folio media have been attached to this author's published dispatches.
                 } @else {
@@ -297,17 +297,17 @@
                     <div class="flex items-center gap-2">
                       <a [routerLink]="['/author', post.user._id]"
                         class="hover:text-primary transition-colors cursor-pointer">
-                        <span class="font-label-md text-label-md text-on-surface font-semibold hover:text-primary">
+                        <span class="text-sm text-on-surface font-semibold hover:text-primary">
                           {{ post.user.name || author()?.name || 'Author' }}
                         </span>
                       </a>
-                      <span class="text-xs text-secondary font-body-sm">
+                      <span class="text-xs text-secondary font-normal">
                         · {{ post.createdAt | date:'mediumDate' }}
                       </span>
                     </div>
                     <a [routerLink]="['/author', post.user._id]"
                       class="hover:text-primary transition-colors cursor-pointer">
-                      <span class="text-xs text-primary font-label-sm">
+                      <span class="text-xs text-primary font-medium">
                         &#64;{{ post.user.username || author()?.username || 'scholar' }}
                       </span>
                     </a>
@@ -330,13 +330,13 @@
                       @if (isMyPost(post)) {
                       <button type="button"
                         (click)="openEditPost(post)"
-                        class="w-full text-left px-3.5 py-2 text-label-md font-label-md text-on-surface hover:bg-surface-container flex items-center gap-2.5 transition-colors cursor-pointer">
+                        class="w-full text-left px-3.5 py-2 text-xs sm:text-sm font-medium text-on-surface hover:bg-surface-container flex items-center gap-2.5 transition-colors cursor-pointer">
                         <span class="material-symbols-outlined text-[18px] text-primary">edit</span>
                         <span>Edit Dispatch</span>
                       </button>
                       <button type="button"
                         (click)="promptDeletePost(post)"
-                        class="w-full text-left px-3.5 py-2 text-label-md font-label-md text-error hover:bg-error-container/30 flex items-center gap-2.5 transition-colors cursor-pointer">
+                        class="w-full text-left px-3.5 py-2 text-xs sm:text-sm font-medium text-error hover:bg-error-container/30 flex items-center gap-2.5 transition-colors cursor-pointer">
                         <span class="material-symbols-outlined text-[18px]">delete</span>
                         <span>Delete Dispatch</span>
                       </button>
@@ -344,7 +344,7 @@
                       }
                       <button type="button"
                         (click)="onCopyPostLink(post._id)"
-                        class="w-full text-left px-3.5 py-2 text-label-md font-label-md text-secondary hover:text-on-surface hover:bg-surface-container flex items-center gap-2.5 transition-colors cursor-pointer">
+                        class="w-full text-left px-3.5 py-2 text-xs sm:text-sm font-medium text-secondary hover:text-on-surface hover:bg-surface-container flex items-center gap-2.5 transition-colors cursor-pointer">
                         <span class="material-symbols-outlined text-[18px]">link</span>
                         <span>Copy Link</span>
                       </button>
@@ -365,7 +365,7 @@
               <div class="space-y-3 mb-4">
                 <a [routerLink]="['/post-detail']" [queryParams]="{ id: post._id }" class="block group">
                   <p
-                    class="font-body-md text-body-md text-on-surface leading-relaxed group-hover:text-primary transition-colors">
+                    class="text-sm text-on-surface leading-relaxed group-hover:text-primary transition-colors">
                     {{ post.body }}
                   </p>
                 </a>
@@ -376,7 +376,7 @@
               <div class="rounded-lg overflow-hidden border border-outline-variant mb-4 bg-surface-container">
                 <img class="w-full h-72 md:h-96 object-cover" [src]="post.image" alt="Dispatch Folio Image">
                 <div
-                  class="px-4 py-2 bg-surface-container-low/70 border-t border-outline-variant flex items-center justify-between text-xs text-secondary font-label-sm">
+                  class="px-4 py-2 bg-surface-container-low/70 border-t border-outline-variant flex items-center justify-between text-xs text-secondary font-medium">
                   <span>Folio Plate Attachment</span>
                   <a [routerLink]="['/post-detail']" [queryParams]="{ id: post._id }"
                     class="flex items-center gap-1 text-primary hover:underline">
@@ -393,8 +393,8 @@
                   <!-- Like Button -->
                   <button (click)="onToggleLike(post)"
                     [class]="post.isLikedByMe
-                          ? 'flex items-center gap-1.5 text-primary font-semibold font-label-sm text-label-sm transition-colors cursor-pointer'
-                          : 'flex items-center gap-1.5 text-secondary hover:text-primary transition-colors font-label-sm text-label-sm cursor-pointer'"
+                          ? 'flex items-center gap-1.5 text-primary font-semibold text-xs font-medium transition-colors cursor-pointer'
+                          : 'flex items-center gap-1.5 text-secondary hover:text-primary transition-colors text-xs font-medium cursor-pointer'"
                     type="button" title="Appreciate dispatch">
                     <span class="material-symbols-outlined text-[18px]"
                       [style.font-variation-settings]="post.isLikedByMe ? '\'FILL\' 1' : '\'FILL\' 0'">
@@ -405,7 +405,7 @@
 
                   <!-- Comment Button -->
                   <a [routerLink]="['/post-detail']" [queryParams]="{ id: post._id }"
-                    class="flex items-center gap-1.5 text-secondary hover:text-primary transition-colors font-label-sm text-label-sm cursor-pointer"
+                    class="flex items-center gap-1.5 text-secondary hover:text-primary transition-colors text-xs font-medium cursor-pointer"
                     title="View conversation and scholarly annotations">
                     <span class="material-symbols-outlined text-[18px]">chat_bubble</span>
                     <span>{{ post.commentsCount || 0 }} comments</span>
@@ -414,8 +414,8 @@
                   <!-- Bookmark Button -->
                   <button (click)="onToggleBookmark(post)"
                     [class]="post.bookmarked
-                          ? 'flex items-center gap-1.5 text-primary font-semibold font-label-sm text-label-sm transition-colors cursor-pointer'
-                          : 'flex items-center gap-1.5 text-secondary hover:text-primary transition-colors font-label-sm text-label-sm cursor-pointer'"
+                          ? 'flex items-center gap-1.5 text-primary font-semibold text-xs font-medium transition-colors cursor-pointer'
+                          : 'flex items-center gap-1.5 text-secondary hover:text-primary transition-colors text-xs font-medium cursor-pointer'"
                     type="button" title="Preserve to Archives">
                     <span class="material-symbols-outlined text-[18px]"
                       [style.font-variation-settings]="post.bookmarked ? '\'FILL\' 1' : '\'FILL\' 0'">
@@ -426,7 +426,7 @@
                 </div>
 
                 <a [routerLink]="['/post-detail']" [queryParams]="{ id: post._id }"
-                  class="font-label-sm text-xs text-primary hover:underline flex items-center gap-1">
+                  class="text-xs font-medium text-primary hover:underline flex items-center gap-1">
                   <span>Read Dispatch</span>
                   <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
                 </a>

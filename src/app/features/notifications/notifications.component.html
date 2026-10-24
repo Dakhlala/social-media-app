@@ -122,7 +122,7 @@
           <div class="flex items-center gap-2 overflow-x-auto whitespace-nowrap pt-3 pb-1 scrollbar-none">
             <!-- All Tab -->
             <button type="button" (click)="switchTab('all')"
-              class="px-3.5 py-1.5 rounded-xl text-xs font-label-md transition-all cursor-pointer flex items-center gap-1.5"
+              class="px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5"
               [class]="activeTab() === 'all'
                 ? 'bg-primary text-white font-semibold shadow-xs'
                 : 'bg-white border border-outline-variant/60 text-secondary hover:text-[#151d1a] hover:bg-surface-container'">
@@ -135,7 +135,7 @@
 
             <!-- Comments & Annotations Tab -->
             <button type="button" (click)="switchTab('comments')"
-              class="px-3.5 py-1.5 rounded-xl text-xs font-label-md transition-all cursor-pointer flex items-center gap-1.5"
+              class="px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5"
               [class]="activeTab() === 'comments'
                 ? 'bg-primary text-white font-semibold shadow-xs'
                 : 'bg-white border border-outline-variant/60 text-secondary hover:text-[#151d1a] hover:bg-surface-container'">
@@ -149,7 +149,7 @@
 
             <!-- Likes & Appreciations Tab -->
             <button type="button" (click)="switchTab('likes')"
-              class="px-3.5 py-1.5 rounded-xl text-xs font-label-md transition-all cursor-pointer flex items-center gap-1.5"
+              class="px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5"
               [class]="activeTab() === 'likes'
                 ? 'bg-primary text-white font-semibold shadow-xs'
                 : 'bg-white border border-outline-variant/60 text-secondary hover:text-[#151d1a] hover:bg-surface-container'">
@@ -163,7 +163,7 @@
 
             <!-- Subscriptions Tab -->
             <button type="button" (click)="switchTab('follows')"
-              class="px-3.5 py-1.5 rounded-xl text-xs font-label-md transition-all cursor-pointer flex items-center gap-1.5"
+              class="px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5"
               [class]="activeTab() === 'follows'
                 ? 'bg-primary text-white font-semibold shadow-xs'
                 : 'bg-white border border-outline-variant/60 text-secondary hover:text-[#151d1a] hover:bg-surface-container'">
@@ -479,7 +479,7 @@
               <span class="material-symbols-outlined text-3xl">notifications_off</span>
             </div>
             <h3 class="font-serif text-2xl text-[#151d1a]">Your Notification Ledger is Tranquil</h3>
-            <p class="font-body-md text-sm text-secondary max-w-md leading-relaxed">
+            <p class="text-sm text-secondary max-w-md leading-relaxed">
               @if (activeTab() === 'all') {
               When other authors annotate your dispatches, appreciate your reflections, or follow your folio, they will appear here in chronological order.
               } @else {
