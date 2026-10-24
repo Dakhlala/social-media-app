@@ -1,61 +1,59 @@
 <!-- ==================== PERSISTENT TOP APP BAR (Shared Navbar) ==================== -->
 <header class="fixed top-0 left-0 right-0 z-30 bg-surface/95 backdrop-blur-sm border-b border-outline-variant/40">
-  <div class="flex justify-between items-center w-full px-4 sm:px-6 md:px-8 py-2.5 max-w-7xl mx-auto">
-    <!-- Brand & Category Links -->
-    <div class="flex items-center gap-6 md:gap-8">
-      <a routerLink="/home" class="font-serif text-2xl text-primary font-bold tracking-tight hover:opacity-90 transition-opacity">
-        Gather
-      </a>
-      <nav aria-label="Secondary categories" class="hidden md:flex items-center gap-4">
-        <a routerLink="/home" routerLinkActive="text-primary border-b-2 border-primary font-semibold" [routerLinkActiveOptions]="{ exact: true }"
-          class="text-secondary hover:text-primary pb-1 text-sm font-medium transition-colors duration-150">
-          Dispatches
-        </a>
-        <a routerLink="/archives" routerLinkActive="text-primary border-b-2 border-primary font-semibold"
-          class="text-secondary hover:text-primary pb-1 text-sm font-medium transition-colors duration-150">
-          Archives
-        </a>
-      </nav>
+    <div class="flex justify-between items-center w-full px-4 sm:px-6 md:px-8 py-2.5 max-w-7xl mx-auto">
+        <!-- Brand & Category Links -->
+        <div class="flex items-center gap-6 md:gap-8">
+            <a routerLink="/home" class="font-serif text-2xl text-primary italic leading-none">
+                Gather
+            </a>
+            <nav aria-label="Secondary categories" class="hidden md:flex items-center gap-4">
+                <a routerLink="/home" routerLinkActive="text-primary border-b-2 border-primary font-semibold"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    class="text-secondary hover:text-primary pb-1 text-sm font-medium transition-colors duration-150">
+                    Dispatches
+                </a>
+                <a routerLink="/archives" routerLinkActive="text-primary border-b-2 border-primary font-semibold"
+                    class="text-secondary hover:text-primary pb-1 text-sm font-medium transition-colors duration-150">
+                    Archives
+                </a>
+            </nav>
+        </div>
+
+        <!-- Actions & User Profile -->
+        <div class="flex items-center gap-3 sm:gap-4">
+            <!-- Search Input -->
+            <div class="relative hidden sm:block w-48 md:w-64">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-secondary">
+                    <span class="material-symbols-outlined text-[18px]">search</span>
+                </span>
+                <input [ngModel]="searchQuery()" (ngModelChange)="searchQuery.set($event)" (keydown.enter)="onSearch()"
+                    class="w-full pl-9 pr-3 py-1.5 bg-surface-container-lowest text-xs text-on-surface placeholder:text-secondary/70 border border-outline-variant/60 rounded-xl focus:outline-none focus:border-primary transition-colors"
+                    placeholder="Search essays, authors…" type="search" />
+            </div>
+
+            <!-- Notifications Icon with live unread badge -->
+            <a routerLink="/notifications" aria-label="Notifications"
+                class="p-2 text-secondary hover:text-primary rounded-xl hover:bg-surface-container transition-colors duration-150 relative cursor-pointer inline-flex items-center justify-center">
+                <span class="material-symbols-outlined">notifications</span>
+                @if (unreadCount() > 0) {
+                <span
+                    class="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full ring-2 ring-surface animate-pulse"></span>
+                }
+            </a>
+
+            <!-- Desktop CTA: New Dispatch -->
+            <a routerLink="/home" [queryParams]="{ compose: true }"
+                class="hidden sm:inline-flex items-center justify-center bg-primary text-on-primary text-xs sm:text-sm font-medium px-4 py-2 rounded-xl hover:bg-primary-container transition-colors duration-150 shadow-none cursor-pointer">
+                <span class="material-symbols-outlined text-[18px] mr-1">edit_square</span>
+                <span>New Dispatch</span>
+            </a>
+
+            <!-- Profile Avatar -->
+            <a routerLink="/author" title="View your folio" class="shrink-0">
+                <img [alt]="currentUser()?.name || 'Author profile photo'"
+                    class="w-8 h-8 rounded-full object-cover border border-outline-variant hover:opacity-90 transition-opacity"
+                    [src]="currentUser()?.photo || defaultPhoto" />
+            </a>
+        </div>
     </div>
-
-    <!-- Actions & User Profile -->
-    <div class="flex items-center gap-3 sm:gap-4">
-      <!-- Search Input -->
-      <div class="relative hidden sm:block w-48 md:w-64">
-        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-secondary">
-          <span class="material-symbols-outlined text-[18px]">search</span>
-        </span>
-        <input
-          [ngModel]="searchQuery()"
-          (ngModelChange)="searchQuery.set($event)"
-          (keydown.enter)="onSearch()"
-          class="w-full pl-9 pr-3 py-1.5 bg-surface-container-lowest text-xs text-on-surface placeholder:text-secondary/70 border border-outline-variant/60 rounded-xl focus:outline-none focus:border-primary transition-colors"
-          placeholder="Search essays, authors…"
-          type="search" />
-      </div>
-
-      <!-- Notifications Icon with live unread badge -->
-      <a routerLink="/notifications" aria-label="Notifications"
-        class="p-2 text-secondary hover:text-primary rounded-xl hover:bg-surface-container transition-colors duration-150 relative cursor-pointer inline-flex items-center justify-center">
-        <span class="material-symbols-outlined">notifications</span>
-        @if (unreadCount() > 0) {
-        <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full ring-2 ring-surface animate-pulse"></span>
-        }
-      </a>
-
-      <!-- Desktop CTA: New Dispatch -->
-      <a routerLink="/home" [queryParams]="{ compose: true }"
-        class="hidden sm:inline-flex items-center justify-center bg-primary text-on-primary text-xs sm:text-sm font-medium px-4 py-2 rounded-xl hover:bg-primary-container transition-colors duration-150 shadow-none cursor-pointer">
-        <span class="material-symbols-outlined text-[18px] mr-1">edit_square</span>
-        <span>New Dispatch</span>
-      </a>
-
-      <!-- Profile Avatar -->
-      <a routerLink="/author" title="View your folio" class="shrink-0">
-        <img [alt]="currentUser()?.name || 'Author profile photo'"
-          class="w-8 h-8 rounded-full object-cover border border-outline-variant hover:opacity-90 transition-opacity"
-          [src]="currentUser()?.photo || defaultPhoto" />
-      </a>
-    </div>
-  </div>
 </header>

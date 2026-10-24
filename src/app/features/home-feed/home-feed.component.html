@@ -8,8 +8,8 @@
       <!-- Top Brand snippet & Primary Navigation -->
       <div class="flex flex-col gap-space-md">
         <div class="px-2 pt-2 pb-1">
-          <h1 class="font-headline-md text-headline-md text-primary italic leading-none">Gather</h1>
-          <p class="text-label-sm font-label-sm text-secondary tracking-wide mt-1">The Literary Commons</p>
+          <h1 class="font-serif text-2xl text-primary italic leading-none">Gather</h1>
+          <p class="text-xs text-secondary tracking-wide mt-1">The Literary Commons</p>
         </div>
         <!-- Navigation Tabs: Feed is active -->
         <nav aria-label="Main Navigation" class="flex flex-col gap-1 mt-2">
@@ -380,31 +380,28 @@
             <div class="relative">
               <button aria-label="Post actions"
                 class="text-secondary hover:text-on-surface p-1 rounded-lg hover:bg-surface-container transition-colors cursor-pointer"
-                type="button"
-                (click)="togglePostMenu(post._id, $event)">
+                type="button" (click)="togglePostMenu(post._id, $event)">
                 <span class="material-symbols-outlined">more_horiz</span>
               </button>
 
               @if (activeMenuPostId() === post._id) {
-              <div class="absolute right-0 top-full mt-1 w-48 bg-surface-container-lowest rounded-xl border border-outline-variant/60 shadow-xl py-1.5 z-30 animate-in fade-in zoom-in-95 duration-150"
+              <div
+                class="absolute right-0 top-full mt-1 w-48 bg-surface-container-lowest rounded-xl border border-outline-variant/60 shadow-xl py-1.5 z-30 animate-in fade-in zoom-in-95 duration-150"
                 (click)="$event.stopPropagation()">
                 @if (isMyPost(post)) {
-                <button type="button"
-                  (click)="openEditPost(post)"
+                <button type="button" (click)="openEditPost(post)"
                   class="w-full text-left px-3.5 py-2 text-label-md font-label-md text-on-surface hover:bg-surface-container flex items-center gap-2.5 transition-colors cursor-pointer">
                   <span class="material-symbols-outlined text-[18px] text-primary">edit</span>
                   <span>Edit Dispatch</span>
                 </button>
-                <button type="button"
-                  (click)="promptDeletePost(post)"
+                <button type="button" (click)="promptDeletePost(post)"
                   class="w-full text-left px-3.5 py-2 text-label-md font-label-md text-error hover:bg-error-container/30 flex items-center gap-2.5 transition-colors cursor-pointer">
                   <span class="material-symbols-outlined text-[18px]">delete</span>
                   <span>Delete Dispatch</span>
                 </button>
                 <div class="h-px bg-outline-variant/40 my-1"></div>
                 }
-                <button type="button"
-                  (click)="onCopyPostLink(post._id)"
+                <button type="button" (click)="onCopyPostLink(post._id)"
                   class="w-full text-left px-3.5 py-2 text-label-md font-label-md text-secondary hover:text-on-surface hover:bg-surface-container flex items-center gap-2.5 transition-colors cursor-pointer">
                   <span class="material-symbols-outlined text-[18px]">link</span>
                   <span>Copy Link</span>
@@ -747,22 +744,13 @@
   </div>
 
   <!-- Edit Post Modal -->
-  <app-edit-post-modal
-    [isOpen]="isEditModalOpen()"
-    [post]="editingPost()"
-    (close)="closeEditPost()"
+  <app-edit-post-modal [isOpen]="isEditModalOpen()" [post]="editingPost()" (close)="closeEditPost()"
     (saved)="onPostUpdated($event)">
   </app-edit-post-modal>
 
   <!-- Delete Post Confirmation Modal -->
-  <app-confirm-modal
-    [isOpen]="isDeleteModalOpen()"
-    [isLoading]="isDeleting()"
-    title="Delete Dispatch?"
+  <app-confirm-modal [isOpen]="isDeleteModalOpen()" [isLoading]="isDeleting()" title="Delete Dispatch?"
     message="Are you sure you want to permanently delete this dispatch? This will remove it from the Commons and cannot be undone."
-    confirmText="Delete Dispatch"
-    [isDestructive]="true"
-    (confirm)="confirmDeletePost()"
-    (cancel)="closeDeletePost()">
+    confirmText="Delete Dispatch" [isDestructive]="true" (confirm)="confirmDeletePost()" (cancel)="closeDeletePost()">
   </app-confirm-modal>
 </div>

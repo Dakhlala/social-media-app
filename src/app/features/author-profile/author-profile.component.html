@@ -9,8 +9,8 @@
         <!-- Brand Header -->
         <div class="px-2 pt-2">
           <div class="flex items-center gap-space-sm mb-1">
-            <a routerLink="/home"
-              class="font-serif text-2xl text-primary font-bold italic leading-none hover:opacity-90">Gather</a>
+            <a routerLink="/home" class="font-serif text-2xl text-primary italic leading-none">Gather</a>
+
           </div>
           <p class="text-xs text-secondary tracking-normal">The Literary Commons</p>
         </div>
@@ -64,7 +64,6 @@
             <span class="text-[11px] text-secondary truncate">&#64;{{ currentUser()?.username || 'author'
               }}</span>
           </div>
-          <span class="material-symbols-outlined text-secondary">more_vert</span>
         </a>
       </div>
     </div>
@@ -105,18 +104,14 @@
 
                   @if (isCurrentUser()) {
                   <!-- Hover overlay to change portrait -->
-                  <button type="button"
-                    (click)="triggerPhotoInput()"
-                    title="Change profile picture"
+                  <button type="button" (click)="triggerPhotoInput()" title="Change profile picture"
                     class="absolute inset-0 rounded-full bg-black/45 text-white opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center cursor-pointer">
                     <span class="material-symbols-outlined text-[24px]">photo_camera</span>
                     <span class="text-[10px] font-medium mt-0.5">Change</span>
                   </button>
 
                   <!-- Quick camera action badge -->
-                  <button type="button"
-                    (click)="triggerPhotoInput()"
-                    title="Change profile picture"
+                  <button type="button" (click)="triggerPhotoInput()" title="Change profile picture"
                     class="absolute bottom-0 right-0 bg-primary hover:bg-primary-container text-on-primary rounded-full p-2 border-2 border-surface-container-lowest shadow-md flex items-center justify-center cursor-pointer transition-transform hover:scale-110">
                     <span class="material-symbols-outlined text-[16px]">photo_camera</span>
                   </button>
@@ -129,14 +124,14 @@
                   </div>
                   }
                   <!-- Universal hidden file input for photo upload -->
-                  <input #photoInput type="file" accept="image/*" class="hidden" (change)="onProfilePhotoSelected($event)">
+                  <input #photoInput type="file" accept="image/*" class="hidden"
+                    (change)="onProfilePhotoSelected($event)">
                 </div>
 
                 <!-- Action Controls -->
                 <div class="flex items-center gap-2.5">
                   @if (isCurrentUser()) {
-                  <button type="button"
-                    (click)="triggerPhotoInput()"
+                  <button type="button" (click)="triggerPhotoInput()"
                     class="inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-on-primary hover:bg-primary-container text-xs sm:text-sm font-semibold rounded-xl transition-colors duration-150 cursor-pointer shadow-xs">
                     <span class="material-symbols-outlined text-[18px]">photo_camera</span>
                     <span>Update Photo</span>
@@ -168,8 +163,7 @@
                   <h1 class="font-serif text-3xl sm:text-4xl text-on-surface tracking-tight font-normal">
                     {{ author()?.name || 'Literary Author' }}
                   </h1>
-                  <div
-                    class="flex flex-wrap items-center gap-x-3 gap-y-1 mt-0.5 text-secondary text-xs">
+                  <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mt-0.5 text-secondary text-xs">
                     <span class="font-medium text-on-surface-variant">&#64;{{ author()?.username || 'scholar' }}</span>
                     @if (author()?.email) {
                     <span class="text-outline-variant">·</span>
@@ -319,31 +313,28 @@
                   <div class="relative">
                     <button aria-label="Post actions"
                       class="p-1.5 text-secondary hover:text-on-surface rounded-lg hover:bg-surface-container-low transition-colors duration-150 cursor-pointer"
-                      type="button"
-                      (click)="togglePostMenu(post._id, $event)">
+                      type="button" (click)="togglePostMenu(post._id, $event)">
                       <span class="material-symbols-outlined text-[20px]">more_horiz</span>
                     </button>
 
                     @if (activeMenuPostId() === post._id) {
-                    <div class="absolute right-0 top-full mt-1 w-48 bg-surface-container-lowest rounded-xl border border-outline-variant/60 shadow-xl py-1.5 z-30 animate-in fade-in zoom-in-95 duration-150"
+                    <div
+                      class="absolute right-0 top-full mt-1 w-48 bg-surface-container-lowest rounded-xl border border-outline-variant/60 shadow-xl py-1.5 z-30 animate-in fade-in zoom-in-95 duration-150"
                       (click)="$event.stopPropagation()">
                       @if (isMyPost(post)) {
-                      <button type="button"
-                        (click)="openEditPost(post)"
+                      <button type="button" (click)="openEditPost(post)"
                         class="w-full text-left px-3.5 py-2 text-xs sm:text-sm font-medium text-on-surface hover:bg-surface-container flex items-center gap-2.5 transition-colors cursor-pointer">
                         <span class="material-symbols-outlined text-[18px] text-primary">edit</span>
                         <span>Edit Dispatch</span>
                       </button>
-                      <button type="button"
-                        (click)="promptDeletePost(post)"
+                      <button type="button" (click)="promptDeletePost(post)"
                         class="w-full text-left px-3.5 py-2 text-xs sm:text-sm font-medium text-error hover:bg-error-container/30 flex items-center gap-2.5 transition-colors cursor-pointer">
                         <span class="material-symbols-outlined text-[18px]">delete</span>
                         <span>Delete Dispatch</span>
                       </button>
                       <div class="h-px bg-outline-variant/40 my-1"></div>
                       }
-                      <button type="button"
-                        (click)="onCopyPostLink(post._id)"
+                      <button type="button" (click)="onCopyPostLink(post._id)"
                         class="w-full text-left px-3.5 py-2 text-xs sm:text-sm font-medium text-secondary hover:text-on-surface hover:bg-surface-container flex items-center gap-2.5 transition-colors cursor-pointer">
                         <span class="material-symbols-outlined text-[18px]">link</span>
                         <span>Copy Link</span>
@@ -364,8 +355,7 @@
               <!-- Post Content -->
               <div class="space-y-3 mb-4">
                 <a [routerLink]="['/post-detail']" [queryParams]="{ id: post._id }" class="block group">
-                  <p
-                    class="text-sm text-on-surface leading-relaxed group-hover:text-primary transition-colors">
+                  <p class="text-sm text-on-surface leading-relaxed group-hover:text-primary transition-colors">
                     {{ post.body }}
                   </p>
                 </a>
@@ -415,8 +405,8 @@
                   <button (click)="onToggleBookmark(post)"
                     [class]="post.bookmarked
                           ? 'flex items-center gap-1.5 text-primary font-semibold text-xs font-medium transition-colors cursor-pointer'
-                          : 'flex items-center gap-1.5 text-secondary hover:text-primary transition-colors text-xs font-medium cursor-pointer'"
-                    type="button" title="Preserve to Archives">
+                          : 'flex items-center gap-1.5 text-secondary hover:text-primary transition-colors text-xs font-medium cursor-pointer'" type="button"
+                    title="Preserve to Archives">
                     <span class="material-symbols-outlined text-[18px]"
                       [style.font-variation-settings]="post.bookmarked ? '\'FILL\' 1' : '\'FILL\' 0'">
                       bookmark
@@ -441,33 +431,20 @@
   </div>
 
   <!-- Edit Post Modal -->
-  <app-edit-post-modal
-    [isOpen]="isEditModalOpen()"
-    [post]="editingPost()"
-    (close)="closeEditPost()"
+  <app-edit-post-modal [isOpen]="isEditModalOpen()" [post]="editingPost()" (close)="closeEditPost()"
     (saved)="onPostUpdated($event)">
   </app-edit-post-modal>
 
   <!-- Delete Post Confirmation Modal -->
-  <app-confirm-modal
-    [isOpen]="isDeleteModalOpen()"
-    [isLoading]="isDeleting()"
-    title="Delete Dispatch?"
+  <app-confirm-modal [isOpen]="isDeleteModalOpen()" [isLoading]="isDeleting()" title="Delete Dispatch?"
     message="Are you sure you want to permanently delete this dispatch? This will remove it from your folio and cannot be undone."
-    confirmText="Delete Dispatch"
-    [isDestructive]="true"
-    (confirm)="confirmDeletePost()"
-    (cancel)="closeDeletePost()">
+    confirmText="Delete Dispatch" [isDestructive]="true" (confirm)="confirmDeletePost()" (cancel)="closeDeletePost()">
   </app-confirm-modal>
 
   <!-- Update Profile Photo Modal -->
-  <app-update-photo-modal
-    [isOpen]="isPhotoModalOpen()"
-    [imageFile]="selectedPhotoFile()"
-    [previewUrl]="photoPreviewUrl()"
-    [currentPhotoUrl]="author()?.photo || currentUser()?.photo || null"
-    [userName]="author()?.name || currentUser()?.name || 'Author'"
-    (cancel)="closePhotoModal()"
+  <app-update-photo-modal [isOpen]="isPhotoModalOpen()" [imageFile]="selectedPhotoFile()"
+    [previewUrl]="photoPreviewUrl()" [currentPhotoUrl]="author()?.photo || currentUser()?.photo || null"
+    [userName]="author()?.name || currentUser()?.name || 'Author'" (cancel)="closePhotoModal()"
     (uploaded)="onPhotoUploaded($event)">
   </app-update-photo-modal>
 </div>
