@@ -1,0 +1,38 @@
+<div class="p-space-md rounded-2xl border relative overflow-hidden transition-all duration-200 shadow-sm"
+    [class]="config().containerClass" role="alert" [attr.aria-live]="type() === 'error' ? 'assertive' : 'polite'">
+
+    <!-- Colored Accent Bar -->
+    <div class="absolute left-0 top-0 bottom-0 w-1.5" [class]="config().accentBarClass"></div>
+
+    <div class="flex items-start gap-space-sm pl-1">
+        <!-- Icon Badge -->
+        <div class="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center" [class]="config().iconBadgeClass">
+            <span class="material-symbols-outlined text-[22px]">{{ resolvedIcon() }}</span>
+        </div>
+
+        <!-- Content Area -->
+        <div class="flex-1 min-w-0 pr-1">
+            <div class="flex items-center justify-between gap-2">
+                @if (title()) {
+                <h3 class="font-headline-sm text-headline-sm font-serif" [class]="config().titleClass">
+                    {{ title() }}
+                </h3>
+                }
+                @if (dismissible()) {
+                <button type="button" (click)="dismiss.emit()" aria-label="Dismiss alert"
+                    class="rounded-lg p-1 transition-colors hover:opacity-75" [class]="config().closeBtnClass">
+                    <span class="material-symbols-outlined text-[18px]">close</span>
+                </button>
+                }
+            </div>
+
+            @if (message()) {
+            <p class="font-body-md text-body-md mt-1" [class]="config().messageClass">
+                {{ message() }}
+            </p>
+            }
+
+
+        </div>
+    </div>
+</div>

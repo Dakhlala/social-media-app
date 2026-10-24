@@ -1,0 +1,517 @@
+<div
+  class="bg-[#F7F7F2] text-[#202925] min-h-screen antialiased flex justify-center selection:bg-secondary-fixed selection:text-primary">
+
+
+  <!-- ==================== MAIN PAGE CONTAINER WITH PERSISTENT SIDEBAR ==================== -->
+  <div class="w-full max-w-7xl pt-16 flex justify-between min-h-screen">
+    <!-- LEFT SIDEBAR (Desktop) -->
+    <aside
+      class="fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-[#F7F7F2] border-r border-outline-variant/60 hidden lg:flex flex-col justify-between p-4 z-20">
+      <div class="flex flex-col gap-4">
+        <div class="px-2 pt-2 pb-1">
+          <h1 class="font-serif text-2xl text-primary italic leading-none">Gather</h1>
+          <p class="text-xs text-secondary tracking-wide mt-1">The Literary Commons</p>
+        </div>
+        <!-- Navigation Tabs: Notifications is active -->
+        <nav aria-label="Main Navigation" class="flex flex-col gap-1 mt-2">
+          <!-- Feed -->
+          <a routerLink="/home"
+            class="text-secondary flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors duration-150">
+            <span class="material-symbols-outlined">newspaper</span>
+            <span class="text-sm font-medium">Feed</span>
+          </a>
+          <!-- Notifications (Active) -->
+          <a routerLink="/notifications"
+            class="text-primary font-bold flex items-center justify-between px-4 py-3 rounded-xl bg-surface-container transition-colors duration-150">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-primary"
+                style="font-variation-settings: 'FILL' 1;">notifications</span>
+              <span class="text-sm">Notifications</span>
+            </div>
+            @if (unreadCount() > 0) {
+            <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-primary text-white">
+              {{ unreadCount() }}
+            </span>
+            }
+          </a>
+          <!-- Archives -->
+          <a routerLink="/archives"
+            class="text-secondary flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors duration-150">
+            <span class="material-symbols-outlined">source</span>
+            <span class="text-sm font-medium">Archives</span>
+          </a>
+          <!-- Profile -->
+          <a routerLink="/author"
+            class="text-secondary flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors duration-150">
+            <span class="material-symbols-outlined">account_circle</span>
+            <span class="text-sm font-medium">Profile</span>
+          </a>
+        </nav>
+        <!-- CTA: New Entry -->
+        <div class="pt-2">
+          <button routerLink="/home" [queryParams]="{ compose: true }"
+            class="w-full flex items-center justify-center gap-2 bg-primary-container text-white text-sm font-medium px-4 py-2.5 rounded-xl hover:bg-primary transition-colors duration-150 cursor-pointer shadow-sm"
+            type="button">
+            <span class="material-symbols-outlined text-[18px]">edit_square</span>
+            <span>New Entry</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Footer & User Profile Preview -->
+      <div class="flex flex-col gap-2 pt-4 border-t border-outline-variant/40">
+        <div class="flex items-center gap-3 p-2 rounded-xl bg-white border border-outline-variant/30">
+          <a routerLink="/author">
+            <img [alt]="currentUser()?.name || 'Author profile photo'"
+              class="w-9 h-9 rounded-full object-cover border border-outline-variant/50"
+              [src]="currentUser()?.photo || 'https://pub-3cba56bacf9f4965bbb0989e07dada12.r2.dev/linkedPosts/default-profile.png'" />
+          </a>
+          <div class="flex flex-col min-w-0 flex-1">
+            <span class="text-sm font-semibold text-[#151d1a] truncate">
+              {{ currentUser()?.name || 'Julian Croft' }}
+            </span>
+            <span class="text-xs text-secondary truncate">
+              &#64;{{ currentUser()?.username || 'jcroft_press' }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CENTER CANVAS -->
+    <div class="flex-1 lg:ml-64 px-4 sm:px-8 py-8 max-w-4xl mx-auto w-full">
+      <main class="flex flex-col gap-6 w-full">
+        <!-- Header: Title, Actions & Subtitle -->
+        <div class="flex flex-col gap-2 pb-4 border-b border-outline-variant/60">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <div class="flex items-center gap-3">
+              <h1 class="font-serif text-3xl sm:text-4xl text-[#151d1a] tracking-tight">Notifications</h1>
+              @if (unreadCount() > 0) {
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary text-white">
+                {{ unreadCount() }} unread
+              </span>
+              }
+            </div>
+
+            <!-- Header Action Controls -->
+            <div class="flex items-center gap-2">
+              <button (click)="loadNotifications(); loadUnreadCount()" title="Refresh notifications"
+                class="p-2 text-secondary hover:text-primary rounded-lg border border-outline-variant/60 bg-white hover:bg-surface-container transition-colors cursor-pointer"
+                type="button">
+                <span class="material-symbols-outlined text-[18px]">refresh</span>
+              </button>
+
+              <button (click)="markAllAsRead()" [disabled]="isMarkingAll() || unreadCount() === 0"
+                class="flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-[#1a5747] px-3.5 py-2 rounded-lg border border-outline-variant/70 bg-white hover:bg-surface-container-low transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed shadow-xs"
+                type="button">
+                @if (isMarkingAll()) {
+                <span class="material-symbols-outlined text-[16px] animate-spin">progress_activity</span>
+                <span>Marking…</span>
+                } @else {
+                <span class="material-symbols-outlined text-[16px] text-primary">done_all</span>
+                <span>Mark all as read</span>
+                }
+              </button>
+            </div>
+          </div>
+          <p class="font-serif text-sm sm:text-base text-secondary italic">
+            Reflections, annotations, and dispatches concerning your publications in the commons
+          </p>
+
+          <!-- CATEGORY FILTER TABS -->
+          <div class="flex items-center gap-2 overflow-x-auto whitespace-nowrap pt-3 pb-1 scrollbar-none">
+            <!-- All Tab -->
+            <button type="button" (click)="switchTab('all')"
+              class="px-3.5 py-1.5 rounded-xl text-xs font-label-md transition-all cursor-pointer flex items-center gap-1.5"
+              [class]="activeTab() === 'all'
+                ? 'bg-primary text-white font-semibold shadow-xs'
+                : 'bg-white border border-outline-variant/60 text-secondary hover:text-[#151d1a] hover:bg-surface-container'">
+              <span>All Activity</span>
+              <span class="px-1.5 py-0.2 rounded-full text-[10px]"
+                [class]="activeTab() === 'all' ? 'bg-white/20 text-white' : 'bg-surface-container text-secondary'">
+                {{ countAll() }}
+              </span>
+            </button>
+
+            <!-- Comments & Annotations Tab -->
+            <button type="button" (click)="switchTab('comments')"
+              class="px-3.5 py-1.5 rounded-xl text-xs font-label-md transition-all cursor-pointer flex items-center gap-1.5"
+              [class]="activeTab() === 'comments'
+                ? 'bg-primary text-white font-semibold shadow-xs'
+                : 'bg-white border border-outline-variant/60 text-secondary hover:text-[#151d1a] hover:bg-surface-container'">
+              <span class="material-symbols-outlined text-[14px]">edit_document</span>
+              <span>Annotations</span>
+              <span class="px-1.5 py-0.2 rounded-full text-[10px]"
+                [class]="activeTab() === 'comments' ? 'bg-white/20 text-white' : 'bg-surface-container text-secondary'">
+                {{ countComments() }}
+              </span>
+            </button>
+
+            <!-- Likes & Appreciations Tab -->
+            <button type="button" (click)="switchTab('likes')"
+              class="px-3.5 py-1.5 rounded-xl text-xs font-label-md transition-all cursor-pointer flex items-center gap-1.5"
+              [class]="activeTab() === 'likes'
+                ? 'bg-primary text-white font-semibold shadow-xs'
+                : 'bg-white border border-outline-variant/60 text-secondary hover:text-[#151d1a] hover:bg-surface-container'">
+              <span class="material-symbols-outlined text-[14px]">favorite</span>
+              <span>Appreciations</span>
+              <span class="px-1.5 py-0.2 rounded-full text-[10px]"
+                [class]="activeTab() === 'likes' ? 'bg-white/20 text-white' : 'bg-surface-container text-secondary'">
+                {{ countLikes() }}
+              </span>
+            </button>
+
+            <!-- Subscriptions Tab -->
+            <button type="button" (click)="switchTab('follows')"
+              class="px-3.5 py-1.5 rounded-xl text-xs font-label-md transition-all cursor-pointer flex items-center gap-1.5"
+              [class]="activeTab() === 'follows'
+                ? 'bg-primary text-white font-semibold shadow-xs'
+                : 'bg-white border border-outline-variant/60 text-secondary hover:text-[#151d1a] hover:bg-surface-container'">
+              <span class="material-symbols-outlined text-[14px]">person_add</span>
+              <span>Subscribers</span>
+              <span class="px-1.5 py-0.2 rounded-full text-[10px]"
+                [class]="activeTab() === 'follows' ? 'bg-white/20 text-white' : 'bg-surface-container text-secondary'">
+                {{ countFollows() }}
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- LOADING SKELETON -->
+        @if (isLoading()) {
+        <div class="flex flex-col gap-4 animate-pulse">
+          @for (i of [1, 2, 3]; track i) {
+          <div class="p-5 rounded-xl bg-white border border-outline-variant/40 flex gap-4">
+            <div class="w-10 h-10 rounded-full bg-surface-container"></div>
+            <div class="flex-1 flex flex-col gap-2">
+              <div class="w-1/3 h-4 bg-surface-container rounded"></div>
+              <div class="w-3/4 h-3 bg-surface-container rounded"></div>
+              <div class="w-full h-12 bg-surface-container rounded mt-2"></div>
+            </div>
+          </div>
+          }
+        </div>
+        } @else {
+        <!-- NOTIFICATIONS LIST -->
+        <div class="flex flex-col gap-6">
+
+          <!-- SECTION 1: TODAY -->
+          @if (todayNotifications().length > 0) {
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-3 text-secondary text-xs uppercase tracking-wider pl-1 font-semibold">
+              <span>Today</span>
+              <div class="h-px flex-1 bg-outline-variant/50"></div>
+            </div>
+
+            @for (item of todayNotifications(); track item._id) {
+            <article (click)="onNotificationClick(item)"
+              [class.border-primary]="!item.read && !item.isRead"
+              class="relative p-4 sm:p-5 rounded-xl bg-white border border-outline-variant/60 shadow-xs hover:border-primary/50 transition-all group cursor-pointer">
+              <!-- Unread Accent Indicator Bar -->
+              @if (!item.read && !item.isRead) {
+              <div class="absolute left-0 top-4 bottom-4 w-1.5 bg-primary rounded-r"></div>
+              }
+
+              <div class="flex items-start gap-3.5" [class.pl-2]="!item.read && !item.isRead">
+                <!-- Avatar & Badged Type Icon -->
+                <div class="relative shrink-0">
+                  <a [routerLink]="['/author', item.actorId]" (click)="$event.stopPropagation()">
+                    <img [src]="item.actorAvatar" [alt]="item.actorName"
+                      class="w-10 h-10 rounded-full object-cover border border-outline-variant hover:opacity-90 transition-opacity" />
+                  </a>
+                  <span
+                    class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-surface-container border border-outline-variant flex items-center justify-center text-primary shadow-xs">
+                    <span class="material-symbols-outlined text-[13px]">{{ item.iconName }}</span>
+                  </span>
+                </div>
+
+                <!-- Content Body -->
+                <div class="flex-1 flex flex-col gap-2 min-w-0">
+                  <div class="flex items-center justify-between gap-2">
+                    <div class="flex items-baseline gap-1.5 flex-wrap text-sm">
+                      <a [routerLink]="['/author', item.actorId]" (click)="$event.stopPropagation()"
+                        class="font-semibold text-[#151d1a] hover:text-primary transition-colors truncate">
+                        {{ item.actorName }}
+                      </a>
+                      <a [routerLink]="['/author', item.actorId]" (click)="$event.stopPropagation()"
+                        class="text-xs text-secondary hover:text-primary transition-colors">
+                        &#64;{{ item.actorHandle }}
+                      </a>
+                      <span class="text-[#33443c] text-xs sm:text-sm">{{ item.actionText }}</span>
+                    </div>
+                    <time class="text-xs text-secondary shrink-0">{{ item.timeAgo }}</time>
+                  </div>
+
+                  <!-- Post Reference Title -->
+                  @if (item.postTitle) {
+                  <h2 class="font-serif text-base sm:text-lg text-[#151d1a] group-hover:text-primary transition-colors leading-snug">
+                    {{ item.postTitle }}
+                  </h2>
+                  }
+
+                  <!-- Pull Quote / Comment Snippet Block -->
+                  @if (item.quoteSnippet) {
+                  <div class="p-3 rounded-lg bg-[#f4f9f6] border-l-2 border-primary flex flex-col gap-1">
+                    <p class="font-serif text-sm text-[#33443c] italic leading-relaxed line-clamp-2">
+                      “{{ item.quoteSnippet }}”
+                    </p>
+                  </div>
+                  }
+
+                  <!-- Action Buttons Row -->
+                  <div class="flex items-center justify-between pt-1.5">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <!-- Open Post Detail -->
+                      @if (item.targetPostId) {
+                      <a [routerLink]="['/post-detail', item.targetPostId]" (click)="$event.stopPropagation()"
+                        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-surface-container hover:bg-surface-container-high text-primary text-xs font-semibold border border-outline-variant/60 transition-colors cursor-pointer">
+                        <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+                        <span>View Dispatch</span>
+                      </a>
+
+                      <button (click)="onArchivePost(item, $event)"
+                        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md hover:bg-surface-container text-secondary hover:text-[#151d1a] text-xs font-medium transition-colors cursor-pointer"
+                        type="button">
+                        <span class="material-symbols-outlined text-[15px]">bookmark_add</span>
+                        <span>Archive</span>
+                      </button>
+                      }
+
+                      <!-- Follow Back on follow notifications -->
+                      @if (item.type.includes('follow') || item.type.includes('subscript')) {
+                      <button (click)="onFollowBack(item, $event)"
+                        [class]="item.isFollowingBack
+                          ? 'inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-surface-container text-on-surface text-xs font-semibold border border-outline-variant hover:bg-surface-container-high transition-colors cursor-pointer'
+                          : 'inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-primary text-white text-xs font-semibold hover:bg-primary-container transition-colors cursor-pointer shadow-xs'"
+                        type="button">
+                        <span class="material-symbols-outlined text-[15px]">
+                          {{ item.isFollowingBack ? 'check' : 'person_add' }}
+                        </span>
+                        <span>{{ item.isFollowingBack ? 'Subscribed' : 'Follow Back' }}</span>
+                      </button>
+                      }
+                    </div>
+
+                    <!-- Mark as read button if unread -->
+                    @if (!item.read && !item.isRead) {
+                    <button (click)="markSingleAsRead(item, $event)" title="Mark as read"
+                      class="text-xs text-secondary hover:text-primary p-1 rounded transition-colors cursor-pointer flex items-center gap-1">
+                      <span class="material-symbols-outlined text-[16px]">done</span>
+                      <span class="hidden sm:inline">Mark read</span>
+                    </button>
+                    }
+                  </div>
+                </div>
+              </div>
+            </article>
+            }
+          </div>
+          }
+
+          <!-- SECTION 2: YESTERDAY -->
+          @if (yesterdayNotifications().length > 0) {
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-3 text-secondary text-xs uppercase tracking-wider pl-1 font-semibold">
+              <span>Yesterday</span>
+              <div class="h-px flex-1 bg-outline-variant/50"></div>
+            </div>
+
+            @for (item of yesterdayNotifications(); track item._id) {
+            <article (click)="onNotificationClick(item)"
+              [class.border-primary]="!item.read && !item.isRead"
+              class="relative p-4 sm:p-5 rounded-xl bg-white border border-outline-variant/60 shadow-xs hover:border-primary/50 transition-all group cursor-pointer">
+              @if (!item.read && !item.isRead) {
+              <div class="absolute left-0 top-4 bottom-4 w-1.5 bg-primary rounded-r"></div>
+              }
+
+              <div class="flex items-start gap-3.5" [class.pl-2]="!item.read && !item.isRead">
+                <div class="relative shrink-0">
+                  <a [routerLink]="['/author', item.actorId]" (click)="$event.stopPropagation()">
+                    <img [src]="item.actorAvatar" [alt]="item.actorName"
+                      class="w-10 h-10 rounded-full object-cover border border-outline-variant hover:opacity-90 transition-opacity" />
+                  </a>
+                  <span
+                    class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-surface-container border border-outline-variant flex items-center justify-center text-primary shadow-xs">
+                    <span class="material-symbols-outlined text-[13px]">{{ item.iconName }}</span>
+                  </span>
+                </div>
+
+                <div class="flex-1 flex flex-col gap-2 min-w-0">
+                  <div class="flex items-center justify-between gap-2">
+                    <div class="flex items-baseline gap-1.5 flex-wrap text-sm">
+                      <a [routerLink]="['/author', item.actorId]" (click)="$event.stopPropagation()"
+                        class="font-semibold text-[#151d1a] hover:text-primary transition-colors truncate">
+                        {{ item.actorName }}
+                      </a>
+                      <a [routerLink]="['/author', item.actorId]" (click)="$event.stopPropagation()"
+                        class="text-xs text-secondary hover:text-primary transition-colors">
+                        &#64;{{ item.actorHandle }}
+                      </a>
+                      <span class="text-[#33443c] text-xs sm:text-sm">{{ item.actionText }}</span>
+                    </div>
+                    <time class="text-xs text-secondary shrink-0">{{ item.timeAgo }}</time>
+                  </div>
+
+                  @if (item.postTitle) {
+                  <h2 class="font-serif text-base sm:text-lg text-[#151d1a] group-hover:text-primary transition-colors leading-snug">
+                    {{ item.postTitle }}
+                  </h2>
+                  }
+
+                  @if (item.quoteSnippet) {
+                  <div class="p-3 rounded-lg bg-[#f4f9f6] border-l-2 border-primary flex flex-col gap-1">
+                    <p class="font-serif text-sm text-[#33443c] italic leading-relaxed line-clamp-2">
+                      “{{ item.quoteSnippet }}”
+                    </p>
+                  </div>
+                  }
+
+                  <div class="flex items-center justify-between pt-1.5">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      @if (item.targetPostId) {
+                      <a [routerLink]="['/post-detail', item.targetPostId]" (click)="$event.stopPropagation()"
+                        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-surface-container hover:bg-surface-container-high text-primary text-xs font-semibold border border-outline-variant/60 transition-colors cursor-pointer">
+                        <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+                        <span>View Dispatch</span>
+                      </a>
+                      }
+
+                      @if (item.type.includes('follow') || item.type.includes('subscript')) {
+                      <button (click)="onFollowBack(item, $event)"
+                        [class]="item.isFollowingBack
+                          ? 'inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-surface-container text-on-surface text-xs font-semibold border border-outline-variant hover:bg-surface-container-high transition-colors cursor-pointer'
+                          : 'inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-primary text-white text-xs font-semibold hover:bg-primary-container transition-colors cursor-pointer shadow-xs'"
+                        type="button">
+                        <span class="material-symbols-outlined text-[15px]">
+                          {{ item.isFollowingBack ? 'check' : 'person_add' }}
+                        </span>
+                        <span>{{ item.isFollowingBack ? 'Subscribed' : 'Follow Back' }}</span>
+                      </button>
+                      }
+                    </div>
+
+                    @if (!item.read && !item.isRead) {
+                    <button (click)="markSingleAsRead(item, $event)" title="Mark as read"
+                      class="text-xs text-secondary hover:text-primary p-1 rounded transition-colors cursor-pointer flex items-center gap-1">
+                      <span class="material-symbols-outlined text-[16px]">done</span>
+                      <span class="hidden sm:inline">Mark read</span>
+                    </button>
+                    }
+                  </div>
+                </div>
+              </div>
+            </article>
+            }
+          </div>
+          }
+
+          <!-- SECTION 3: EARLIER THIS WEEK -->
+          @if (earlierNotifications().length > 0) {
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-3 text-secondary text-xs uppercase tracking-wider pl-1 font-semibold">
+              <span>Earlier this week</span>
+              <div class="h-px flex-1 bg-outline-variant/50"></div>
+            </div>
+
+            @for (item of earlierNotifications(); track item._id) {
+            <article (click)="onNotificationClick(item)"
+              [class.border-primary]="!item.read && !item.isRead"
+              class="relative p-4 sm:p-5 rounded-xl bg-white border border-outline-variant/60 shadow-xs hover:border-primary/50 transition-all group cursor-pointer">
+              @if (!item.read && !item.isRead) {
+              <div class="absolute left-0 top-4 bottom-4 w-1.5 bg-primary rounded-r"></div>
+              }
+
+              <div class="flex items-start gap-3.5" [class.pl-2]="!item.read && !item.isRead">
+                <div class="relative shrink-0">
+                  <a [routerLink]="['/author', item.actorId]" (click)="$event.stopPropagation()">
+                    <img [src]="item.actorAvatar" [alt]="item.actorName"
+                      class="w-10 h-10 rounded-full object-cover border border-outline-variant hover:opacity-90 transition-opacity" />
+                  </a>
+                  <span
+                    class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-surface-container border border-outline-variant flex items-center justify-center text-primary shadow-xs">
+                    <span class="material-symbols-outlined text-[13px]">{{ item.iconName }}</span>
+                  </span>
+                </div>
+
+                <div class="flex-1 flex flex-col gap-2 min-w-0">
+                  <div class="flex items-center justify-between gap-2">
+                    <div class="flex items-baseline gap-1.5 flex-wrap text-sm">
+                      <a [routerLink]="['/author', item.actorId]" (click)="$event.stopPropagation()"
+                        class="font-semibold text-[#151d1a] hover:text-primary transition-colors truncate">
+                        {{ item.actorName }}
+                      </a>
+                      <a [routerLink]="['/author', item.actorId]" (click)="$event.stopPropagation()"
+                        class="text-xs text-secondary hover:text-primary transition-colors">
+                        &#64;{{ item.actorHandle }}
+                      </a>
+                      <span class="text-[#33443c] text-xs sm:text-sm">{{ item.actionText }}</span>
+                    </div>
+                    <time class="text-xs text-secondary shrink-0">{{ item.timeAgo }}</time>
+                  </div>
+
+                  @if (item.postTitle) {
+                  <h2 class="font-serif text-base sm:text-lg text-[#151d1a] group-hover:text-primary transition-colors leading-snug">
+                    {{ item.postTitle }}
+                  </h2>
+                  }
+
+                  <div class="flex items-center justify-between pt-1.5">
+                    @if (item.targetPostId) {
+                    <a [routerLink]="['/post-detail', item.targetPostId]" (click)="$event.stopPropagation()"
+                      class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-surface-container hover:bg-surface-container-high text-primary text-xs font-semibold border border-outline-variant/60 transition-colors cursor-pointer">
+                      <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+                      <span>View Dispatch</span>
+                    </a>
+                    }
+                  </div>
+                </div>
+              </div>
+            </article>
+            }
+          </div>
+          }
+
+          <!-- EMPTY STATE (Real empty ledger) -->
+          @if (filteredNotifications().length === 0) {
+          <div
+            class="p-12 sm:p-16 rounded-2xl bg-white border border-outline-variant/50 text-center flex flex-col items-center justify-center gap-3.5 my-2">
+            <div class="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center text-primary">
+              <span class="material-symbols-outlined text-3xl">notifications_off</span>
+            </div>
+            <h3 class="font-serif text-2xl text-[#151d1a]">Your Notification Ledger is Tranquil</h3>
+            <p class="font-body-md text-sm text-secondary max-w-md leading-relaxed">
+              @if (activeTab() === 'all') {
+              When other authors annotate your dispatches, appreciate your reflections, or follow your folio, they will appear here in chronological order.
+              } @else {
+              No notifications match this category yet. You can explore all activity across the commons below.
+              }
+            </p>
+            <div class="flex items-center gap-3 pt-2">
+              @if (activeTab() !== 'all') {
+              <button (click)="switchTab('all')"
+                class="text-xs font-semibold text-primary px-4 py-2 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer"
+                type="button">
+                View All Activity
+              </button>
+              }
+              <a routerLink="/home"
+                class="text-xs font-semibold text-white px-4 py-2 rounded-xl bg-primary hover:bg-[#1a5747] transition-colors cursor-pointer shadow-xs">
+                Explore Community Dispatches
+              </a>
+            </div>
+          </div>
+          }
+        </div>
+        }
+
+        <!-- Pinned Archive Notice -->
+        <div class="pt-6 pb-12 flex flex-col items-center justify-center gap-2 text-center text-secondary">
+          <div class="flex items-center gap-2 text-xs">
+            <span class="material-symbols-outlined text-[16px]">verified</span>
+            <span>Ledger preserved in accordance with the Slow-Web Charter</span>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>

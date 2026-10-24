@@ -1,0 +1,24 @@
+<div aria-live="polite" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none">
+    @for (toast of toastService.toasts(); track toast.id) {
+    <aside role="status"
+        class="toast-item pointer-events-auto flex items-center gap-3 bg-inverse-surface text-inverse-on-surface px-4 py-3 rounded-xl shadow-lg border border-outline-variant/20 transition-all duration-300 transform translate-y-0 max-w-sm">
+        <!-- Icon depending on ToastType -->
+        <span class="material-symbols-outlined text-[20px]" [class]="getIconClass(toast.type)"
+            style="font-variation-settings: 'FILL' 1;">
+            {{ getIconName(toast.type) }}
+        </span>
+        <!-- Text Details -->
+        <div class="flex flex-col flex-1">
+            <span class="text-label-md font-label-md">{{ toast.title }}</span>
+            @if (toast.message) {
+            <span class="text-[12px] text-secondary-fixed">{{ toast.message }}</span>
+            }
+        </div>
+        <!-- Dismiss Button -->
+        <button type="button" aria-label="Dismiss toast" (click)="toastService.dismiss(toast.id)"
+            class="ml-2 text-secondary-fixed hover:text-inverse-on-surface p-1 rounded transition-colors">
+            <span class="material-symbols-outlined text-[16px]">close</span>
+        </button>
+    </aside>
+    }
+</div>

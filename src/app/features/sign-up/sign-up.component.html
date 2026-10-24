@@ -1,0 +1,265 @@
+<div
+  class="bg-background text-on-surface antialiased min-h-screen flex flex-col justify-between selection:bg-primary-fixed selection:text-on-primary-fixed">
+  <!-- Minimal Brand Header -->
+  <header class="w-full bg-surface-container-lowest border-b border-outline-variant py-space-sm px-margin-lg">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a class="flex items-center gap-space-xs group" href="#">
+        <span class="font-headline-md text-headline-md text-primary italic">Gather</span>
+        <span
+          class="text-label-sm font-label-sm text-secondary hidden sm:inline-block border-l border-outline-variant pl-space-xs tracking-wide">The
+          Literary Commons</span>
+      </a>
+      <div class="flex items-center gap-space-sm text-label-md font-label-md">
+        <span class="text-secondary hidden sm:inline">Already have an account?</span>
+        <a class="text-primary hover:text-on-primary-fixed-variant transition-colors underline underline-offset-4 decoration-outline-variant hover:decoration-primary"
+          routerLink="/sign-in">Sign in</a>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- Focused Center Canvas -->
+  <main class="flex-1 flex items-center justify-center px-margin py-space-xl">
+    <div
+      class="w-full max-w-170 bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg sm:p-space-xl shadow-[0_4px_20px_-2px_rgba(32,41,37,0.06)]">
+      <!-- Flow Header -->
+      <div class="mb-space-lg">
+        <div
+          class="inline-flex items-center gap-space-xs px-2.5 py-1 rounded bg-surface-container text-primary text-label-sm font-label-sm mb-space-sm">
+          <span class="material-symbols-outlined text-[16px]">edit_note</span>
+          Author Registration
+        </div>
+        <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Join The Commons</h1>
+        <p class="font-body-md text-body-md text-secondary mt-1">Create an author account to write, converse, and
+          catalog literary dispatches.</p>
+      </div>
+
+      <!-- Registration Form -->
+      <form class="space-y-space-md" id="signup-form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()" novalidate>
+        <!-- Row 1: Full Name & Username -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+          <!-- Full Name -->
+
+          <div>
+            <label class="block font-label-md text-label-md text-on-surface mb-1.5" for="name">
+              Full Name <span class="text-tertiary">*</span>
+            </label>
+            <div class="relative">
+              <input
+                class="w-full h-11 px-3.5 bg-surface-container-lowest text-on-surface font-body-md text-body-md rounded-xl border border-outline-variant focus:border-primary focus:ring-0 transition-colors placeholder:text-secondary"
+                id="name" name="name" placeholder="e.g. Elena Rostova" required type="text" value="Elena Rostova"
+                formControlName="name">
+            </div>
+            @if (signUpForm.get("name")?.invalid && signUpForm.get("name")?.touched) {
+            <p class="mt-1 font-body-sm text-body-sm text-red-600">name should atleast be 3 characters long</p>
+            }
+
+          </div>
+          <!-- Username -->
+
+          <div>
+            <label class="block font-label-md text-label-md text-on-surface mb-1.5" for="username">
+              Username (optional)
+            </label>
+            <div class="relative flex items-center">
+              <span class="absolute left-3.5 text-secondary font-label-md">&#64;</span>
+              <input
+                class="w-full h-11 pl-8 pr-10 bg-surface-container-lowest text-on-surface font-body-md text-body-md rounded-xl border border-primary focus:border-primary focus:ring-0 transition-colors placeholder:text-secondary"
+                id="username" name="username" placeholder="handle" required type="text" value="elena_writes"
+                formControlName="username">
+              <span class="absolute right-3 text-primary flex items-center" title="Handle available">
+                <span class="material-symbols-outlined text-[18px]">check_circle</span>
+              </span>
+            </div>
+            <p class="mt-1 font-body-sm text-body-sm text-primary flex items-center gap-1">
+            </p>
+          </div>
+        </div>
+
+        <!-- Row 2: Email Address -->
+        <div>
+          <label class="block font-label-md text-label-md text-on-surface mb-1.5" for="email">
+            Email Address <span class="text-tertiary">*</span>
+          </label>
+          <div class="relative flex items-center">
+            <input
+              class="w-full h-11 px-3.5 pr-10 bg-surface-container-lowest text-on-surface font-body-md text-body-md rounded-xl border border-outline-variant focus:border-primary focus:ring-0 transition-colors placeholder:text-secondary"
+              id="email" name="email" placeholder="elena@gather.pub" required type="email" value="elena@gather.pub"
+              formControlName="email">
+            <span class="absolute right-3 text-secondary flex items-center">
+              <span class="material-symbols-outlined text-[18px]">mail</span>
+            </span>
+          </div> @if (signUpForm.get("email")?.invalid && signUpForm.get("email")?.touched) {
+          <p class="mt-1 font-body-sm text-body-sm text-red-600">this email is invalid please type a valid email</p>
+
+          }
+        </div>
+
+        <!-- Row 3: Date of Birth & Gender -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+          <!-- Date of Birth -->
+          <div>
+            <label class="block font-label-md text-label-md text-on-surface mb-1.5" for="dateOfBirth">
+              Date of Birth <span class="text-tertiary">*</span>
+            </label>
+            <div class="relative flex items-center">
+              <input
+                class="w-full h-11 px-3.5 bg-surface-container-lowest text-on-surface font-body-md text-body-md rounded-xl border border-outline-variant focus:border-primary focus:ring-0 transition-colors"
+                id="dateOfBirth" name="dateOfBirth" required type="date" value="10-10-2000"
+                formControlName="dateOfBirth">
+            </div>
+
+            @if (signUpForm.get("dateOfBirth")?.invalid && signUpForm.get("dateOfBirth")?.touched) {
+            <p class="mt-1 font-body-sm text-body-sm text-red-600">Contributors must be at least 18 years old.</p>
+            }
+          </div>
+          <!-- Gender -->
+          <div>
+            <label class="block font-label-md text-label-md text-on-surface mb-1.5" for="gender">
+              Gender Identity
+            </label>
+            <div class="relative">
+              <select
+                class="w-full h-11 px-3.5 pr-9 bg-surface-container-lowest text-on-surface font-body-md text-body-md rounded-xl border border-outline-variant focus:border-primary focus:ring-0 transition-colors appearance-none cursor-pointer"
+                id="gender" name="gender" formControlName="gender">
+                <option selected value="female">Female</option>
+                <option value="male">Male</option>
+              </select>
+              <span
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-secondary pointer-events-none flex items-center">
+                <span class="material-symbols-outlined text-[20px]">arrow_drop_down</span>
+              </span>
+            </div>
+            @if (signUpForm.get("gender")?.invalid && signUpForm.get("gender")?.touched) {
+            <p class="mt-1 font-body-sm text-body-sm text-red-600">Please choose a gender.</p>}
+          </div>
+        </div>
+
+        <hr class="border-outline-variant my-2">
+
+        <!-- Row 4: Password & Confirm Password -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+          <div>
+            <label class="block font-label-md text-label-md text-on-surface mb-1.5" for="password">
+              Password <span class="text-tertiary">*</span>
+            </label>
+            <div class="relative flex items-center">
+              <input
+                class="w-full h-11 px-3.5 pr-10 bg-surface-container-lowest text-on-surface font-body-md text-body-md rounded-xl border border-outline-variant focus:border-primary focus:ring-0 transition-colors placeholder:text-secondary"
+                id="password" #password name="password" placeholder="Create passphrase" required type="password"
+                value="Archival_Paper7" formControlName="password">
+              <button aria-label="Toggle password visibility"
+                class="absolute right-3 text-secondary hover:text-on-surface focus:outline-none" type="button"
+                (click)="showPassword(password)">
+                <span class="material-symbols-outlined text-[18px]">visibility</span>
+              </button>
+            </div>
+          </div>
+          <div>
+            <label class="block font-label-md text-label-md text-on-surface mb-1.5" for="rePassword">
+              Confirm Password <span class="text-tertiary">*</span>
+            </label>
+            <div class="relative flex items-center">
+              <input
+                class="w-full h-11 px-3.5 pr-10 bg-surface-container-lowest text-on-surface font-body-md text-body-md rounded-xl border border-primary focus:border-primary focus:ring-0 transition-colors placeholder:text-secondary"
+                id="rePassword" #repassword name="rePassword" placeholder="Re-enter passphrase" required type="password"
+                value="Archival_Paper7" formControlName="rePassword">
+              <button aria-label="Toggle password visibility"
+                class="absolute right-3 text-secondary hover:text-on-surface focus:outline-none" type="button"
+                (click)="showPassword(repassword)">
+                <span class="material-symbols-outlined text-[18px]">visibility</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <!-- Password Strength Criteria -->
+        <div class=" p-space-sm rounded-xl border border-outline-variant">
+          <p class="font-label-sm text-label-sm text-secondary mb-2">Password criteria status:</p>
+          <div class="flex flex-wrap gap-2">
+            <!-- 8+ Characters -->
+            <span
+              class="inline-flex items-center gap-1 px-1 py-1 rounded font-label-sm text-label-sm border transition-colors"
+              [class]="getBadgeClass(hasMinLength())">
+              <span class="material-symbols-outlined text-[14px]">{{getBadgeIcon(hasMinLength())}}</span>
+              8+ Characters
+            </span>
+            <!-- must have numbers -->
+            <span
+              class="inline-flex items-center gap-1 px-1 py-1 rounded font-label-sm text-label-sm border transition-colors"
+              [class]='getBadgeClass(hasNumber())'>
+              <span class="material-symbols-outlined text-[14px]">{{getBadgeIcon(hasNumber())}}</span>
+              Must have numbers
+            </span>
+            <!-- Symbol included -->
+            <span
+              class="inline-flex items-center gap-1 px-1 py-1 rounded font-label-sm text-label-sm border transition-colors"
+              [class]='getBadgeClass(hasSymbols())'>
+              <span class="material-symbols-outlined text-[14px]">{{getBadgeIcon(hasSymbols())}}</span>
+              Symbol included
+            </span>
+
+            <!-- password matches -->
+            <span
+              class="inline-flex items-center gap-1 px-1 py-1 rounded font-label-sm text-label-sm border transition-colors"
+              [class]='getBadgeClass(passwordsMatch())'>
+              <span class="material-symbols-outlined text-[14px]">{{getBadgeIcon(passwordsMatch())}}</span>
+              Match passwords
+            </span>
+          </div>
+        </div>
+
+        <!-- Terms Agreement Checkbox -->
+        <div class="pt-1">
+          <label class="flex items-start gap-space-xs cursor-pointer group">
+            <input checked
+              class="mt-1 h-4 w-4 rounded text-primary-container focus:ring-0 border-outline cursor-pointer"
+              id="agreement" name="agreement" required type="checkbox">
+            <span class="font-body-sm text-body-sm text-on-surface leading-snug">
+              I agree to abide by the <a
+                class="text-primary underline underline-offset-2 hover:text-on-primary-fixed-variant" href="#">Reading
+                Charter</a>, respectful discourse standards, and the <a
+                class="text-primary underline underline-offset-2 hover:text-on-primary-fixed-variant" href="#">Commons
+                Guidelines</a>.
+            </span>
+          </label>
+        </div>
+        <!-- Submit CTA -->
+        <div class="pt-space-xs">
+          <button
+            class="w-full h-11 bg-primary-container hover:bg-primary disabled:opacity-60 disabled:cursor-not-allowed text-surface-container-lowest font-label-md text-label-md rounded-xl transition-colors duration-150 flex items-center justify-center gap-space-xs active:scale-[0.99]"
+            type="submit" [disabled]="isLoading()">
+            @if(isLoading()){
+            <span class="material-symbols-outlined animate-spin text-[18px]" id="btn-spinner">progress_activity</span>
+            <span>Creating Account...</span>
+            } @else {
+            <span>Create Account</span>
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            }
+          </button>
+        </div>
+
+        <!-- Footnote -->
+
+      </form>
+    </div>
+  </main>
+
+  <!-- Grounded Editorial Footer -->
+  <footer class="w-full border-t border-outline-variant bg-surface py-space-md px-margin text-center">
+    <div
+      class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-label-sm font-label-sm text-secondary">
+      <p>© 2025 Gather — The Literary Commons. Preserved for quiet contemplation.</p>
+      <div class="flex items-center gap-space-md">
+        <a class="hover:text-primary transition-colors" href="#">Privacy Folio</a>
+        <span class="text-outline-variant">•</span>
+        <a class="hover:text-primary transition-colors" href="#">Colophon</a>
+        <span class="text-outline-variant">•</span>
+        <a class="hover:text-primary transition-colors" href="#">Contact Curators</a>
+      </div>
+    </div>
+  </footer>
+</div>

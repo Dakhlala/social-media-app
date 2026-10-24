@@ -1,0 +1,55 @@
+<!-- ==================== UNIFIED MOBILE BOTTOM NAVIGATION BAR ==================== -->
+<nav aria-label="Mobile Navigation"
+  class="fixed bottom-0 left-0 right-0 z-40 bg-surface/95 backdrop-blur-md border-t border-outline-variant/60 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] lg:hidden">
+  <div class="flex items-center justify-around h-16 max-w-md mx-auto px-2 pb-[env(safe-area-inset-bottom,0px)]">
+
+    <!-- 1. FEED -->
+    <a routerLink="/home" routerLinkActive="text-primary font-semibold"
+      class="flex-1 flex flex-col items-center justify-center h-full min-w-11 py-1 text-secondary hover:text-primary transition-colors duration-150 group cursor-pointer">
+      <span class="material-symbols-outlined text-[22px] transition-transform group-active:scale-90">newspaper</span>
+      <span class="text-[11px] font-label-sm tracking-tight mt-0.5">Feed</span>
+    </a>
+
+    <!-- 2. ARCHIVES -->
+    <a routerLink="/archives" routerLinkActive="text-primary font-semibold"
+      class="flex-1 flex flex-col items-center justify-center h-full min-w-11 py-1 text-secondary hover:text-primary transition-colors duration-150 group cursor-pointer">
+      <span class="material-symbols-outlined text-[22px] transition-transform group-active:scale-90">source</span>
+      <span class="text-[11px] font-label-sm tracking-tight mt-0.5">Archives</span>
+    </a>
+
+    <!-- 3. CENTER CTA: NEW DISPATCH ENTRY -->
+    <div class="flex items-center justify-center px-1">
+      <a routerLink="/home"
+        class="flex items-center justify-center -mt-5 w-12 h-12 rounded-full bg-primary text-on-primary shadow-lg hover:bg-primary-container active:scale-95 transition-all duration-150 cursor-pointer ring-4 ring-surface"
+        aria-label="Write New Dispatch" title="Write New Dispatch">
+        <span class="material-symbols-outlined text-[22px]">edit_square</span>
+      </a>
+    </div>
+
+    <!-- 4. NOTIFICATIONS -->
+    <a routerLink="/notifications" routerLinkActive="text-primary font-semibold"
+      class="flex-1 flex flex-col items-center justify-center h-full min-w-11 py-1 text-secondary hover:text-primary transition-colors duration-150 group cursor-pointer relative">
+      <div class="relative flex items-center justify-center">
+        <span
+          class="material-symbols-outlined text-[22px] transition-transform group-active:scale-90">notifications</span>
+        @if (unreadCount() > 0) {
+        <span
+          class="absolute -top-0.5 -right-1 w-2.5 h-2.5 rounded-full bg-primary ring-2 ring-surface animate-pulse"></span>
+        }
+      </div>
+      <span class="text-[11px] font-label-sm tracking-tight mt-0.5">Notifications</span>
+    </a>
+
+    <!-- 5. AUTHOR PROFILE -->
+    <a routerLink="/author" routerLinkActive="text-primary font-semibold" [routerLinkActiveOptions]="{ exact: true }"
+      class="flex-1 flex flex-col items-center justify-center h-full min-w-11 py-1 text-secondary hover:text-primary transition-colors duration-150 group cursor-pointer">
+      <div
+        class="w-6 h-6 rounded-full overflow-hidden border border-outline-variant/70 group-active:scale-90 transition-transform">
+        <img [src]="currentUser()?.photo || defaultPhoto" [alt]="currentUser()?.name || 'Author'"
+          class="w-full h-full object-cover" />
+      </div>
+      <span class="text-[11px] font-label-sm tracking-tight mt-0.5">Profile</span>
+    </a>
+
+  </div>
+</nav>

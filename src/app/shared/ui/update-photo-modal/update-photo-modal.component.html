@@ -1,0 +1,72 @@
+@if (isOpen() && (previewUrl() || imageFile())) {
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs transition-opacity animate-in fade-in duration-200"
+  (click)="onBackdropClick($event)"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="update-photo-modal-title">
+
+  <div class="relative w-full max-w-md bg-surface-container-lowest rounded-2xl border border-outline-variant/60 shadow-2xl p-6 overflow-hidden z-10 animate-in zoom-in-95 duration-200"
+    (click)="$event.stopPropagation()">
+
+    <!-- Header -->
+    <div class="flex items-center justify-between pb-4 border-b border-outline-variant/40 mb-5">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary text-[22px]">account_circle</span>
+        <h3 id="update-photo-modal-title" class="font-headline-sm text-headline-sm text-on-surface font-semibold">
+          Update Profile Photo
+        </h3>
+      </div>
+      <button type="button"
+        (click)="onCancel()"
+        [disabled]="isUploading()"
+        class="text-secondary hover:text-on-surface p-1 rounded-lg hover:bg-surface-container transition-colors disabled:opacity-50 cursor-pointer"
+        aria-label="Close modal">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+    </div>
+
+    <!-- Preview Canvas -->
+    <div class="flex flex-col items-center justify-center py-4 space-y-4">
+      <!-- Circular Preview Frame -->
+      <div class="relative w-36 h-36 rounded-full overflow-hidden border-4 border-primary/20 shadow-md bg-surface-container">
+        <img [src]="previewUrl() || defaultPhoto"
+          [alt]="userName() || 'New profile photo preview'"
+          class="w-full h-full object-cover">
+      </div>
+
+      <div class="text-center space-y-1">
+        <p class="font-label-md text-label-md text-on-surface font-semibold">
+          {{ userName() || 'Fellow Scholar' }}
+        </p>
+        <p class="font-body-sm text-body-sm text-secondary">
+          Confirm your new portrait. This photo will be visible on your folios, dispatches, and comments.
+        </p>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex items-center justify-end gap-3 mt-4 pt-4 border-t border-outline-variant/40">
+      <button type="button"
+        (click)="onCancel()"
+        [disabled]="isUploading()"
+        class="px-4 py-2 rounded-xl text-label-md font-label-md text-secondary hover:text-on-surface hover:bg-surface-container transition-colors disabled:opacity-50 cursor-pointer">
+        Cancel
+      </button>
+
+      <button type="button"
+        (click)="onConfirmUpload()"
+        [disabled]="isUploading()"
+        class="px-5 py-2 rounded-xl bg-primary text-on-primary font-label-md text-label-md font-medium hover:bg-primary-container transition-colors disabled:opacity-50 flex items-center gap-2 cursor-pointer shadow-xs">
+        @if (isUploading()) {
+        <span class="material-symbols-outlined animate-spin text-[16px]">progress_activity</span>
+        <span>Uploading…</span>
+        } @else {
+        <span class="material-symbols-outlined text-[18px]">cloud_upload</span>
+        <span>Save Portrait</span>
+        }
+      </button>
+    </div>
+
+  </div>
+</div>
+}

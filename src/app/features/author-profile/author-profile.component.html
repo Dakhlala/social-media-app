@@ -1,0 +1,473 @@
+<div
+  class="bg-surface text-on-surface h-full antialiased font-body-md text-body-md flex selection:bg-primary selection:text-on-primary min-h-screen">
+  <!-- ==================== SIDE NAVIGATION ==================== -->
+  <aside
+    class="fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 border-r border-outline-variant bg-surface z-20 hidden md:block">
+    <div class="h-full flex flex-col justify-between p-space-md">
+      <!-- Top Grouping -->
+      <div class="flex flex-col gap-space-lg">
+        <!-- Brand Header -->
+        <div class="px-2 pt-2">
+          <div class="flex items-center gap-space-sm mb-1">
+            <a routerLink="/home"
+              class="font-headline-md text-headline-md text-primary italic leading-none hover:opacity-90">Gather</a>
+          </div>
+          <p class="font-label-sm text-label-sm text-secondary tracking-normal">The Literary Commons</p>
+        </div>
+        <!-- Primary CTA Button -->
+
+        <!-- Navigation Tab Items -->
+        <nav class="flex flex-col gap-1">
+          <a class="text-secondary flex items-center gap-space-sm px-4 py-3 rounded-lg hover:bg-surface-container-low transition-colors duration-150"
+            routerLink="/home">
+            <span class="material-symbols-outlined">newspaper</span>
+            <span class="font-label-md text-label-md">Feed</span>
+          </a>
+          <a class="text-secondary flex items-center gap-space-sm px-4 py-3 rounded-lg hover:bg-surface-container-low transition-colors duration-150"
+            routerLink="/notifications">
+            <span class="material-symbols-outlined">notifications</span>
+            <span class="font-label-md text-label-md">Notifications</span>
+          </a>
+          <a class="text-secondary flex items-center gap-space-sm px-4 py-3 rounded-lg hover:bg-surface-container-low transition-colors duration-150"
+            routerLink="/archives">
+            <span class="material-symbols-outlined">source</span>
+            <span class="font-label-md text-label-md">Archives</span>
+          </a>
+          <!-- Profile Item (Active) -->
+          <a class="text-primary mb-2 font-bold flex items-center gap-space-sm px-4 py-3 rounded-lg bg-surface-container transition-colors duration-150"
+            routerLink="/author">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+            <span class="font-label-md text-label-md">Profile</span>
+          </a>
+          <a routerLink="/home"
+            class="w-full bg-primary-container text-surface-container-lowest font-label-md text-label-md py-2.5 px-4 rounded-xl flex items-center justify-center gap-space-xs hover:opacity-95 transition-colors duration-150 shadow-none cursor-pointer">
+            <span class="material-symbols-outlined">edit_square</span>
+            <span>New Entry</span>
+          </a>
+        </nav>
+      </div>
+      <!-- Bottom Grouping: Settings & Authenticated Author Pill -->
+      <div class="flex flex-col gap-space-sm border-t border-outline-variant pt-space-md">
+        <a class="text-secondary flex items-center gap-space-sm px-4 py-2.5 rounded-lg hover:bg-surface-container-low transition-colors duration-150"
+          routerLink="/author">
+          <span class="material-symbols-outlined">settings</span>
+          <span class="font-label-md text-label-md">Settings</span>
+        </a>
+        <a routerLink="/author"
+          class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-container-low/60 hover:bg-surface-container transition-colors duration-150 cursor-pointer">
+          <img class="w-8 h-8 rounded-full object-cover border border-outline-variant"
+            [src]="currentUser()?.photo || 'https://pub-3cba56bacf9f4965bbb0989e07dada12.r2.dev/linkedPosts/default-profile.png'"
+            [alt]="currentUser()?.name || 'Author'">
+          <div class="flex flex-col min-w-0 flex-1">
+            <span class="font-label-md text-label-sm text-on-surface truncate">{{ currentUser()?.name || 'Signed In
+              Author' }}</span>
+            <span class="font-label-sm text-[11px] text-secondary truncate">&#64;{{ currentUser()?.username || 'author'
+              }}</span>
+          </div>
+          <span class="material-symbols-outlined text-secondary">more_vert</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==================== MAIN CONTENT CANVAS ==================== -->
+  <div class="flex-1 md:pl-64 flex flex-col min-h-screen pt-16">
+
+    <!-- Main Editorial Viewport -->
+    <main class="w-full max-w-300 mx-auto px-4 md:px-space-xl py-6 md:py-space-lg flex-1">
+      <div class="grid grid-cols-1 gap-8 items-start">
+        <!-- Primary Column: Profile Header + Tabs + Posts Feed -->
+        <div class="space-y-8">
+          <!-- 1. PROFILE HEADER AREA -->
+          <div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden">
+            <!-- Banner / Cover Art -->
+            <div class="relative h-44 md:h-56 w-full overflow-hidden bg-surface-container">
+              <img class="w-full h-full object-cover"
+                [src]="author()?.cover || 'https://lh3.googleusercontent.com/aida-public/AB6AXuD4pwgsN7DQabmDd9WBI02HSfSIE0x8G5WuE_xv1xvD9-JejLIVb1LwHPOrX-ndVqftIQhynRkN1d4VT8RzDxkWjffisXpysonvGx3qyetrhbBwf0acznkQqEMc1UBlW1kJqoNOdga1xniCX8Xh-wstnU6Cs5cv-r3LJYvII1oJRLE4ihPzwEmUwTWPyVArazOifadgepIiXLpT2Xo5LdKIq67RDig-9pvYpkID69irTvybM8fMXWRu0w'"
+                [alt]="(author()?.name || 'Author') + ' Cover Art'">
+              <div class="absolute inset-0 bg-linear-to-t from-on-surface/40 via-transparent to-transparent"></div>
+              <div
+                class="absolute top-4 right-4 bg-surface-container-lowest/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-label-sm text-primary border border-outline-variant/60 flex items-center gap-1.5 shadow-sm">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                <span>{{ isCurrentUser() ? 'Authenticated Fellow Folio' : 'Archival Fellow' }}</span>
+              </div>
+            </div>
+
+            <!-- Profile Identity & Byline Bar -->
+            <div class="px-6 pb-6 pt-0 relative">
+              <div class="flex flex-col sm:flex-row sm:items-end justify-between -mt-12 sm:-mt-14 mb-4 gap-4">
+                <!-- Avatar -->
+                <div class="relative inline-block group">
+                  <img
+                    class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-surface-container-lowest bg-surface-container-low shadow-sm"
+                    [src]="author()?.photo || 'https://pub-3cba56bacf9f4965bbb0989e07dada12.r2.dev/linkedPosts/default-profile.png'"
+                    [alt]="author()?.name || 'Author'">
+
+                  @if (isCurrentUser()) {
+                  <!-- Hover overlay to change portrait -->
+                  <button type="button"
+                    (click)="triggerPhotoInput()"
+                    title="Change profile picture"
+                    class="absolute inset-0 rounded-full bg-black/45 text-white opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center cursor-pointer">
+                    <span class="material-symbols-outlined text-[24px]">photo_camera</span>
+                    <span class="text-[10px] font-label-sm font-medium mt-0.5">Change</span>
+                  </button>
+
+                  <!-- Quick camera action badge -->
+                  <button type="button"
+                    (click)="triggerPhotoInput()"
+                    title="Change profile picture"
+                    class="absolute bottom-0 right-0 bg-primary hover:bg-primary-container text-on-primary rounded-full p-2 border-2 border-surface-container-lowest shadow-md flex items-center justify-center cursor-pointer transition-transform hover:scale-110">
+                    <span class="material-symbols-outlined text-[16px]">photo_camera</span>
+                  </button>
+                  } @else {
+                  <div
+                    class="absolute bottom-1 right-1 bg-primary text-on-primary rounded-full p-1 border-2 border-surface-container-lowest flex items-center justify-center"
+                    title="Verified Contributor">
+                    <span class="material-symbols-outlined text-[14px]"
+                      style="font-variation-settings: 'FILL' 1;">verified</span>
+                  </div>
+                  }
+                  <!-- Universal hidden file input for photo upload -->
+                  <input #photoInput type="file" accept="image/*" class="hidden" (change)="onProfilePhotoSelected($event)">
+                </div>
+
+                <!-- Action Controls -->
+                <div class="flex items-center gap-2.5">
+                  @if (isCurrentUser()) {
+                  <button type="button"
+                    (click)="triggerPhotoInput()"
+                    class="inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-on-primary hover:bg-primary-container font-label-md text-label-md rounded-xl transition-colors duration-150 cursor-pointer shadow-xs">
+                    <span class="material-symbols-outlined text-[18px]">photo_camera</span>
+                    <span>Update Photo</span>
+                  </button>
+                  } @else {
+                  <button (click)="onToggleFollow()" [disabled]="isFollowLoading()"
+                    [class]="isFollowing()
+                        ? 'inline-flex items-center gap-1.5 px-4 py-2 bg-surface-container text-on-surface border border-outline-variant hover:bg-surface-container-high font-label-md text-label-md rounded-xl transition-colors duration-150'
+                        : 'inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-on-primary hover:opacity-90 font-label-md text-label-md rounded-xl transition-colors duration-150 shadow-xs'"
+                    type="button">
+                    <span class="material-symbols-outlined text-[18px]">
+                      {{ isFollowing() ? 'done' : 'person_add' }}
+                    </span>
+                    <span>{{ isFollowing() ? 'Following' : 'Follow Author' }}</span>
+                  </button>
+                  }
+
+                  <button (click)="onShareProfile()" aria-label="Share Folio Link" title="Share Folio Link"
+                    class="inline-flex items-center justify-center p-2 bg-surface-container-lowest border border-outline-variant hover:bg-surface-container-low text-secondary hover:text-on-surface rounded-xl transition-colors duration-150 cursor-pointer"
+                    type="button">
+                    <span class="material-symbols-outlined">share</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Author Meta -->
+              <div class="space-y-3">
+                <div>
+                  <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+                    {{ author()?.name || 'Literary Author' }}
+                  </h1>
+                  <div
+                    class="flex flex-wrap items-center gap-x-3 gap-y-1 mt-0.5 text-secondary font-label-sm text-label-sm">
+                    <span class="font-medium text-on-surface-variant">&#64;{{ author()?.username || 'scholar' }}</span>
+                    @if (author()?.email) {
+                    <span class="text-outline-variant">·</span>
+                    <span class="flex items-center gap-1">
+                      <span class="material-symbols-outlined text-sm">mail</span>
+                      <span>{{ author()?.email }}</span>
+                    </span>
+                    }
+                    <span class="text-outline-variant">·</span>
+                    <span class="flex items-center gap-1">
+                      <span class="material-symbols-outlined text-sm">calendar_month</span>
+                      @if (author()?.createdAt) {
+                      <span>Joined {{ author()?.createdAt | date:'mediumDate' }}</span>
+                      } @else {
+                      <span>Active Fellow (Issue No. 4)</span>
+                      }
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Stats Row -->
+                <div class="flex flex-wrap items-center gap-6 pt-1 text-label-md text-label-sm text-secondary">
+                  <div>
+                    <span class="font-bold text-on-surface text-base">{{ author()?.followersCount || 0 }}</span>
+                    <span class="ml-1 text-secondary">Readers</span>
+                  </div>
+                  <div>
+                    <span class="font-bold text-on-surface text-base">{{ author()?.followingCount || 0 }}</span>
+                    <span class="ml-1 text-secondary">Following</span>
+                  </div>
+                  <div>
+                    <span class="font-bold text-on-surface text-base">{{ totalPosts() }}</span>
+                    <span class="ml-1 text-secondary">Dispatches</span>
+                  </div>
+                </div>
+
+                <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+                  {{ author()?.bio || 'Cataloging architectural monographs, typographic histories, and Scandinavian
+                  library archives.' }}
+                </p>
+
+                <div class="flex flex-wrap gap-2 pt-1">
+                  <span
+                    class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-label-sm bg-surface-container text-primary">
+                    #ViipuriMonographs
+                  </span>
+                  <span
+                    class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-label-sm bg-surface-container text-primary">
+                    #NordicTypographics
+                  </span>
+                  <span
+                    class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-label-sm bg-surface-container text-primary">
+                    #BookBindingHistories
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. PROFILE NAVIGATION TABS -->
+            <div class="border-t border-outline-variant px-6 flex items-center gap-6 bg-surface-container-low/40">
+              <button (click)="setActiveTab('dispatches')" type="button" [class]="activeTab() === 'dispatches'
+                  ? 'py-3 text-sm font-label-md font-semibold text-primary border-b-2 border-primary transition-colors'
+                  : 'py-3 text-sm font-label-md font-medium text-secondary hover:text-on-surface transition-colors'">
+                Dispatches ({{ totalPosts() }})
+              </button>
+              <button (click)="setActiveTab('plates')" type="button" [class]="activeTab() === 'plates'
+                  ? 'py-3 text-sm font-label-md font-semibold text-primary border-b-2 border-primary transition-colors'
+                  : 'py-3 text-sm font-label-md font-medium text-secondary hover:text-on-surface transition-colors'">
+                Plates &amp; Folios ({{ totalPlates() }})
+              </button>
+            </div>
+          </div>
+
+          <!-- 3. AUTHOR'S POSTS FEED -->
+          <div class="space-y-6">
+            <!-- Loading Skeleton State -->
+            @if (isPostsLoading()) {
+            <div class="space-y-4">
+              @for (item of [1, 2]; track item) {
+              <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 animate-pulse">
+                <div class="flex items-center gap-3 mb-4">
+                  <div class="w-10 h-10 rounded-full bg-surface-container-high"></div>
+                  <div class="space-y-1.5 flex-1">
+                    <div class="w-32 h-4 bg-surface-container-high rounded"></div>
+                    <div class="w-20 h-3 bg-surface-container rounded"></div>
+                  </div>
+                </div>
+                <div class="space-y-2 mb-4">
+                  <div class="w-full h-4 bg-surface-container-high rounded"></div>
+                  <div class="w-4/5 h-4 bg-surface-container rounded"></div>
+                </div>
+                <div class="w-full h-48 bg-surface-container rounded-lg"></div>
+              </div>
+              }
+            </div>
+            } @else if (displayedPosts().length === 0) {
+            <!-- Empty State -->
+            <div
+              class="bg-surface-container-lowest rounded-xl border border-outline-variant p-10 text-center space-y-3">
+              <span class="material-symbols-outlined text-4xl text-secondary">article</span>
+              <h3 class="font-headline-sm text-headline-sm text-on-surface">No Dispatches Recorded</h3>
+              <p class="font-body-md text-body-md text-secondary max-w-md mx-auto">
+                @if (activeTab() === 'plates') {
+                No plates or folio media have been attached to this author's published dispatches.
+                } @else {
+                This author has not published any literary dispatches or monographs yet.
+                }
+              </p>
+            </div>
+            } @else {
+            <!-- Dynamic Posts List -->
+            @for (post of displayedPosts(); track post._id) {
+            <article
+              class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 transition-all duration-150">
+              <!-- Header -->
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-3">
+                  <a [routerLink]="['/author', post.user._id]">
+                    <img
+                      class="w-9 h-9 rounded-full object-cover border border-outline-variant hover:opacity-90 transition-opacity cursor-pointer"
+                      [src]="post.user.photo || author()?.photo || 'https://pub-3cba56bacf9f4965bbb0989e07dada12.r2.dev/linkedPosts/default-profile.png'"
+                      [alt]="post.user.name || author()?.name || 'Author'">
+                  </a>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <a [routerLink]="['/author', post.user._id]"
+                        class="hover:text-primary transition-colors cursor-pointer">
+                        <span class="font-label-md text-label-md text-on-surface font-semibold hover:text-primary">
+                          {{ post.user.name || author()?.name || 'Author' }}
+                        </span>
+                      </a>
+                      <span class="text-xs text-secondary font-body-sm">
+                        · {{ post.createdAt | date:'mediumDate' }}
+                      </span>
+                    </div>
+                    <a [routerLink]="['/author', post.user._id]"
+                      class="hover:text-primary transition-colors cursor-pointer">
+                      <span class="text-xs text-primary font-label-sm">
+                        &#64;{{ post.user.username || author()?.username || 'scholar' }}
+                      </span>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-1">
+                  <!-- Post Action Menu -->
+                  <div class="relative">
+                    <button aria-label="Post actions"
+                      class="p-1.5 text-secondary hover:text-on-surface rounded-lg hover:bg-surface-container-low transition-colors duration-150 cursor-pointer"
+                      type="button"
+                      (click)="togglePostMenu(post._id, $event)">
+                      <span class="material-symbols-outlined text-[20px]">more_horiz</span>
+                    </button>
+
+                    @if (activeMenuPostId() === post._id) {
+                    <div class="absolute right-0 top-full mt-1 w-48 bg-surface-container-lowest rounded-xl border border-outline-variant/60 shadow-xl py-1.5 z-30 animate-in fade-in zoom-in-95 duration-150"
+                      (click)="$event.stopPropagation()">
+                      @if (isMyPost(post)) {
+                      <button type="button"
+                        (click)="openEditPost(post)"
+                        class="w-full text-left px-3.5 py-2 text-label-md font-label-md text-on-surface hover:bg-surface-container flex items-center gap-2.5 transition-colors cursor-pointer">
+                        <span class="material-symbols-outlined text-[18px] text-primary">edit</span>
+                        <span>Edit Dispatch</span>
+                      </button>
+                      <button type="button"
+                        (click)="promptDeletePost(post)"
+                        class="w-full text-left px-3.5 py-2 text-label-md font-label-md text-error hover:bg-error-container/30 flex items-center gap-2.5 transition-colors cursor-pointer">
+                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                        <span>Delete Dispatch</span>
+                      </button>
+                      <div class="h-px bg-outline-variant/40 my-1"></div>
+                      }
+                      <button type="button"
+                        (click)="onCopyPostLink(post._id)"
+                        class="w-full text-left px-3.5 py-2 text-label-md font-label-md text-secondary hover:text-on-surface hover:bg-surface-container flex items-center gap-2.5 transition-colors cursor-pointer">
+                        <span class="material-symbols-outlined text-[18px]">link</span>
+                        <span>Copy Link</span>
+                      </button>
+                    </div>
+                    }
+                  </div>
+
+                  <!-- Post Detail Link Action -->
+                  <a [routerLink]="['/post-detail']" [queryParams]="{ id: post._id }"
+                    class="p-1.5 text-secondary hover:text-on-surface rounded-lg hover:bg-surface-container-low transition-colors duration-150"
+                    title="Open Dispatch Folio">
+                    <span class="material-symbols-outlined text-[20px]">open_in_new</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Post Content -->
+              <div class="space-y-3 mb-4">
+                <a [routerLink]="['/post-detail']" [queryParams]="{ id: post._id }" class="block group">
+                  <p
+                    class="font-body-md text-body-md text-on-surface leading-relaxed group-hover:text-primary transition-colors">
+                    {{ post.body }}
+                  </p>
+                </a>
+              </div>
+
+              <!-- Post Image (if present) -->
+              @if (post.image) {
+              <div class="rounded-lg overflow-hidden border border-outline-variant mb-4 bg-surface-container">
+                <img class="w-full h-72 md:h-96 object-cover" [src]="post.image" alt="Dispatch Folio Image">
+                <div
+                  class="px-4 py-2 bg-surface-container-low/70 border-t border-outline-variant flex items-center justify-between text-xs text-secondary font-label-sm">
+                  <span>Folio Plate Attachment</span>
+                  <a [routerLink]="['/post-detail']" [queryParams]="{ id: post._id }"
+                    class="flex items-center gap-1 text-primary hover:underline">
+                    <span class="material-symbols-outlined text-[14px]">zoom_in</span>
+                    <span>Examine Full Monograph</span>
+                  </a>
+                </div>
+              </div>
+              }
+
+              <!-- Actions Bar -->
+              <div class="pt-3 border-t border-outline-variant/60 flex items-center justify-between text-secondary">
+                <div class="flex items-center gap-6">
+                  <!-- Like Button -->
+                  <button (click)="onToggleLike(post)"
+                    [class]="post.isLikedByMe
+                          ? 'flex items-center gap-1.5 text-primary font-semibold font-label-sm text-label-sm transition-colors cursor-pointer'
+                          : 'flex items-center gap-1.5 text-secondary hover:text-primary transition-colors font-label-sm text-label-sm cursor-pointer'"
+                    type="button" title="Appreciate dispatch">
+                    <span class="material-symbols-outlined text-[18px]"
+                      [style.font-variation-settings]="post.isLikedByMe ? '\'FILL\' 1' : '\'FILL\' 0'">
+                      favorite
+                    </span>
+                    <span>{{ post.likesCount || 0 }}</span>
+                  </button>
+
+                  <!-- Comment Button -->
+                  <a [routerLink]="['/post-detail']" [queryParams]="{ id: post._id }"
+                    class="flex items-center gap-1.5 text-secondary hover:text-primary transition-colors font-label-sm text-label-sm cursor-pointer"
+                    title="View conversation and scholarly annotations">
+                    <span class="material-symbols-outlined text-[18px]">chat_bubble</span>
+                    <span>{{ post.commentsCount || 0 }} comments</span>
+                  </a>
+
+                  <!-- Bookmark Button -->
+                  <button (click)="onToggleBookmark(post)"
+                    [class]="post.bookmarked
+                          ? 'flex items-center gap-1.5 text-primary font-semibold font-label-sm text-label-sm transition-colors cursor-pointer'
+                          : 'flex items-center gap-1.5 text-secondary hover:text-primary transition-colors font-label-sm text-label-sm cursor-pointer'"
+                    type="button" title="Preserve to Archives">
+                    <span class="material-symbols-outlined text-[18px]"
+                      [style.font-variation-settings]="post.bookmarked ? '\'FILL\' 1' : '\'FILL\' 0'">
+                      bookmark
+                    </span>
+                    <span>{{ post.bookmarked ? 'Saved' : 'Save' }}</span>
+                  </button>
+                </div>
+
+                <a [routerLink]="['/post-detail']" [queryParams]="{ id: post._id }"
+                  class="font-label-sm text-xs text-primary hover:underline flex items-center gap-1">
+                  <span>Read Dispatch</span>
+                  <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </a>
+              </div>
+            </article>
+            }
+            }
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Edit Post Modal -->
+  <app-edit-post-modal
+    [isOpen]="isEditModalOpen()"
+    [post]="editingPost()"
+    (close)="closeEditPost()"
+    (saved)="onPostUpdated($event)">
+  </app-edit-post-modal>
+
+  <!-- Delete Post Confirmation Modal -->
+  <app-confirm-modal
+    [isOpen]="isDeleteModalOpen()"
+    [isLoading]="isDeleting()"
+    title="Delete Dispatch?"
+    message="Are you sure you want to permanently delete this dispatch? This will remove it from your folio and cannot be undone."
+    confirmText="Delete Dispatch"
+    [isDestructive]="true"
+    (confirm)="confirmDeletePost()"
+    (cancel)="closeDeletePost()">
+  </app-confirm-modal>
+
+  <!-- Update Profile Photo Modal -->
+  <app-update-photo-modal
+    [isOpen]="isPhotoModalOpen()"
+    [imageFile]="selectedPhotoFile()"
+    [previewUrl]="photoPreviewUrl()"
+    [currentPhotoUrl]="author()?.photo || currentUser()?.photo || null"
+    [userName]="author()?.name || currentUser()?.name || 'Author'"
+    (cancel)="closePhotoModal()"
+    (uploaded)="onPhotoUploaded($event)">
+  </app-update-photo-modal>
+</div>

@@ -1,0 +1,295 @@
+<div
+  class="bg-[#F7F7F2] text-[#202925] min-h-screen antialiased flex justify-center selection:bg-secondary-fixed selection:text-primary">
+
+
+  <!-- ==================== MAIN PAGE CONTAINER WITH PERSISTENT SIDEBAR ==================== -->
+  <div class="w-full max-w-7xl pt-16 flex justify-between">
+    <!-- LEFT SIDEBAR -->
+    <aside
+      class="fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-[#F7F7F2] border-r border-outline-variant/60 hidden lg:flex flex-col justify-between p-4 z-20">
+      <div class="flex flex-col gap-4">
+        <div class="px-2 pt-2 pb-1">
+          <h1 class="font-serif text-2xl text-primary italic leading-none">Gather</h1>
+          <p class="text-xs text-secondary tracking-wide mt-1">The Literary Commons</p>
+        </div>
+        <!-- Navigation Tabs: Archives is highlighted in subnav -->
+        <nav aria-label="Main Navigation" class="flex flex-col gap-1 mt-2">
+          <!-- Feed -->
+          <a routerLink="/home"
+            class="text-secondary flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors duration-150">
+            <span class="material-symbols-outlined">newspaper</span>
+            <span class="text-sm font-medium">Feed</span>
+          </a>
+          <!-- Notifications -->
+          <a routerLink="/notifications"
+            class="text-secondary flex items-center justify-between px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors duration-150">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined">notifications</span>
+              <span class="text-sm font-medium">Notifications</span>
+            </div>
+          </a>
+          <!-- Archives (Active in Left Menu) -->
+          <a routerLink="/archives"
+            class="text-primary font-bold flex items-center gap-3 px-4 py-3 rounded-xl bg-surface-container transition-colors duration-150">
+            <span class="material-symbols-outlined text-primary"
+              style="font-variation-settings: 'FILL' 1;">source</span>
+            <span class="text-sm">Archives</span>
+          </a>
+          <!-- Profile -->
+          <a routerLink="/author"
+            class="text-secondary flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors duration-150">
+            <span class="material-symbols-outlined">account_circle</span>
+            <span class="text-sm font-medium">Profile</span>
+          </a>
+        </nav>
+        <!-- CTA: New Entry -->
+        <div class="pt-2">
+          <button routerLink="/home"
+            class="w-full flex items-center justify-center gap-2 bg-primary-container text-white text-sm font-medium px-4 py-2.5 rounded-xl hover:bg-primary transition-colors duration-150 cursor-pointer shadow-sm"
+            type="button">
+            <span class="material-symbols-outlined text-[18px]">edit_square</span>
+            <span>New Entry</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Footer & User Profile Preview -->
+      <div class="flex flex-col gap-2 pt-4 border-t border-outline-variant/40">
+        <div class="flex items-center gap-3 p-2 rounded-xl bg-white border border-outline-variant/30">
+          <a routerLink="/author">
+            <img [alt]="currentUser()?.name || 'Author profile photo'"
+              class="w-9 h-9 rounded-full object-cover border border-outline-variant/50"
+              [src]="currentUser()?.photo || 'https://pub-3cba56bacf9f4965bbb0989e07dada12.r2.dev/linkedPosts/default-profile.png'" />
+          </a>
+          <div class="flex flex-col min-w-0 flex-1">
+            <span class="text-sm font-semibold text-[#151d1a] truncate">
+              {{ currentUser()?.name || 'Julian Croft' }}
+            </span>
+            <span class="text-xs text-secondary truncate">
+              &#64;{{ currentUser()?.username || 'jcroft_press' }}
+            </span>
+          </div>
+          <button aria-label="Profile options" class="text-secondary hover:text-[#151d1a] p-1 rounded-lg cursor-pointer"
+            type="button">
+            <span class="material-symbols-outlined text-[18px]">more_vert</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CENTER & RIGHT LAYOUT -->
+    <div class="flex-1 lg:ml-64 px-4 sm:px-8 py-8 max-w-6xl mx-auto grid grid-cols-1  gap-8">
+      <!-- CENTER STREAM: ARCHIVAL REPOSITORY (8 cols) -->
+      <main class="lg:col-span-8 flex flex-col gap-6">
+        <!-- Page Title Block -->
+        <div class="border-b border-outline-variant/60 pb-6">
+          <div class="flex items-center gap-2 text-secondary text-xs mb-1.5 font-medium">
+            <span>Repository</span>
+            <span class="text-outline-variant">/</span>
+            <span>Open Ledger Preservation</span>
+            <span
+              class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container text-primary font-semibold text-[11px]">
+              Vol. XIV
+            </span>
+          </div>
+          <h1 class="font-serif text-3xl sm:text-4xl text-[#151d1a] tracking-tight">Archival Repository</h1>
+          <p class="font-serif text-sm sm:text-base text-secondary mt-2 max-w-2xl leading-relaxed">
+            Permanent records, peer annotations, and curated plates preserved in accordance with the Slow-Web Charter.
+            Every citation is pinned indefinitely on decentralized ledger storage.
+          </p>
+        </div>
+
+
+        <!-- LOADING SKELETON -->
+        @if (isLoading()) {
+        <div class="flex flex-col gap-6 animate-pulse">
+          <div class="w-full h-64 bg-white rounded-xl border border-outline-variant/40 p-6 flex flex-col md:flex-row gap-6">
+            <div class="md:w-5/12 h-44 bg-surface-container rounded-lg"></div>
+            <div class="md:w-7/12 flex flex-col gap-3">
+              <div class="w-1/3 h-4 bg-surface-container rounded"></div>
+              <div class="w-3/4 h-6 bg-surface-container rounded"></div>
+              <div class="w-full h-16 bg-surface-container rounded"></div>
+            </div>
+          </div>
+          <div class="w-full h-32 bg-white rounded-xl border border-outline-variant/40"></div>
+        </div>
+        } @else {
+        <!-- FEATURED ARCHIVAL COLLECTION BANNER (Asymmetric Bento Card) -->
+        @if (featuredItem(); as featured) {
+        <article class="bg-white border border-outline-variant/60 rounded-xl overflow-hidden p-6 relative shadow-xs">
+          <div class="flex flex-col md:flex-row gap-6">
+            <!-- Plate Thumbnail -->
+            <div
+              class="md:w-5/12 shrink-0 relative rounded-lg overflow-hidden border border-outline-variant/60 bg-surface-container-low min-h-50">
+              <img
+                [src]="featured.image || 'https://lh3.googleusercontent.com/aida-public/AB6AXuAx3WY_2Q2bguaTMHlNQVOtqV1RlRFhyt8dIyQ2ajC-0ymRnujX0unRddnCcBi1au7KtCwHcSWYeN2W_4V499r-85J9DkhDOVHPwduqxrCJAbAXjyGbXSAdG3-Nrr6mDSUB5fUstKeCaz90Tjsr5ahlGRBx6AdhjkrK4U7wgULKOB9Bbfs7Od0TtQsw9H0m_ii7aeLnDK2bui36LKHh1nlJsIFFfV1qjA6Z7QtqnB1iZUM8UdiDLnB3Ig'"
+                [alt]="featured.title" class="w-full h-full object-cover" />
+              <div
+                class="absolute top-2 left-2 px-2 py-0.5 bg-white/90 backdrop-blur-sm rounded text-[11px] font-semibold text-primary border border-outline-variant/60 shadow-xs">
+                Featured Plate 01
+              </div>
+            </div>
+
+            <!-- Content Description -->
+            <div class="md:w-7/12 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-2 text-secondary text-xs mb-1.5">
+                  <span class="material-symbols-outlined text-sm text-primary">verified</span>
+                  <span class="text-primary font-semibold">{{ featured.authorMeta || 'Curated Collection' }}</span>
+                  <span>•</span>
+                  <span>{{ featured.commentsCount }} Peer Annotations</span>
+                </div>
+                <h2 [routerLink]="['/post-detail']" [queryParams]="{ id: featured._id }"
+                  class="font-serif text-2xl text-[#151d1a] hover:text-primary transition-colors cursor-pointer leading-snug">
+                  {{ featured.title }}
+                </h2>
+                <p class="font-serif text-sm text-secondary mt-2 line-clamp-3 leading-relaxed">
+                  {{ featured.body }}
+                </p>
+              </div>
+
+              <div class="pt-4 mt-4 border-t border-outline-variant/40 flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-3 text-secondary text-xs">
+                  <span class="flex items-center gap-1">
+                    <span class="material-symbols-outlined text-sm">folder_zip</span>
+                    Preserved Record
+                  </span>
+                  <span class="text-outline-variant">•</span>
+                  <span class="font-mono text-xs text-primary">{{ featured.doi || 'doi:10.8412/gthr.arch' }}</span>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <button (click)="onRemoveBookmark(featured, $event)" title="Remove from Archives"
+                    class="p-1.5 text-secondary hover:text-primary rounded-lg border border-outline-variant/50 hover:bg-surface-container transition-colors cursor-pointer"
+                    type="button">
+                    <span class="material-symbols-outlined text-[18px]">bookmark_remove</span>
+                  </button>
+                  <a [routerLink]="['/post-detail']" [queryParams]="{ id: featured._id }"
+                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container text-primary text-xs font-semibold hover:bg-surface-container-high transition-colors">
+                    <span>Inspect Archive</span>
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+        }
+
+        <!-- PRESERVED ENTRIES GRID / LIST -->
+        <div class="flex flex-col divide-y divide-outline-variant/60 border-y border-outline-variant/60">
+          @for (item of regularItems(); track item._id) {
+          <article class="py-6 flex flex-col gap-4">
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+              <div class="flex items-center gap-3">
+                @if (item.authorPhoto) {
+                <img [src]="item.authorPhoto" [alt]="item.authorName"
+                  class="w-8 h-8 rounded-full object-cover border border-outline-variant" />
+                } @else {
+                <div
+                  class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-primary font-semibold text-xs border border-outline-variant">
+                  {{ item.authorName.slice(0, 2).toUpperCase() }}
+                </div>
+                }
+                <div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <span class="font-semibold text-[#151d1a]">{{ item.authorName }}</span>
+                    <span class="text-secondary text-xs">•</span>
+                    <span class="text-xs text-secondary">{{ item.authorMeta || '@' + item.authorUsername }}</span>
+                  </div>
+                  <p class="text-xs text-secondary">
+                    Archival ID: {{ item.archivalId }} • Preserved {{ item.preservedDate | date: 'mediumDate' }}
+                  </p>
+                </div>
+              </div>
+
+              <!-- Citations Badge -->
+              <div class="flex items-center gap-2 self-start">
+                <span
+                  class="px-2 py-0.5 rounded bg-surface-container-low border border-outline-variant/60 text-secondary text-xs font-semibold flex items-center gap-1">
+                  <span class="material-symbols-outlined text-xs text-primary">format_quote</span>
+                  {{ item.citationsCount }} citations
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <h3 [routerLink]="['/post-detail']" [queryParams]="{ id: item._id }"
+                class="font-serif text-xl text-[#151d1a] hover:text-primary transition-colors cursor-pointer leading-snug">
+                {{ item.title }}
+              </h3>
+              <p class="font-serif text-sm text-secondary mt-1 leading-relaxed">
+                {{ item.body }}
+              </p>
+            </div>
+
+            <!-- Editorial Blockquote element -->
+            @if (item.quote) {
+            <blockquote
+              class="border-l-2 border-primary pl-4 py-1 italic font-serif text-sm text-[#33443c] leading-relaxed">
+              "{{ item.quote }}"
+            </blockquote>
+            }
+
+            <!-- Metadata & Actions -->
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                @for (tag of item.tags; track tag) {
+                <span class="px-2 py-0.5 rounded bg-surface-container text-primary text-xs font-medium">
+                  {{ tag }}
+                </span>
+                }
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button (click)="onCopyBibtex(item, $event)"
+                  class="px-2.5 py-1 text-secondary hover:text-primary text-xs transition-colors flex items-center gap-1 cursor-pointer font-medium"
+                  type="button">
+                  <span class="material-symbols-outlined text-sm">file_download</span>
+                  <span>BibTeX</span>
+                </button>
+
+                <button (click)="onRemoveBookmark(item, $event)" title="Remove from Archives"
+                  class="px-2.5 py-1 text-secondary hover:text-red-700 text-xs transition-colors flex items-center gap-1 cursor-pointer font-medium"
+                  type="button">
+                  <span class="material-symbols-outlined text-sm">bookmark_remove</span>
+                  <span>Unarchive</span>
+                </button>
+
+                <a [routerLink]="['/post-detail']" [queryParams]="{ id: item._id }"
+                  class="px-3 py-1 rounded bg-primary-container text-white hover:bg-primary text-xs font-semibold transition-colors">
+                  <span>Read Monograph</span>
+                </a>
+              </div>
+            </div>
+          </article>
+          }
+
+          @if (filteredItems().length === 0) {
+          <div class="py-12 text-center flex flex-col items-center gap-3">
+            <span class="material-symbols-outlined text-4xl text-secondary">inventory_2</span>
+            <h4 class="font-serif text-xl text-[#151d1a]">No records found in this era</h4>
+            <p class="text-xs text-secondary max-w-sm">
+              Try switching category filters or adjust your preservation medium checkboxes.
+            </p>
+            <button (click)="switchTab('all')"
+              class="mt-2 text-xs font-semibold text-primary px-4 py-1.5 rounded-lg bg-surface-container" type="button">
+              View All Eras
+            </button>
+          </div>
+          }
+        </div>
+        }
+
+        <!-- Pagination & Ledger Notice -->
+        <div class="pt-4 pb-8 flex flex-col items-center justify-center gap-2 text-center">
+          <span class="text-xs text-secondary">
+            Showing {{ filteredItems().length }} of {{ items().length }} preserved records in accordance with the
+            Slow-Web Charter
+          </span>
+        </div>
+      </main>
+
+    </div>
+  </div>
+</div>
