@@ -4,6 +4,7 @@ import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/
 
 import { routes } from './app.routes';
 import { errorInterceptor } from './core/interceptors/error-interceptor';
+import { authInterceptorInterceptor } from './core/interceptors/auth-interceptor-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,6 +13,6 @@ export const appConfig: ApplicationConfig = {
       scrollPositionRestoration: 'enabled',
       anchorScrolling: 'enabled',
     })),
-    provideHttpClient(withFetch(), withInterceptors([errorInterceptor]))
+    provideHttpClient(withFetch(), withInterceptors([errorInterceptor, authInterceptorInterceptor]))
   ]
 };

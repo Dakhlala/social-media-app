@@ -11,29 +11,17 @@ import { PostsResponseData, Post, PostComment, CommentsResponseData } from '../m
 export class PostsService {
   private readonly httpClient = inject(HttpClient);
 
-  private get authHeaders(): { headers: { [header: string]: string } } {
-    const token = localStorage.getItem('userToken') || '';
-    return {
-      headers: {
-        token: token,
-        AUTHORIZATION: `Bearer ${token}`,
-      },
-    };
-  }
-
   // Get all community posts with pagination
   getAllPosts(page: number = 1, limit: number = 10): Observable<ApiResponse<PostsResponseData>> {
     return this.httpClient.get<ApiResponse<PostsResponseData>>(
-      `${environment.baseUrl}/posts?page=${page}&limit=${limit}`,
-      this.authHeaders
+      `${environment.baseUrl}/posts?page=${page}&limit=${limit}`
     );
   }
 
   // Get following posts with pagination
   getHomeFeed(page: number = 1, limit: number = 10): Observable<ApiResponse<PostsResponseData>> {
     return this.httpClient.get<ApiResponse<PostsResponseData>>(
-      `${environment.baseUrl}/posts/feed?only=following&page=${page}&limit=${limit}`,
-      this.authHeaders
+      `${environment.baseUrl}/posts/feed?only=following&page=${page}&limit=${limit}`
     );
   }
 
@@ -41,8 +29,7 @@ export class PostsService {
   createPost(data: FormData | object): Observable<ApiResponse<{ post: Post }>> {
     return this.httpClient.post<ApiResponse<{ post: Post }>>(
       `${environment.baseUrl}/posts`,
-      data,
-      this.authHeaders
+      data
     );
   }
 
@@ -50,8 +37,7 @@ export class PostsService {
   toggleLike(postId: string): Observable<ApiResponse<any>> {
     return this.httpClient.put<ApiResponse<any>>(
       `${environment.baseUrl}/posts/${postId}/like`,
-      {},
-      this.authHeaders
+      {}
     );
   }
 
@@ -59,16 +45,14 @@ export class PostsService {
   toggleBookmark(postId: string): Observable<ApiResponse<any>> {
     return this.httpClient.put<ApiResponse<any>>(
       `${environment.baseUrl}/posts/${postId}/bookmark`,
-      {},
-      this.authHeaders
+      {}
     );
   }
 
   // Get single post by ID
   getSinglePost(postId: string): Observable<ApiResponse<{ post: Post }>> {
     return this.httpClient.get<ApiResponse<{ post: Post }>>(
-      `${environment.baseUrl}/posts/${postId}`,
-      this.authHeaders
+      `${environment.baseUrl}/posts/${postId}`
     );
   }
 
@@ -76,24 +60,21 @@ export class PostsService {
   updatePost(postId: string, data: FormData | object): Observable<ApiResponse<{ post: Post }>> {
     return this.httpClient.put<ApiResponse<{ post: Post }>>(
       `${environment.baseUrl}/posts/${postId}`,
-      data,
-      this.authHeaders
+      data
     );
   }
 
   // Delete a post
   deletePost(postId: string): Observable<ApiResponse<any>> {
     return this.httpClient.delete<ApiResponse<any>>(
-      `${environment.baseUrl}/posts/${postId}`,
-      this.authHeaders
+      `${environment.baseUrl}/posts/${postId}`
     );
   }
 
   // Get comments for a post
   getPostComments(postId: string, page: number = 1, limit: number = 20): Observable<ApiResponse<CommentsResponseData>> {
     return this.httpClient.get<ApiResponse<CommentsResponseData>>(
-      `${environment.baseUrl}/posts/${postId}/comments?page=${page}&limit=${limit}`,
-      this.authHeaders
+      `${environment.baseUrl}/posts/${postId}/comments?page=${page}&limit=${limit}`
     );
   }
 
@@ -101,16 +82,14 @@ export class PostsService {
   createComment(postId: string, data: { content: string } | FormData): Observable<ApiResponse<{ comment: PostComment }>> {
     return this.httpClient.post<ApiResponse<{ comment: PostComment }>>(
       `${environment.baseUrl}/posts/${postId}/comments`,
-      data,
-      this.authHeaders
+      data
     );
   }
 
   // Delete a comment
   deleteComment(commentId: string): Observable<ApiResponse<any>> {
     return this.httpClient.delete<ApiResponse<any>>(
-      `${environment.baseUrl}/posts/comments/${commentId}`,
-      this.authHeaders
+      `${environment.baseUrl}/posts/comments/${commentId}`
     );
   }
 
@@ -118,8 +97,7 @@ export class PostsService {
   toggleLikeComment(commentId: string): Observable<ApiResponse<any>> {
     return this.httpClient.put<ApiResponse<any>>(
       `${environment.baseUrl}/posts/comments/${commentId}/like`,
-      {},
-      this.authHeaders
+      {}
     );
   }
 }

@@ -11,16 +11,6 @@ import { NotificationItem, NotificationsResponseData } from '../models/notificat
 export class NotificationsService {
   private readonly httpClient = inject(HttpClient);
 
-  private get authHeaders(): { headers: { [header: string]: string } } {
-    const token = localStorage.getItem('userToken') || '';
-    return {
-      headers: {
-        token: token,
-        AUTHORIZATION: `Bearer ${token}`,
-      },
-    };
-  }
-
   // Get notifications list with optional unread filter and pagination
   getNotifications(
     unread: boolean = false,
@@ -28,16 +18,14 @@ export class NotificationsService {
     limit: number = 10
   ): Observable<ApiResponse<NotificationsResponseData | NotificationItem[]>> {
     return this.httpClient.get<ApiResponse<NotificationsResponseData | NotificationItem[]>>(
-      `${environment.baseUrl}/notifications?unread=${unread}&page=${page}&limit=${limit}`,
-      this.authHeaders
+      `${environment.baseUrl}/notifications?unread=${unread}&page=${page}&limit=${limit}`
     );
   }
 
   // Get unread notification count
   getUnreadCount(): Observable<ApiResponse<{ unreadCount: number }>> {
     return this.httpClient.get<ApiResponse<{ unreadCount: number }>>(
-      `${environment.baseUrl}/notifications/unread-count`,
-      this.authHeaders
+      `${environment.baseUrl}/notifications/unread-count`
     );
   }
 
@@ -45,8 +33,7 @@ export class NotificationsService {
   markAsRead(notificationId: string): Observable<ApiResponse<any>> {
     return this.httpClient.patch<ApiResponse<any>>(
       `${environment.baseUrl}/notifications/${notificationId}/read`,
-      {},
-      this.authHeaders
+      {}
     );
   }
 
@@ -54,8 +41,7 @@ export class NotificationsService {
   markAllAsRead(): Observable<ApiResponse<any>> {
     return this.httpClient.patch<ApiResponse<any>>(
       `${environment.baseUrl}/notifications/read-all`,
-      {},
-      this.authHeaders
+      {}
     );
   }
 }

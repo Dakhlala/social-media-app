@@ -29,21 +29,10 @@ export class UsersService {
     } catch {}
   }
 
-  private get authHeaders(): { headers: { [header: string]: string } } {
-    const token = localStorage.getItem('userToken') || '';
-    return {
-      headers: {
-        token: token,
-        AUTHORIZATION: `Bearer ${token}`,
-      },
-    };
-  }
-
   // Get author follow suggestions
   getSuggestions(limit: number = 5): Observable<ApiResponse<SuggestionsResponseData>> {
     return this.httpClient.get<ApiResponse<SuggestionsResponseData>>(
-      `${environment.baseUrl}/users/suggestions?limit=${limit}`,
-      this.authHeaders
+      `${environment.baseUrl}/users/suggestions?limit=${limit}`
     );
   }
 
@@ -51,8 +40,7 @@ export class UsersService {
   toggleFollow(userId: string): Observable<ApiResponse<any>> {
     return this.httpClient.put<ApiResponse<any>>(
       `${environment.baseUrl}/users/${userId}/follow`,
-      {},
-      this.authHeaders
+      {}
     );
   }
 
@@ -60,8 +48,7 @@ export class UsersService {
   getMyProfile(): Observable<ApiResponse<{ user: User }>> {
     return this.httpClient
       .get<ApiResponse<{ user: User }>>(
-        `${environment.baseUrl}/users/profile-data`,
-        this.authHeaders
+        `${environment.baseUrl}/users/profile-data`
       )
       .pipe(
         tap((res) => {
@@ -76,24 +63,21 @@ export class UsersService {
   // Get specific author profile by ID
   getUserProfile(userId: string): Observable<ApiResponse<{ user: User }>> {
     return this.httpClient.get<ApiResponse<{ user: User }>>(
-      `${environment.baseUrl}/users/${userId}/profile`,
-      this.authHeaders
+      `${environment.baseUrl}/users/${userId}/profile`
     );
   }
 
   // Get specific author's posts by ID
   getUserPosts(userId: string, page: number = 1, limit: number = 20): Observable<ApiResponse<PostsResponseData>> {
     return this.httpClient.get<ApiResponse<PostsResponseData>>(
-      `${environment.baseUrl}/users/${userId}/posts?page=${page}&limit=${limit}`,
-      this.authHeaders
+      `${environment.baseUrl}/users/${userId}/posts?page=${page}&limit=${limit}`
     );
   }
 
   // Get current user bookmarked posts (Preserved Archives)
   getBookmarks(): Observable<ApiResponse<any>> {
     return this.httpClient.get<ApiResponse<any>>(
-      `${environment.baseUrl}/users/bookmarks`,
-      this.authHeaders
+      `${environment.baseUrl}/users/bookmarks`
     );
   }
 
@@ -104,8 +88,7 @@ export class UsersService {
     return this.httpClient
       .put<ApiResponse<{ photo: string }>>(
         `${environment.baseUrl}/users/upload-photo`,
-        formData,
-        this.authHeaders
+        formData
       )
       .pipe(
         tap((res) => {
