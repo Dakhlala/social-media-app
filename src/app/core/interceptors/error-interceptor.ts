@@ -3,9 +3,11 @@ import { inject } from '@angular/core';
 import { ToastService } from '../services/toast-service';
 import { catchError, throwError } from 'rxjs';
 import { ApiErrorResponse } from '../models/api.models';
+import { Router } from '@angular/router';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const toastService = inject(ToastService);
+  const router = inject(Router)
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
@@ -29,6 +31,10 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           title = 'Validation Error';
         } else if (error.status === 401) {
           title = 'Authentication Failed';
+          localStorage.removeItem('userToken');
+          localStorage.removeItem('user');
+          router.navigate(['/sign-in'])
+
         } else if (error.status === 403) {
           title = 'Access Forbidden';
         } else if (error.status === 404) {
