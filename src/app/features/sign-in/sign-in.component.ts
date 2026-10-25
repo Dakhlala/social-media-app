@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -11,7 +11,7 @@ import { ToastService } from '../../core/services/toast-service';
   templateUrl: './sign-in.component.html',
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit, OnDestroy {
   private readonly router = inject(Router);
   private readonly auth = inject(Auth);
   private readonly toastService = inject(ToastService);
@@ -19,6 +19,38 @@ export class SignInComponent {
   readonly isLoading = signal<boolean>(false);
   readonly isSubmitted = signal<boolean>(false);
   readonly showPassword = signal<boolean>(false);
+
+  // Quill Typewriter Headline Animation
+  readonly fullHeadline = 'Welcome back to the dialogue.';
+  readonly typedHeadline = signal<string>('');
+  readonly isTyping = signal<boolean>(true);
+  private typewriterTimer: any = null;
+
+  ngOnInit(): void {
+    this.startTypewriter();
+  }
+
+  ngOnDestroy(): void {
+    if (this.typewriterTimer) {
+      clearInterval(this.typewriterTimer);
+    }
+  }
+
+  private startTypewriter(): void {
+    this.typedHeadline.set('');
+    this.isTyping.set(true);
+    let idx = 0;
+    this.typewriterTimer = setInterval(() => {
+      if (idx < this.fullHeadline.length) {
+        this.typedHeadline.update((text) => text + this.fullHeadline.charAt(idx));
+        idx++;
+      } else {
+        this.isTyping.set(false);
+        clearInterval(this.typewriterTimer);
+        this.typewriterTimer = null;
+      }
+    }, 38);
+  }
 
   readonly signInForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),

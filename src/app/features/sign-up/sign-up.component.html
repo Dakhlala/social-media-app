@@ -2,11 +2,13 @@
   class="bg-[#F7F7F2] text-[#202925] min-h-screen flex flex-col justify-between selection:bg-secondary-fixed selection:text-primary antialiased">
 
   <!-- ==================== TOP BRAND HEADER ==================== -->
-  <header class="w-full border-b border-outline-variant/60 bg-white/80 backdrop-blur-md sticky top-0 z-30 py-3.5 px-4 sm:px-8">
+  <header
+    class="w-full border-b border-outline-variant/60 bg-white/80 backdrop-blur-md sticky top-0 z-30 py-3.5 px-4 sm:px-8">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
       <a routerLink="/sign-in" class="flex items-center gap-2 group">
         <span class="font-serif text-2xl text-primary italic font-bold">Gather</span>
-        <span class="text-xs text-secondary hidden sm:inline-block border-l border-outline-variant/60 pl-2 tracking-wide">
+        <span
+          class="text-xs text-secondary hidden sm:inline-block border-l border-outline-variant/60 pl-2 tracking-wide">
           The Literary Commons
         </span>
       </a>
@@ -38,11 +40,23 @@
 
       <!-- Flow Header -->
       <div class="mb-6 space-y-1">
-        <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container text-primary text-xs font-medium mb-1">
-          <span class="material-symbols-outlined text-[15px]">edit_note</span>
-          <span>Author Registration</span>
+        <div class="flex items-center justify-between mb-2">
+          <div
+            class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container text-primary text-xs font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+            <span>Author Registration</span>
+          </div>
+
+          <!-- Floating Author Emblem Card -->
+          <div
+            class="w-10 h-10 rounded-xl bg-surface-container border border-outline-variant/60 shadow-2xs flex items-center justify-center animate-gentle-float text-primary select-none">
+            <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">draw</span>
+          </div>
         </div>
-        <h1 class="font-serif text-3xl sm:text-4xl text-[#151d1a] tracking-tight">Join The Commons</h1>
+        <h1 class="font-serif text-3xl sm:text-4xl text-[#151d1a] tracking-tight inline-flex items-center min-h-[44px]">
+          <span>{{ typedTitle() }}</span>
+          <span class="inline-block w-[2.5px] h-[0.9em] bg-primary ml-1.5 rounded-xs animate-caret-blink"></span>
+        </h1>
         <p class="font-serif text-sm text-secondary">
           Create an author folio to write, converse, and catalog literary dispatches.
         </p>
@@ -63,12 +77,10 @@
                 class="w-full h-12 bg-white border text-base text-[#151d1a] placeholder:text-secondary/70 px-4 rounded-xl transition-all outline-none"
                 [class.border-outline-variant]="!signUpForm.get('name')?.invalid || (!signUpForm.get('name')?.touched && !isSubmitted())"
                 [class.border-red-500]="signUpForm.get('name')?.invalid && (signUpForm.get('name')?.touched || isSubmitted())"
-                [class.focus:border-primary]="!signUpForm.get('name')?.invalid"
-                [class.focus:ring-2]="true"
+                [class.focus:border-primary]="!signUpForm.get('name')?.invalid" [class.focus:ring-2]="true"
                 [class.focus:ring-primary/20]="!signUpForm.get('name')?.invalid"
                 [class.focus:ring-red-500/20]="signUpForm.get('name')?.invalid && (signUpForm.get('name')?.touched || isSubmitted())"
-                id="name" name="name" placeholder="e.g. Elena Rostova" required type="text"
-                formControlName="name">
+                id="name" name="name" placeholder="e.g. Elena Rostova" required type="text" formControlName="name">
             </div>
             @if (signUpForm.get('name')?.invalid && (signUpForm.get('name')?.touched || isSubmitted())) {
             <p class="text-xs text-red-600 flex items-center gap-1 pt-0.5">
@@ -87,8 +99,7 @@
               <span class="absolute left-3.5 text-secondary font-medium">&#64;</span>
               <input autocomplete="username"
                 class="w-full h-12 pl-8 pr-4 bg-white border border-outline-variant text-base text-[#151d1a] placeholder:text-secondary/70 rounded-xl transition-all outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
-                id="username" name="username" placeholder="handle" type="text"
-                formControlName="username">
+                id="username" name="username" placeholder="handle" type="text" formControlName="username">
             </div>
             <p class="text-[11px] text-secondary">Unique identifier for your author folio.</p>
           </div>
@@ -104,12 +115,10 @@
               class="w-full h-12 px-4 pr-11 bg-white border text-base text-[#151d1a] placeholder:text-secondary/70 rounded-xl transition-all outline-none"
               [class.border-outline-variant]="!signUpForm.get('email')?.invalid || (!signUpForm.get('email')?.touched && !isSubmitted())"
               [class.border-red-500]="signUpForm.get('email')?.invalid && (signUpForm.get('email')?.touched || isSubmitted())"
-              [class.focus:border-primary]="!signUpForm.get('email')?.invalid"
-              [class.focus:ring-2]="true"
+              [class.focus:border-primary]="!signUpForm.get('email')?.invalid" [class.focus:ring-2]="true"
               [class.focus:ring-primary/20]="!signUpForm.get('email')?.invalid"
               [class.focus:ring-red-500/20]="signUpForm.get('email')?.invalid && (signUpForm.get('email')?.touched || isSubmitted())"
-              id="email" name="email" placeholder="author@gather.org" required type="email"
-              formControlName="email">
+              id="email" name="email" placeholder="author@gather.org" required type="email" formControlName="email">
             <span class="absolute right-3.5 text-secondary flex items-center pointer-events-none">
               <span class="material-symbols-outlined text-[18px]">mail</span>
             </span>
@@ -134,12 +143,10 @@
                 class="w-full h-12 px-4 bg-white border text-base text-[#151d1a] rounded-xl transition-all outline-none"
                 [class.border-outline-variant]="!signUpForm.get('dateOfBirth')?.invalid || (!signUpForm.get('dateOfBirth')?.touched && !isSubmitted())"
                 [class.border-red-500]="signUpForm.get('dateOfBirth')?.invalid && (signUpForm.get('dateOfBirth')?.touched || isSubmitted())"
-                [class.focus:border-primary]="!signUpForm.get('dateOfBirth')?.invalid"
-                [class.focus:ring-2]="true"
+                [class.focus:border-primary]="!signUpForm.get('dateOfBirth')?.invalid" [class.focus:ring-2]="true"
                 [class.focus:ring-primary/20]="!signUpForm.get('dateOfBirth')?.invalid"
                 [class.focus:ring-red-500/20]="signUpForm.get('dateOfBirth')?.invalid && (signUpForm.get('dateOfBirth')?.touched || isSubmitted())"
-                id="dateOfBirth" name="dateOfBirth" required type="date"
-                formControlName="dateOfBirth">
+                id="dateOfBirth" name="dateOfBirth" required type="date" formControlName="dateOfBirth">
             </div>
             @if (signUpForm.get('dateOfBirth')?.invalid && (signUpForm.get('dateOfBirth')?.touched || isSubmitted())) {
             <p class="text-xs text-red-600 flex items-center gap-1 pt-0.5">
@@ -171,7 +178,8 @@
 
         <div class="relative py-2 flex items-center">
           <div class="flex-grow border-t border-outline-variant/60"></div>
-          <span class="flex-shrink mx-3 text-xs text-secondary font-medium uppercase tracking-wider">Passphrase & Security</span>
+          <span class="flex-shrink mx-3 text-xs text-secondary font-medium uppercase tracking-wider">Passphrase &
+            Security</span>
           <div class="flex-grow border-t border-outline-variant/60"></div>
         </div>
 
@@ -187,13 +195,11 @@
                 class="w-full h-12 px-4 pr-12 bg-white border text-base text-[#151d1a] placeholder:text-secondary/70 rounded-xl transition-all outline-none"
                 [class.border-outline-variant]="!signUpForm.get('password')?.invalid || (!signUpForm.get('password')?.touched && !isSubmitted())"
                 [class.border-red-500]="signUpForm.get('password')?.invalid && (signUpForm.get('password')?.touched || isSubmitted())"
-                [class.focus:border-primary]="!signUpForm.get('password')?.invalid"
-                [class.focus:ring-2]="true"
+                [class.focus:border-primary]="!signUpForm.get('password')?.invalid" [class.focus:ring-2]="true"
                 [class.focus:ring-primary/20]="!signUpForm.get('password')?.invalid"
                 [class.focus:ring-red-500/20]="signUpForm.get('password')?.invalid && (signUpForm.get('password')?.touched || isSubmitted())"
                 id="password" name="password" placeholder="Create password" required
-                [type]="showPassword() ? 'text' : 'password'"
-                formControlName="password">
+                [type]="showPassword() ? 'text' : 'password'" formControlName="password">
               <button aria-label="Toggle password visibility"
                 class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-secondary hover:text-primary transition-colors cursor-pointer w-11 justify-center active:scale-95"
                 type="button" (click)="togglePassword()">
@@ -214,13 +220,11 @@
                 class="w-full h-12 px-4 pr-12 bg-white border text-base text-[#151d1a] placeholder:text-secondary/70 rounded-xl transition-all outline-none"
                 [class.border-outline-variant]="!signUpForm.get('rePassword')?.invalid || (!signUpForm.get('rePassword')?.touched && !isSubmitted())"
                 [class.border-red-500]="signUpForm.get('rePassword')?.invalid && (signUpForm.get('rePassword')?.touched || isSubmitted())"
-                [class.focus:border-primary]="!signUpForm.get('rePassword')?.invalid"
-                [class.focus:ring-2]="true"
+                [class.focus:border-primary]="!signUpForm.get('rePassword')?.invalid" [class.focus:ring-2]="true"
                 [class.focus:ring-primary/20]="!signUpForm.get('rePassword')?.invalid"
                 [class.focus:ring-red-500/20]="signUpForm.get('rePassword')?.invalid && (signUpForm.get('rePassword')?.touched || isSubmitted())"
                 id="rePassword" name="rePassword" placeholder="Confirm password" required
-                [type]="showRePassword() ? 'text' : 'password'"
-                formControlName="rePassword">
+                [type]="showRePassword() ? 'text' : 'password'" formControlName="rePassword">
               <button aria-label="Toggle confirm password visibility"
                 class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-secondary hover:text-primary transition-colors cursor-pointer w-11 justify-center active:scale-95"
                 type="button" (click)="toggleRePassword()">
@@ -237,8 +241,7 @@
           <p class="text-[11px] font-semibold text-secondary uppercase tracking-wider">Passphrase Criteria:</p>
           <div class="grid grid-cols-2 gap-2 text-xs">
             <!-- 8+ Characters -->
-            <div class="flex items-center gap-1.5 p-2 rounded-lg border transition-all"
-              [class]="hasMinLength()
+            <div class="flex items-center gap-1.5 p-2 rounded-lg border transition-all" [class]="hasMinLength()
                 ? 'bg-primary/10 text-primary border-primary/30 font-medium'
                 : shouldShowStatus()
                 ? 'bg-red-50 text-red-700 border-red-200'
@@ -250,8 +253,7 @@
             </div>
 
             <!-- Number -->
-            <div class="flex items-center gap-1.5 p-2 rounded-lg border transition-all"
-              [class]="hasNumber()
+            <div class="flex items-center gap-1.5 p-2 rounded-lg border transition-all" [class]="hasNumber()
                 ? 'bg-primary/10 text-primary border-primary/30 font-medium'
                 : shouldShowStatus()
                 ? 'bg-red-50 text-red-700 border-red-200'
@@ -263,8 +265,7 @@
             </div>
 
             <!-- Symbol -->
-            <div class="flex items-center gap-1.5 p-2 rounded-lg border transition-all"
-              [class]="hasSymbols()
+            <div class="flex items-center gap-1.5 p-2 rounded-lg border transition-all" [class]="hasSymbols()
                 ? 'bg-primary/10 text-primary border-primary/30 font-medium'
                 : shouldShowStatus()
                 ? 'bg-red-50 text-red-700 border-red-200'
@@ -276,8 +277,7 @@
             </div>
 
             <!-- Passwords Match -->
-            <div class="flex items-center gap-1.5 p-2 rounded-lg border transition-all"
-              [class]="passwordsMatch()
+            <div class="flex items-center gap-1.5 p-2 rounded-lg border transition-all" [class]="passwordsMatch()
                 ? 'bg-primary/10 text-primary border-primary/30 font-medium'
                 : shouldShowStatus()
                 ? 'bg-red-50 text-red-700 border-red-200'
@@ -285,7 +285,7 @@
               <span class="material-symbols-outlined text-[15px]">
                 {{ passwordsMatch() ? 'check_circle' : shouldShowStatus() ? 'cancel' : 'radio_button_unchecked' }}
               </span>
-              <span>Passphrases Match</span>
+              <span>Passwords Match</span>
             </div>
           </div>
         </div>
@@ -297,7 +297,9 @@
               class="mt-0.5 w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary/30 accent-primary cursor-pointer"
               id="agreement" name="agreement" required type="checkbox">
             <span class="text-xs text-[#202925] leading-snug">
-              I agree to abide by the <a class="text-primary font-semibold underline underline-offset-2 hover:text-[#1a5747]" href="#">Reading Charter</a> and respectful discourse standards.
+              I agree to abide by the <a
+                class="text-primary font-semibold underline underline-offset-2 hover:text-[#1a5747]" href="#">Reading
+                Charter</a> and respectful discourse standards.
             </span>
           </label>
         </div>
@@ -323,6 +325,31 @@
           <a class="font-semibold text-primary hover:underline ml-1" routerLink="/sign-in">
             Sign in to your account
           </a>
+        </div>
+
+        <!-- Literary Folio Guarantees with Subtle Motion -->
+        <div class="mt-6 pt-4 border-t border-outline-variant/40 grid grid-cols-3 gap-2 text-center">
+          <div class="flex flex-col items-center gap-1.5 p-2 rounded-xl bg-surface-container/50">
+            <div
+              class="w-7 h-7 rounded-lg bg-white flex items-center justify-center animate-gentle-float text-primary border border-outline-variant/30 shadow-2xs">
+              <span class="material-symbols-outlined text-[16px]">lock</span>
+            </div>
+            <span class="text-[11px] font-medium text-secondary">Encrypted Canon</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 p-2 rounded-xl bg-surface-container/50">
+            <div
+              class="w-7 h-7 rounded-lg bg-white flex items-center justify-center animate-gentle-float-reverse text-primary border border-outline-variant/30 shadow-2xs">
+              <span class="material-symbols-outlined text-[16px]">verified</span>
+            </div>
+            <span class="text-[11px] font-medium text-secondary">Verified Authors</span>
+          </div>
+          <div class="flex flex-col items-center gap-1.5 p-2 rounded-xl bg-surface-container/50">
+            <div
+              class="w-7 h-7 rounded-lg bg-white flex items-center justify-center animate-gentle-float-slow text-primary border border-outline-variant/30 shadow-2xs">
+              <span class="material-symbols-outlined text-[16px]">source</span>
+            </div>
+            <span class="text-[11px] font-medium text-secondary">Archived Folios</span>
+          </div>
         </div>
       </form>
     </div>

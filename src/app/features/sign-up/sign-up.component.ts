@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -12,7 +12,7 @@ import { ToastService } from '../../core/services/toast-service';
   templateUrl: './sign-up.component.html',
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnInit, OnDestroy {
   private readonly router = inject(Router);
   private readonly auth = inject(Auth);
   private readonly toastService = inject(ToastService);
@@ -21,6 +21,38 @@ export class SignUpComponent {
   readonly isSubmitted = signal<boolean>(false);
   readonly showPassword = signal<boolean>(false);
   readonly showRePassword = signal<boolean>(false);
+
+  // Quill Typewriter Title Animation
+  readonly fullTitle = 'Join The Commons';
+  readonly typedTitle = signal<string>('');
+  readonly isTyping = signal<boolean>(true);
+  private typewriterTimer: any = null;
+
+  ngOnInit(): void {
+    this.startTypewriter();
+  }
+
+  ngOnDestroy(): void {
+    if (this.typewriterTimer) {
+      clearInterval(this.typewriterTimer);
+    }
+  }
+
+  private startTypewriter(): void {
+    this.typedTitle.set('');
+    this.isTyping.set(true);
+    let idx = 0;
+    this.typewriterTimer = setInterval(() => {
+      if (idx < this.fullTitle.length) {
+        this.typedTitle.update((text) => text + this.fullTitle.charAt(idx));
+        idx++;
+      } else {
+        this.isTyping.set(false);
+        clearInterval(this.typewriterTimer);
+        this.typewriterTimer = null;
+      }
+    }, 45);
+  }
 
   readonly signUpForm = new FormGroup(
     {

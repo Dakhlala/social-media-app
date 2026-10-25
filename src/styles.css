@@ -91,3 +91,75 @@
   -webkit-font-smoothing: antialiased;
   vertical-align: middle;
 }
+
+/* ==================== LITERARY GENTLE MOTION SYSTEM ==================== */
+@keyframes gentle-float {
+  0%, 100% {
+    transform: translateY(0) rotate(-2.5deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(1deg);
+  }
+}
+
+@keyframes gentle-float-reverse {
+  0%, 100% {
+    transform: translateY(0) rotate(2deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(-1.5deg);
+  }
+}
+
+@keyframes gentle-float-slow {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(1deg);
+  }
+}
+
+.animate-gentle-float {
+  animation: gentle-float 4s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-gentle-float-reverse {
+  animation: gentle-float-reverse 4.6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-gentle-float-slow {
+  animation: gentle-float-slow 5.2s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-gentle-float,
+  .animate-gentle-float-reverse,
+  .animate-gentle-float-slow {
+    animation: none !important;
+  }
+}
+
+/* ==================== TYPEWRITER BLINKING CARET ==================== */
+@keyframes typewriter-caret-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-caret-blink {
+  animation: typewriter-caret-blink 0.8s step-start infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-caret-blink {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}

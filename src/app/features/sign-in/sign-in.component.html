@@ -26,14 +26,22 @@
 
       <!-- LEFT COLUMN: EDITORIAL VIGNETTE (Shown on Desktop / Tablet) -->
       <section class="hidden lg:flex lg:col-span-7 flex-col justify-center pr-0 lg:pr-8 space-y-6">
-        <div class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container rounded-md w-fit">
-          <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-          <span class="text-xs font-semibold text-primary tracking-wider uppercase">Issue No. XLVIII · Autumn Forum</span>
+        <div class="flex items-center justify-between">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container rounded-md w-fit">
+            <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+            <span class="text-xs font-semibold text-primary tracking-wider uppercase">Issue No. XLVIII · Autumn Forum</span>
+          </div>
+
+          <!-- Floating Literary Emblem Card -->
+          <div class="w-11 h-11 rounded-xl bg-white border border-outline-variant/60 shadow-xs flex items-center justify-center animate-gentle-float text-primary select-none">
+            <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+          </div>
         </div>
 
-        <div class="space-y-3">
-          <h1 class="font-serif text-4xl lg:text-5xl text-[#151d1a] leading-tight tracking-tight">
-            Welcome back to the dialogue.
+        <div class="space-y-3 min-h-[96px] lg:min-h-[110px]">
+          <h1 class="font-serif text-4xl lg:text-5xl text-[#151d1a] leading-tight tracking-tight inline-flex items-center">
+            <span>{{ typedHeadline() }}</span>
+            <span class="inline-block w-[3px] h-[0.9em] bg-primary ml-1.5 rounded-xs animate-caret-blink"></span>
           </h1>
           <p class="font-serif text-base lg:text-lg text-secondary max-w-xl leading-relaxed">
             An unhurried space for essays, critique, and collective thought. Return to your active manuscripts, community annotations, and ongoing correspondence.
@@ -41,7 +49,7 @@
         </div>
 
         <!-- Editorial Quote Vignette -->
-        <div class="p-6 bg-white border-l-4 border-primary rounded-r-2xl border-y border-r border-outline-variant/50 shadow-xs space-y-3">
+        <div class="p-6 bg-white border-l-4 border-primary rounded-r-2xl border-y border-r border-outline-variant/50 shadow-xs space-y-3 relative overflow-hidden">
           <p class="font-serif text-lg italic text-[#202925] leading-relaxed">
             “To gather is not merely to amass words, but to prepare soil wherein slow convictions may strike deep root.”
           </p>
@@ -53,24 +61,35 @@
           </div>
         </div>
 
-        <!-- Feature Pillars -->
+        <!-- Feature Pillars with Animated Gentle Floating Icons -->
         <div class="grid grid-cols-3 gap-4 pt-2">
-          <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/70 border border-outline-variant/40">
-            <span class="material-symbols-outlined text-primary text-[22px] mt-0.5">verified_user</span>
+          <!-- Pillar 1 -->
+          <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/70 border border-outline-variant/40 hover:bg-white transition-colors">
+            <div class="w-8 h-8 rounded-lg bg-surface-container/90 flex items-center justify-center shrink-0 animate-gentle-float text-primary border border-outline-variant/40 shadow-2xs">
+              <span class="material-symbols-outlined text-[18px]">verified_user</span>
+            </div>
             <div>
               <h4 class="text-xs font-bold text-[#151d1a]">Distraction Free</h4>
               <p class="text-[11px] text-secondary mt-0.5">Zero algorithmic noise</p>
             </div>
           </div>
-          <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/70 border border-outline-variant/40">
-            <span class="material-symbols-outlined text-primary text-[22px] mt-0.5">history_edu</span>
+
+          <!-- Pillar 2 -->
+          <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/70 border border-outline-variant/40 hover:bg-white transition-colors">
+            <div class="w-8 h-8 rounded-lg bg-surface-container/90 flex items-center justify-center shrink-0 animate-gentle-float-reverse text-primary border border-outline-variant/40 shadow-2xs">
+              <span class="material-symbols-outlined text-[18px]">history_edu</span>
+            </div>
             <div>
               <h4 class="text-xs font-bold text-[#151d1a]">Permanent Canon</h4>
               <p class="text-[11px] text-secondary mt-0.5">Archived in perpetuity</p>
             </div>
           </div>
-          <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/70 border border-outline-variant/40">
-            <span class="material-symbols-outlined text-primary text-[22px] mt-0.5">groups</span>
+
+          <!-- Pillar 3 -->
+          <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/70 border border-outline-variant/40 hover:bg-white transition-colors">
+            <div class="w-8 h-8 rounded-lg bg-surface-container/90 flex items-center justify-center shrink-0 animate-gentle-float-slow text-primary border border-outline-variant/40 shadow-2xs">
+              <span class="material-symbols-outlined text-[18px]">groups</span>
+            </div>
             <div>
               <h4 class="text-xs font-bold text-[#151d1a]">Peer Deliberation</h4>
               <p class="text-[11px] text-secondary mt-0.5">Scholarly discourse</p>
@@ -84,6 +103,11 @@
 
         <!-- Mobile-Only Context Header -->
         <div class="lg:hidden text-center mb-6 space-y-1.5">
+          <div class="flex justify-center mb-2">
+            <div class="w-12 h-12 rounded-2xl bg-white border border-outline-variant/60 shadow-xs flex items-center justify-center animate-gentle-float text-primary">
+              <span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+            </div>
+          </div>
           <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container text-primary text-xs font-medium mb-1">
             <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
             <span>The Literary Commons</span>
@@ -96,6 +120,17 @@
 
         <!-- Authentication Card -->
         <div class="bg-white rounded-2xl p-6 sm:p-8 border border-outline-variant/60 shadow-sm relative overflow-hidden">
+
+          <!-- Card Header with Subtle Floating Quill -->
+          <div class="hidden lg:flex items-center justify-between mb-4 pb-3 border-b border-outline-variant/40">
+            <div>
+              <span class="text-xs font-semibold text-primary uppercase tracking-wider">Scholar Access</span>
+              <p class="text-xs text-secondary">Sign in to your author folio</p>
+            </div>
+            <div class="w-9 h-9 rounded-xl bg-surface-container border border-outline-variant/50 flex items-center justify-center animate-gentle-float text-primary shadow-2xs">
+              <span class="material-symbols-outlined text-[19px]">history_edu</span>
+            </div>
+          </div>
 
           <!-- Tactile Segmented Tab Bar -->
           <div class="grid grid-cols-2 p-1 bg-surface-container rounded-xl mb-6">
