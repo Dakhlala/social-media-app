@@ -9,6 +9,7 @@ import { ArchivesComponent } from './features/archives/archives.component';
 import { isAllowedAuthGuard } from './core/auth/guards/is-allowed-auth-guard';
 import { Auth } from './layout/auth/auth';
 import { Main } from './layout/main/main';
+import { NotFound } from './features/not-found/not-found';
 
 export const routes: Routes = [
 
@@ -35,6 +36,7 @@ export const routes: Routes = [
 
 
         ]
-    }
+    },
+    { path: "**", component: NotFound }
 
 ];
