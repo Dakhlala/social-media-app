@@ -63,7 +63,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
       gender: new FormControl('female', [Validators.required]),
       password: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/),
+        Validators.pattern(/^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/),
       ]),
       rePassword: new FormControl('', [Validators.required]),
     },
@@ -96,9 +96,13 @@ export class SignUpComponent implements OnInit, OnDestroy {
   confirmPassword(form: AbstractControl) {
     const password = form.get('password')?.value;
     const rePassword = form.get('rePassword')?.value;
+    const rePasswordControl = form.get('rePassword');
+
     if (password && rePassword && password !== rePassword) {
-      form.get('rePassword')?.setErrors({ mismatch: true });
+      rePasswordControl?.setErrors({ mismatch: true });
       return { mismatch: true };
+    } else if (rePasswordControl?.hasError('mismatch')) {
+      rePasswordControl.setErrors(null);
     }
     return null;
   }

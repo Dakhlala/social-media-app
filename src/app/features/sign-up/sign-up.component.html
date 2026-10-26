@@ -63,7 +63,7 @@
       </div>
 
       <!-- Registration Form -->
-      <form class="space-y-4" [formGroup]="signUpForm" (ngSubmit)="onSubmit()" novalidate>
+      <form class="space-y-4" [formGroup]="signUpForm" (Submit)="onSubmit()" novalidate>
 
         <!-- Row 1: Full Name & Username -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -191,7 +191,7 @@
               Password <span class="text-red-600">*</span>
             </label>
             <div class="relative flex items-center">
-              <input autocomplete="new-password"
+              <input
                 class="w-full h-12 px-4 pr-12 bg-white border text-base text-[#151d1a] placeholder:text-secondary/70 rounded-xl transition-all outline-none"
                 [class.border-outline-variant]="!signUpForm.get('password')?.invalid || (!signUpForm.get('password')?.touched && !isSubmitted())"
                 [class.border-red-500]="signUpForm.get('password')?.invalid && (signUpForm.get('password')?.touched || isSubmitted())"
@@ -216,7 +216,7 @@
               Confirm Password <span class="text-red-600">*</span>
             </label>
             <div class="relative flex items-center">
-              <input autocomplete="new-password"
+              <input
                 class="w-full h-12 px-4 pr-12 bg-white border text-base text-[#151d1a] placeholder:text-secondary/70 rounded-xl transition-all outline-none"
                 [class.border-outline-variant]="!signUpForm.get('rePassword')?.invalid || (!signUpForm.get('rePassword')?.touched && !isSubmitted())"
                 [class.border-red-500]="signUpForm.get('rePassword')?.invalid && (signUpForm.get('rePassword')?.touched || isSubmitted())"
