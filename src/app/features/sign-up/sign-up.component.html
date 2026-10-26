@@ -63,7 +63,7 @@
       </div>
 
       <!-- Registration Form -->
-      <form class="space-y-4" [formGroup]="signUpForm" (Submit)="onSubmit()" novalidate>
+      <form class="space-y-4" [formGroup]="signUpForm" (ngSubmit)="onSubmit()" novalidate>
 
         <!-- Row 1: Full Name & Username -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
