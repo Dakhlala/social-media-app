@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter, withInMemoryScrolling } from '@angular/router';
+import { PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 
 import { routes } from './app.routes';
@@ -9,7 +9,7 @@ import { authInterceptorInterceptor } from './core/interceptors/auth-interceptor
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes, withInMemoryScrolling({
+    provideRouter(routes, withPreloading(PreloadAllModules), withInMemoryScrolling({
       scrollPositionRestoration: 'enabled',
       anchorScrolling: 'enabled',
     })),
