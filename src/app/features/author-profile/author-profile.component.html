@@ -33,7 +33,7 @@
               >
                 <span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
                 <span>{{
-                  isCurrentUser() ? 'Authenticated Fellow Folio' : 'Archival Fellow'
+                  isCurrentUser() ? 'Authenticated Fellow Profile' : 'Archival Fellow'
                 }}</span>
               </div>
             </div>
@@ -136,8 +136,8 @@
 
                   <button
                     (click)="onShareProfile()"
-                    aria-label="Share Folio Link"
-                    title="Share Folio Link"
+                    aria-label="Share Profile Link"
+                    title="Share Profile Link"
                     class="inline-flex items-center justify-center p-2 bg-surface-container-lowest border border-outline-variant hover:bg-surface-container-low text-secondary hover:text-on-surface rounded-xl transition-colors duration-150 cursor-pointer"
                     type="button"
                   >
@@ -253,7 +253,7 @@
                     : 'py-3 text-sm font-medium text-secondary hover:text-on-surface transition-colors'
                 "
               >
-                Plates &amp; Folios ({{ totalPlates() }})
+                Plates &amp; Media ({{ totalPlates() }})
               </button>
             </div>
           </div>
@@ -293,7 +293,7 @@
                 </h3>
                 <p class="text-sm text-secondary max-w-md mx-auto">
                   @if (activeTab() === 'plates') {
-                    No plates or folio media have been attached to this author's published
+                    No plates or media have been attached to this author's published
                     dispatches.
                   } @else {
                     This author has not published any literary dispatches or monographs yet.
@@ -400,7 +400,7 @@
                         [routerLink]="['/post-detail']"
                         [queryParams]="{ id: post._id }"
                         class="p-1.5 text-secondary hover:text-on-surface rounded-lg hover:bg-surface-container-low transition-colors duration-150"
-                        title="Open Dispatch Folio"
+                        title="Open Dispatch"
                       >
                         <span class="material-symbols-outlined text-[20px]">open_in_new</span>
                       </a>
@@ -430,12 +430,12 @@
                       <img
                         class="w-full h-72 md:h-96 object-cover"
                         [src]="post.image"
-                        alt="Dispatch Folio Image"
+                        alt="Dispatch Image"
                       />
                       <div
                         class="px-4 py-2 bg-surface-container-low/70 border-t border-outline-variant flex items-center justify-between text-xs text-secondary font-medium"
                       >
-                        <span>Folio Plate Attachment</span>
+                        <span>Plate Attachment</span>
                         <a
                           [routerLink]="['/post-detail']"
                           [queryParams]="{ id: post._id }"
@@ -541,7 +541,7 @@
     [isOpen]="isDeleteModalOpen()"
     [isLoading]="isDeleting()"
     title="Delete Dispatch?"
-    message="Are you sure you want to permanently delete this dispatch? This will remove it from your folio and cannot be undone."
+    message="Are you sure you want to permanently delete this dispatch? This will remove it from your profile and cannot be undone."
     confirmText="Delete Dispatch"
     [isDestructive]="true"
     (confirm)="confirmDeletePost()"

@@ -161,7 +161,7 @@ export class AuthorProfileComponent implements OnInit {
     }
 
     if (targetUserId && targetUserId !== myId) {
-      // Viewing a specific author's public folio
+      // Viewing a specific author's public profile
       this.isCurrentUser.set(false);
       this.isLoading.set(true);
       this.isPostsLoading.set(true);
@@ -181,7 +181,7 @@ export class AuthorProfileComponent implements OnInit {
         error: () => {
           this.isLoading.set(false);
           this.toastService.error(
-            'Author Folio Not Found',
+            'Author Profile Not Found',
             'Could not retrieve the requested author profile.',
           );
         },
@@ -217,7 +217,7 @@ export class AuthorProfileComponent implements OnInit {
         },
       });
     } else {
-      // Viewing authenticated author's own folio
+      // Viewing authenticated author's own profile
       this.isCurrentUser.set(true);
       this.isLoading.set(true);
       this.isPostsLoading.set(true);
@@ -257,7 +257,7 @@ export class AuthorProfileComponent implements OnInit {
           this.isPostsLoading.set(false);
           this.toastService.error(
             'Profile Retrieval Failed',
-            'Could not load your author folio data.',
+            'Could not load your author profile data.',
           );
         },
       });
@@ -431,7 +431,7 @@ export class AuthorProfileComponent implements OnInit {
   onShareProfile(): void {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
       navigator.clipboard.writeText(window.location.href);
-      this.toastService.info('Folio Link Copied', 'Author profile link copied to clipboard.');
+      this.toastService.info('Profile Link Copied', 'Author profile link copied to clipboard.');
     }
   }
 
@@ -510,7 +510,7 @@ export class AuthorProfileComponent implements OnInit {
         this.posts.update((list) => list.filter((p) => p._id !== postToDelete._id));
         this.toastService.info(
           'Dispatch Retracted',
-          'Your dispatch was permanently removed from your folio.',
+          'Your dispatch was permanently removed from your profile.',
         );
       },
       error: () => {

@@ -261,15 +261,6 @@
 
                         <div class="flex items-center gap-2">
                           <button
-                            (click)="onCopyBibtex(featured, $event)"
-                            title="Copy BibTeX Citation"
-                            class="px-2.5 py-1 text-secondary hover:text-primary text-xs transition-colors flex items-center gap-1 cursor-pointer font-medium"
-                            type="button"
-                          >
-                            <span class="material-symbols-outlined text-sm">file_download</span>
-                            <span>BibTeX</span>
-                          </button>
-                          <button
                             (click)="onRemoveBookmark(featured, $event)"
                             title="Remove from Archives"
                             class="p-1.5 text-secondary hover:text-red-700 rounded-lg border border-outline-variant/50 hover:bg-surface-container transition-colors cursor-pointer"
@@ -390,15 +381,6 @@
                         </div>
 
                         <div class="flex items-center gap-2">
-                          <button
-                            (click)="onCopyBibtex(item, $event)"
-                            class="px-2.5 py-1 text-secondary hover:text-primary text-xs transition-colors flex items-center gap-1 cursor-pointer font-medium"
-                            type="button"
-                          >
-                            <span class="material-symbols-outlined text-sm">file_download</span>
-                            <span>BibTeX</span>
-                          </button>
-
                           <button
                             (click)="onRemoveBookmark(item, $event)"
                             title="Remove from Archives"

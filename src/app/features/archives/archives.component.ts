@@ -132,19 +132,6 @@ export class ArchivesComponent implements OnInit {
     });
   }
 
-  onCopyBibtex(item: ArchivalItem, event: Event): void {
-    event.stopPropagation();
-    const bibtex = `@article{${item.authorUsername}_${item.archivalId.replace(/[^a-zA-Z0-9]/g, '')},\n  author = {${item.authorName}},\n  title = {${item.title}},\n  journal = {Gather Literary Commons},\n  year = {2024},\n  doi = {${item.doi || '10.8412/gthr.arch'}}\n}`;
-
-    if (navigator?.clipboard) {
-      navigator.clipboard.writeText(bibtex).then(() => {
-        this.toastService.success('Citation Copied', 'BibTeX entry saved to clipboard.');
-      });
-    } else {
-      this.toastService.info('Citation Format', 'BibTeX citation generated.');
-    }
-  }
-
   switchTab(filter: 'all' | 'plates' | 'discussions'): void {
     this.activeFilter.set(filter);
   }

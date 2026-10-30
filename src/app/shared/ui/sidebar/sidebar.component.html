@@ -72,7 +72,7 @@
   <div class="flex flex-col gap-2 pt-4 border-t border-outline-variant/40">
     <div
       class="flex items-center justify-between gap-2 p-2 rounded-xl bg-surface-container-lowest/90 border border-outline-variant/40 hover:bg-surface-container-low transition-colors group">
-      <a routerLink="/author" title="View your folio" class="flex items-center gap-3 min-w-0 flex-1 cursor-pointer">
+      <a routerLink="/author" title="View your profile" class="flex items-center gap-3 min-w-0 flex-1 cursor-pointer">
         <img [alt]="currentUser()?.name || 'Author profile photo'"
           class="w-9 h-9 rounded-full object-cover border border-outline-variant/50 group-hover:border-primary/50 transition-colors shrink-0"
           [src]="currentUser()?.photo || defaultPhoto" (error)="onPhotoError($event)" />

@@ -42,7 +42,6 @@ export class PostDetailComponent implements OnInit {
   readonly isLoadingComments = signal<boolean>(true);
   readonly isSubmittingComment = signal<boolean>(false);
   readonly newCommentContent = signal<string>('');
-  readonly selectedSort = signal<'latest' | 'earliest'>('latest');
 
   // Edit & Delete Modals State
   readonly isEditModalOpen = signal<boolean>(false);
@@ -54,15 +53,6 @@ export class PostDetailComponent implements OnInit {
   readonly isFollowLoading = signal<boolean>(false);
 
   // Computed Properties
-  readonly sortedComments = computed(() => {
-    const list = [...this.comments()];
-    const sort = this.selectedSort();
-    if (sort === 'earliest') {
-      return list.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-    }
-    return list.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-  });
-
   readonly totalComments = computed(() => this.comments().length);
 
   readonly isAuthorOfPost = computed(() => {
@@ -432,11 +422,5 @@ export class PostDetailComponent implements OnInit {
         'Direct link to this dispatch copied to clipboard.',
       );
     }
-  }
-
-  // Sort comments
-  onSortChange(event: Event): void {
-    const value = (event.target as HTMLSelectElement).value;
-    this.selectedSort.set(value === 'Earliest' ? 'earliest' : 'latest');
   }
 }
