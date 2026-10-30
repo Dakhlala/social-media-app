@@ -1,21 +1,25 @@
 <div
-  class="bg-[#F7F7F2] text-[#202925] min-h-screen flex flex-col justify-between selection:bg-secondary-fixed selection:text-primary antialiased">
-
+  class="bg-[#F7F7F2] text-[#202925] min-h-screen flex flex-col justify-between selection:bg-secondary-fixed selection:text-primary antialiased"
+>
   <!-- ==================== TOP BRAND HEADER ==================== -->
   <header
-    class="w-full border-b border-outline-variant/60 bg-white/80 backdrop-blur-md sticky top-0 z-30 py-3.5 px-4 sm:px-8">
+    class="w-full border-b border-outline-variant/60 bg-white/80 backdrop-blur-md sticky top-0 z-30 py-3.5 px-4 sm:px-8"
+  >
     <div class="max-w-7xl mx-auto flex items-center justify-between">
       <a routerLink="/sign-in" class="flex items-center gap-2 group">
         <span class="font-serif text-2xl text-primary italic font-bold">Gather</span>
         <span
-          class="text-xs text-secondary hidden sm:inline-block border-l border-outline-variant/60 pl-2 tracking-wide">
+          class="text-xs text-secondary hidden sm:inline-block border-l border-outline-variant/60 pl-2 tracking-wide"
+        >
           The Literary Commons
         </span>
       </a>
       <div class="flex items-center gap-2 text-xs sm:text-sm">
         <span class="text-secondary hidden sm:inline">Already registered?</span>
-        <a routerLink="/sign-in"
-          class="font-semibold text-primary hover:text-[#1a5747] transition-colors underline underline-offset-4 decoration-outline-variant hover:decoration-primary">
+        <a
+          routerLink="/sign-in"
+          class="font-semibold text-primary hover:text-[#1a5747] transition-colors underline underline-offset-4 decoration-outline-variant hover:decoration-primary"
+        >
           Sign In
         </a>
       </div>
@@ -23,17 +27,22 @@
   </header>
 
   <!-- ==================== MAIN CENTER CANVAS ==================== -->
-  <main class="flex-1 w-full max-w-2xl mx-auto px-4 sm:px-6 py-6 sm:py-10 flex items-center justify-center">
+  <main
+    class="flex-1 w-full max-w-2xl mx-auto px-4 sm:px-6 py-6 sm:py-10 flex items-center justify-center"
+  >
     <div class="w-full bg-white border border-outline-variant/60 rounded-2xl p-6 sm:p-8 shadow-sm">
-
       <!-- Tactile Segmented Tab Bar -->
       <div class="grid grid-cols-2 p-1 bg-surface-container rounded-xl mb-6">
-        <a routerLink="/sign-in"
-          class="py-2.5 rounded-lg text-secondary hover:text-primary text-xs sm:text-sm font-medium text-center transition-all">
+        <a
+          routerLink="/sign-in"
+          class="py-2.5 rounded-lg text-secondary hover:text-primary text-xs sm:text-sm font-medium text-center transition-all"
+        >
           Sign In
         </a>
-        <button type="button"
-          class="py-2.5 rounded-lg bg-primary text-white text-xs sm:text-sm font-semibold shadow-xs text-center transition-all cursor-default">
+        <button
+          type="button"
+          class="py-2.5 rounded-lg bg-primary text-white text-xs sm:text-sm font-semibold shadow-xs text-center transition-all cursor-default"
+        >
           Create Account
         </button>
       </div>
@@ -42,20 +51,30 @@
       <div class="mb-6 space-y-1">
         <div class="flex items-center justify-between mb-2">
           <div
-            class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container text-primary text-xs font-medium">
+            class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container text-primary text-xs font-medium"
+          >
             <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
             <span>Author Registration</span>
           </div>
 
           <!-- Floating Author Emblem Card -->
           <div
-            class="w-10 h-10 rounded-xl bg-surface-container border border-outline-variant/60 shadow-2xs flex items-center justify-center animate-gentle-float text-primary select-none">
-            <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">draw</span>
+            class="w-10 h-10 rounded-xl bg-surface-container border border-outline-variant/60 shadow-2xs flex items-center justify-center animate-gentle-float text-primary select-none"
+          >
+            <span
+              class="material-symbols-outlined text-[20px]"
+              style="font-variation-settings: 'FILL' 1"
+              >draw</span
+            >
           </div>
         </div>
-        <h1 class="font-serif text-3xl sm:text-4xl text-[#151d1a] tracking-tight inline-flex items-center min-h-[44px]">
+        <h1
+          class="font-serif text-3xl sm:text-4xl text-[#151d1a] tracking-tight inline-flex items-center min-h-[44px]"
+        >
           <span>{{ typedTitle() }}</span>
-          <span class="inline-block w-[2.5px] h-[0.9em] bg-primary ml-1.5 rounded-xs animate-caret-blink"></span>
+          <span
+            class="inline-block w-[2.5px] h-[0.9em] bg-primary ml-1.5 rounded-xs animate-caret-blink"
+          ></span>
         </h1>
         <p class="font-serif text-sm text-secondary">
           Create an author folio to write, converse, and catalog literary dispatches.
@@ -64,7 +83,6 @@
 
       <!-- Registration Form -->
       <form class="space-y-4" [formGroup]="signUpForm" (ngSubmit)="onSubmit()" novalidate>
-
         <!-- Row 1: Full Name & Username -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <!-- Full Name -->
@@ -73,20 +91,39 @@
               Full Name <span class="text-red-600">*</span>
             </label>
             <div class="relative">
-              <input autocomplete="name"
+              <input
+                autocomplete="name"
                 class="w-full h-12 bg-white border text-base text-[#151d1a] placeholder:text-secondary/70 px-4 rounded-xl transition-all outline-none"
-                [class.border-outline-variant]="!signUpForm.get('name')?.invalid || (!signUpForm.get('name')?.touched && !isSubmitted())"
-                [class.border-red-500]="signUpForm.get('name')?.invalid && (signUpForm.get('name')?.touched || isSubmitted())"
-                [class.focus:border-primary]="!signUpForm.get('name')?.invalid" [class.focus:ring-2]="true"
+                [class.border-outline-variant]="
+                  !signUpForm.get('name')?.invalid ||
+                  (!signUpForm.get('name')?.touched && !isSubmitted())
+                "
+                [class.border-red-500]="
+                  signUpForm.get('name')?.invalid &&
+                  (signUpForm.get('name')?.touched || isSubmitted())
+                "
+                [class.focus:border-primary]="!signUpForm.get('name')?.invalid"
+                [class.focus:ring-2]="true"
                 [class.focus:ring-primary/20]="!signUpForm.get('name')?.invalid"
-                [class.focus:ring-red-500/20]="signUpForm.get('name')?.invalid && (signUpForm.get('name')?.touched || isSubmitted())"
-                id="name" name="name" placeholder="e.g. Elena Rostova" required type="text" formControlName="name">
+                [class.focus:ring-red-500/20]="
+                  signUpForm.get('name')?.invalid &&
+                  (signUpForm.get('name')?.touched || isSubmitted())
+                "
+                id="name"
+                name="name"
+                placeholder="e.g. Elena Rostova"
+                required
+                type="text"
+                formControlName="name"
+              />
             </div>
-            @if (signUpForm.get('name')?.invalid && (signUpForm.get('name')?.touched || isSubmitted())) {
-            <p class="text-xs text-red-600 flex items-center gap-1 pt-0.5">
-              <span class="material-symbols-outlined text-[14px]">error</span>
-              <span>Name must be at least 3 characters.</span>
-            </p>
+            @if (
+              signUpForm.get('name')?.invalid && (signUpForm.get('name')?.touched || isSubmitted())
+            ) {
+              <p class="text-xs text-red-600 flex items-center gap-1 pt-0.5">
+                <span class="material-symbols-outlined text-[14px]">error</span>
+                <span>Name must be at least 3 characters.</span>
+              </p>
             }
           </div>
 
@@ -97,9 +134,15 @@
             </label>
             <div class="relative flex items-center">
               <span class="absolute left-3.5 text-secondary font-medium">&#64;</span>
-              <input autocomplete="username"
+              <input
+                autocomplete="username"
                 class="w-full h-12 pl-8 pr-4 bg-white border border-outline-variant text-base text-[#151d1a] placeholder:text-secondary/70 rounded-xl transition-all outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
-                id="username" name="username" placeholder="handle" type="text" formControlName="username">
+                id="username"
+                name="username"
+                placeholder="handle"
+                type="text"
+                formControlName="username"
+              />
             </div>
             <p class="text-[11px] text-secondary">Unique identifier for your author folio.</p>
           </div>
@@ -111,23 +154,42 @@
             Email Address <span class="text-red-600">*</span>
           </label>
           <div class="relative flex items-center">
-            <input autocomplete="email"
+            <input
+              autocomplete="email"
               class="w-full h-12 px-4 pr-11 bg-white border text-base text-[#151d1a] placeholder:text-secondary/70 rounded-xl transition-all outline-none"
-              [class.border-outline-variant]="!signUpForm.get('email')?.invalid || (!signUpForm.get('email')?.touched && !isSubmitted())"
-              [class.border-red-500]="signUpForm.get('email')?.invalid && (signUpForm.get('email')?.touched || isSubmitted())"
-              [class.focus:border-primary]="!signUpForm.get('email')?.invalid" [class.focus:ring-2]="true"
+              [class.border-outline-variant]="
+                !signUpForm.get('email')?.invalid ||
+                (!signUpForm.get('email')?.touched && !isSubmitted())
+              "
+              [class.border-red-500]="
+                signUpForm.get('email')?.invalid &&
+                (signUpForm.get('email')?.touched || isSubmitted())
+              "
+              [class.focus:border-primary]="!signUpForm.get('email')?.invalid"
+              [class.focus:ring-2]="true"
               [class.focus:ring-primary/20]="!signUpForm.get('email')?.invalid"
-              [class.focus:ring-red-500/20]="signUpForm.get('email')?.invalid && (signUpForm.get('email')?.touched || isSubmitted())"
-              id="email" name="email" placeholder="author@gather.org" required type="email" formControlName="email">
+              [class.focus:ring-red-500/20]="
+                signUpForm.get('email')?.invalid &&
+                (signUpForm.get('email')?.touched || isSubmitted())
+              "
+              id="email"
+              name="email"
+              placeholder="author@gather.org"
+              required
+              type="email"
+              formControlName="email"
+            />
             <span class="absolute right-3.5 text-secondary flex items-center pointer-events-none">
               <span class="material-symbols-outlined text-[18px]">mail</span>
             </span>
           </div>
-          @if (signUpForm.get('email')?.invalid && (signUpForm.get('email')?.touched || isSubmitted())) {
-          <p class="text-xs text-red-600 flex items-center gap-1 pt-0.5">
-            <span class="material-symbols-outlined text-[14px]">error</span>
-            <span>Please enter a valid email address.</span>
-          </p>
+          @if (
+            signUpForm.get('email')?.invalid && (signUpForm.get('email')?.touched || isSubmitted())
+          ) {
+            <p class="text-xs text-red-600 flex items-center gap-1 pt-0.5">
+              <span class="material-symbols-outlined text-[14px]">error</span>
+              <span>Please enter a valid email address.</span>
+            </p>
           }
         </div>
 
@@ -141,18 +203,36 @@
             <div class="relative flex items-center">
               <input
                 class="w-full h-12 px-4 bg-white border text-base text-[#151d1a] rounded-xl transition-all outline-none"
-                [class.border-outline-variant]="!signUpForm.get('dateOfBirth')?.invalid || (!signUpForm.get('dateOfBirth')?.touched && !isSubmitted())"
-                [class.border-red-500]="signUpForm.get('dateOfBirth')?.invalid && (signUpForm.get('dateOfBirth')?.touched || isSubmitted())"
-                [class.focus:border-primary]="!signUpForm.get('dateOfBirth')?.invalid" [class.focus:ring-2]="true"
+                [class.border-outline-variant]="
+                  !signUpForm.get('dateOfBirth')?.invalid ||
+                  (!signUpForm.get('dateOfBirth')?.touched && !isSubmitted())
+                "
+                [class.border-red-500]="
+                  signUpForm.get('dateOfBirth')?.invalid &&
+                  (signUpForm.get('dateOfBirth')?.touched || isSubmitted())
+                "
+                [class.focus:border-primary]="!signUpForm.get('dateOfBirth')?.invalid"
+                [class.focus:ring-2]="true"
                 [class.focus:ring-primary/20]="!signUpForm.get('dateOfBirth')?.invalid"
-                [class.focus:ring-red-500/20]="signUpForm.get('dateOfBirth')?.invalid && (signUpForm.get('dateOfBirth')?.touched || isSubmitted())"
-                id="dateOfBirth" name="dateOfBirth" required type="date" formControlName="dateOfBirth">
+                [class.focus:ring-red-500/20]="
+                  signUpForm.get('dateOfBirth')?.invalid &&
+                  (signUpForm.get('dateOfBirth')?.touched || isSubmitted())
+                "
+                id="dateOfBirth"
+                name="dateOfBirth"
+                required
+                type="date"
+                formControlName="dateOfBirth"
+              />
             </div>
-            @if (signUpForm.get('dateOfBirth')?.invalid && (signUpForm.get('dateOfBirth')?.touched || isSubmitted())) {
-            <p class="text-xs text-red-600 flex items-center gap-1 pt-0.5">
-              <span class="material-symbols-outlined text-[14px]">error</span>
-              <span>Please select your date of birth.</span>
-            </p>
+            @if (
+              signUpForm.get('dateOfBirth')?.invalid &&
+              (signUpForm.get('dateOfBirth')?.touched || isSubmitted())
+            ) {
+              <p class="text-xs text-red-600 flex items-center gap-1 pt-0.5">
+                <span class="material-symbols-outlined text-[14px]">error</span>
+                <span>Please select your date of birth.</span>
+              </p>
             }
           </div>
 
@@ -164,12 +244,16 @@
             <div class="relative">
               <select
                 class="w-full h-12 px-4 pr-10 bg-white border border-outline-variant text-base text-[#151d1a] rounded-xl transition-all outline-none appearance-none cursor-pointer focus:border-primary focus:ring-2 focus:ring-primary/20"
-                id="gender" name="gender" formControlName="gender">
+                id="gender"
+                name="gender"
+                formControlName="gender"
+              >
                 <option value="female">Female</option>
                 <option value="male">Male</option>
               </select>
               <span
-                class="absolute right-3 top-1/2 -translate-y-1/2 text-secondary pointer-events-none flex items-center">
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-secondary pointer-events-none flex items-center"
+              >
                 <span class="material-symbols-outlined text-[20px]">arrow_drop_down</span>
               </span>
             </div>
@@ -178,8 +262,9 @@
 
         <div class="relative py-2 flex items-center">
           <div class="flex-grow border-t border-outline-variant/60"></div>
-          <span class="flex-shrink mx-3 text-xs text-secondary font-medium uppercase tracking-wider">Passphrase &
-            Security</span>
+          <span class="flex-shrink mx-3 text-xs text-secondary font-medium uppercase tracking-wider"
+            >Passphrase & Security</span
+          >
           <div class="flex-grow border-t border-outline-variant/60"></div>
         </div>
 
@@ -193,16 +278,34 @@
             <div class="relative flex items-center">
               <input
                 class="w-full h-12 px-4 pr-12 bg-white border text-base text-[#151d1a] placeholder:text-secondary/70 rounded-xl transition-all outline-none"
-                [class.border-outline-variant]="!signUpForm.get('password')?.invalid || (!signUpForm.get('password')?.touched && !isSubmitted())"
-                [class.border-red-500]="signUpForm.get('password')?.invalid && (signUpForm.get('password')?.touched || isSubmitted())"
-                [class.focus:border-primary]="!signUpForm.get('password')?.invalid" [class.focus:ring-2]="true"
+                [class.border-outline-variant]="
+                  !signUpForm.get('password')?.invalid ||
+                  (!signUpForm.get('password')?.touched && !isSubmitted())
+                "
+                [class.border-red-500]="
+                  signUpForm.get('password')?.invalid &&
+                  (signUpForm.get('password')?.touched || isSubmitted())
+                "
+                [class.focus:border-primary]="!signUpForm.get('password')?.invalid"
+                [class.focus:ring-2]="true"
                 [class.focus:ring-primary/20]="!signUpForm.get('password')?.invalid"
-                [class.focus:ring-red-500/20]="signUpForm.get('password')?.invalid && (signUpForm.get('password')?.touched || isSubmitted())"
-                id="password" name="password" placeholder="Create password" required
-                [type]="showPassword() ? 'text' : 'password'" formControlName="password">
-              <button aria-label="Toggle password visibility"
+                [class.focus:ring-red-500/20]="
+                  signUpForm.get('password')?.invalid &&
+                  (signUpForm.get('password')?.touched || isSubmitted())
+                "
+                id="password"
+                name="password"
+                placeholder="Create password"
+                required
+                [type]="showPassword() ? 'text' : 'password'"
+                formControlName="password"
+              />
+              <button
+                aria-label="Toggle password visibility"
                 class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-secondary hover:text-primary transition-colors cursor-pointer w-11 justify-center active:scale-95"
-                type="button" (click)="togglePassword()">
+                type="button"
+                (click)="togglePassword()"
+              >
                 <span class="material-symbols-outlined text-[20px]">
                   {{ showPassword() ? 'visibility_off' : 'visibility' }}
                 </span>
@@ -218,16 +321,34 @@
             <div class="relative flex items-center">
               <input
                 class="w-full h-12 px-4 pr-12 bg-white border text-base text-[#151d1a] placeholder:text-secondary/70 rounded-xl transition-all outline-none"
-                [class.border-outline-variant]="!signUpForm.get('rePassword')?.invalid || (!signUpForm.get('rePassword')?.touched && !isSubmitted())"
-                [class.border-red-500]="signUpForm.get('rePassword')?.invalid && (signUpForm.get('rePassword')?.touched || isSubmitted())"
-                [class.focus:border-primary]="!signUpForm.get('rePassword')?.invalid" [class.focus:ring-2]="true"
+                [class.border-outline-variant]="
+                  !signUpForm.get('rePassword')?.invalid ||
+                  (!signUpForm.get('rePassword')?.touched && !isSubmitted())
+                "
+                [class.border-red-500]="
+                  signUpForm.get('rePassword')?.invalid &&
+                  (signUpForm.get('rePassword')?.touched || isSubmitted())
+                "
+                [class.focus:border-primary]="!signUpForm.get('rePassword')?.invalid"
+                [class.focus:ring-2]="true"
                 [class.focus:ring-primary/20]="!signUpForm.get('rePassword')?.invalid"
-                [class.focus:ring-red-500/20]="signUpForm.get('rePassword')?.invalid && (signUpForm.get('rePassword')?.touched || isSubmitted())"
-                id="rePassword" name="rePassword" placeholder="Confirm password" required
-                [type]="showRePassword() ? 'text' : 'password'" formControlName="rePassword">
-              <button aria-label="Toggle confirm password visibility"
+                [class.focus:ring-red-500/20]="
+                  signUpForm.get('rePassword')?.invalid &&
+                  (signUpForm.get('rePassword')?.touched || isSubmitted())
+                "
+                id="rePassword"
+                name="rePassword"
+                placeholder="Confirm password"
+                required
+                [type]="showRePassword() ? 'text' : 'password'"
+                formControlName="rePassword"
+              />
+              <button
+                aria-label="Toggle confirm password visibility"
                 class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-secondary hover:text-primary transition-colors cursor-pointer w-11 justify-center active:scale-95"
-                type="button" (click)="toggleRePassword()">
+                type="button"
+                (click)="toggleRePassword()"
+              >
                 <span class="material-symbols-outlined text-[20px]">
                   {{ showRePassword() ? 'visibility_off' : 'visibility' }}
                 </span>
@@ -237,53 +358,101 @@
         </div>
 
         <!-- Live Password Strength Criteria Grid -->
-        <div class="p-3.5 rounded-xl border border-outline-variant/60 bg-surface-container/50 space-y-2">
-          <p class="text-[11px] font-semibold text-secondary uppercase tracking-wider">Passphrase Criteria:</p>
+        <div
+          class="p-3.5 rounded-xl border border-outline-variant/60 bg-surface-container/50 space-y-2"
+        >
+          <p class="text-[11px] font-semibold text-secondary uppercase tracking-wider">
+            Passphrase Criteria:
+          </p>
           <div class="grid grid-cols-2 gap-2 text-xs">
             <!-- 8+ Characters -->
-            <div class="flex items-center gap-1.5 p-2 rounded-lg border transition-all" [class]="hasMinLength()
-                ? 'bg-primary/10 text-primary border-primary/30 font-medium'
-                : shouldShowStatus()
-                ? 'bg-red-50 text-red-700 border-red-200'
-                : 'bg-white text-secondary border-outline-variant/40'">
+            <div
+              class="flex items-center gap-1.5 p-2 rounded-lg border transition-all"
+              [class]="
+                hasMinLength()
+                  ? 'bg-primary/10 text-primary border-primary/30 font-medium'
+                  : shouldShowStatus()
+                    ? 'bg-red-50 text-red-700 border-red-200'
+                    : 'bg-white text-secondary border-outline-variant/40'
+              "
+            >
               <span class="material-symbols-outlined text-[15px]">
-                {{ hasMinLength() ? 'check_circle' : shouldShowStatus() ? 'cancel' : 'radio_button_unchecked' }}
+                {{
+                  hasMinLength()
+                    ? 'check_circle'
+                    : shouldShowStatus()
+                      ? 'cancel'
+                      : 'radio_button_unchecked'
+                }}
               </span>
               <span>8+ Characters</span>
             </div>
 
             <!-- Number -->
-            <div class="flex items-center gap-1.5 p-2 rounded-lg border transition-all" [class]="hasNumber()
-                ? 'bg-primary/10 text-primary border-primary/30 font-medium'
-                : shouldShowStatus()
-                ? 'bg-red-50 text-red-700 border-red-200'
-                : 'bg-white text-secondary border-outline-variant/40'">
+            <div
+              class="flex items-center gap-1.5 p-2 rounded-lg border transition-all"
+              [class]="
+                hasNumber()
+                  ? 'bg-primary/10 text-primary border-primary/30 font-medium'
+                  : shouldShowStatus()
+                    ? 'bg-red-50 text-red-700 border-red-200'
+                    : 'bg-white text-secondary border-outline-variant/40'
+              "
+            >
               <span class="material-symbols-outlined text-[15px]">
-                {{ hasNumber() ? 'check_circle' : shouldShowStatus() ? 'cancel' : 'radio_button_unchecked' }}
+                {{
+                  hasNumber()
+                    ? 'check_circle'
+                    : shouldShowStatus()
+                      ? 'cancel'
+                      : 'radio_button_unchecked'
+                }}
               </span>
               <span>Includes Number</span>
             </div>
 
             <!-- Symbol -->
-            <div class="flex items-center gap-1.5 p-2 rounded-lg border transition-all" [class]="hasSymbols()
-                ? 'bg-primary/10 text-primary border-primary/30 font-medium'
-                : shouldShowStatus()
-                ? 'bg-red-50 text-red-700 border-red-200'
-                : 'bg-white text-secondary border-outline-variant/40'">
+            <div
+              class="flex items-center gap-1.5 p-2 rounded-lg border transition-all"
+              [class]="
+                hasSymbols()
+                  ? 'bg-primary/10 text-primary border-primary/30 font-medium'
+                  : shouldShowStatus()
+                    ? 'bg-red-50 text-red-700 border-red-200'
+                    : 'bg-white text-secondary border-outline-variant/40'
+              "
+            >
               <span class="material-symbols-outlined text-[15px]">
-                {{ hasSymbols() ? 'check_circle' : shouldShowStatus() ? 'cancel' : 'radio_button_unchecked' }}
+                {{
+                  hasSymbols()
+                    ? 'check_circle'
+                    : shouldShowStatus()
+                      ? 'cancel'
+                      : 'radio_button_unchecked'
+                }}
               </span>
               <span>Special Symbol</span>
             </div>
 
             <!-- Passwords Match -->
-            <div class="flex items-center gap-1.5 p-2 rounded-lg border transition-all" [class]="passwordsMatch()
-                ? 'bg-primary/10 text-primary border-primary/30 font-medium'
-                : shouldShowStatus()
-                ? 'bg-red-50 text-red-700 border-red-200'
-                : 'bg-white text-secondary border-outline-variant/40'">
+            <div
+              class="flex items-center gap-1.5 p-2 rounded-lg border transition-all"
+              [class]="
+                passwordsMatch()
+                  ? 'bg-primary/10 text-primary border-primary/30 font-medium'
+                  : shouldShowStatus()
+                    ? 'bg-red-50 text-red-700 border-red-200'
+                    : 'bg-white text-secondary border-outline-variant/40'
+              "
+            >
               <span class="material-symbols-outlined text-[15px]">
-                {{ passwordsMatch() ? 'check_circle' : shouldShowStatus() ? 'cancel' : 'radio_button_unchecked' }}
+                {{
+                  passwordsMatch()
+                    ? 'check_circle'
+                    : shouldShowStatus()
+                      ? 'cancel'
+                      : 'radio_button_unchecked'
+                }}
               </span>
               <span>Passwords Match</span>
             </div>
@@ -293,13 +462,22 @@
         <!-- Terms Agreement Checkbox -->
         <div class="pt-1">
           <label class="flex items-start gap-2.5 cursor-pointer select-none">
-            <input checked
+            <input
+              checked
               class="mt-0.5 w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary/30 accent-primary cursor-pointer"
-              id="agreement" name="agreement" required type="checkbox">
+              id="agreement"
+              name="agreement"
+              required
+              type="checkbox"
+            />
             <span class="text-xs text-[#202925] leading-snug">
-              I agree to abide by the <a
-                class="text-primary font-semibold underline underline-offset-2 hover:text-[#1a5747]" href="#">Reading
-                Charter</a> and respectful discourse standards.
+              I agree to abide by the
+              <a
+                class="text-primary font-semibold underline underline-offset-2 hover:text-[#1a5747]"
+                href="#"
+                >Reading Charter</a
+              >
+              and respectful discourse standards.
             </span>
           </label>
         </div>
@@ -308,13 +486,17 @@
         <div class="pt-2">
           <button
             class="w-full h-12 bg-primary hover:bg-[#1a5747] text-white text-sm sm:text-base font-semibold rounded-xl flex items-center justify-center gap-2 shadow-sm transition-all duration-150 active:scale-[0.99] disabled:opacity-60 cursor-pointer"
-            type="submit" [disabled]="isLoading()">
+            type="submit"
+            [disabled]="isLoading()"
+          >
             @if (isLoading()) {
-            <span class="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>
-            <span>Creating Account...</span>
+              <span class="material-symbols-outlined animate-spin text-[18px]"
+                >progress_activity</span
+              >
+              <span>Creating Account...</span>
             } @else {
-            <span>Create Author Account</span>
-            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+              <span>Create Author Account</span>
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
             }
           </button>
         </div>
@@ -328,24 +510,29 @@
         </div>
 
         <!-- Literary Folio Guarantees with Subtle Motion -->
-        <div class="mt-6 pt-4 border-t border-outline-variant/40 grid grid-cols-3 gap-2 text-center">
+        <div
+          class="mt-6 pt-4 border-t border-outline-variant/40 grid grid-cols-3 gap-2 text-center"
+        >
           <div class="flex flex-col items-center gap-1.5 p-2 rounded-xl bg-surface-container/50">
             <div
-              class="w-7 h-7 rounded-lg bg-white flex items-center justify-center animate-gentle-float text-primary border border-outline-variant/30 shadow-2xs">
+              class="w-7 h-7 rounded-lg bg-white flex items-center justify-center animate-gentle-float text-primary border border-outline-variant/30 shadow-2xs"
+            >
               <span class="material-symbols-outlined text-[16px]">lock</span>
             </div>
             <span class="text-[11px] font-medium text-secondary">Encrypted Canon</span>
           </div>
           <div class="flex flex-col items-center gap-1.5 p-2 rounded-xl bg-surface-container/50">
             <div
-              class="w-7 h-7 rounded-lg bg-white flex items-center justify-center animate-gentle-float-reverse text-primary border border-outline-variant/30 shadow-2xs">
+              class="w-7 h-7 rounded-lg bg-white flex items-center justify-center animate-gentle-float-reverse text-primary border border-outline-variant/30 shadow-2xs"
+            >
               <span class="material-symbols-outlined text-[16px]">verified</span>
             </div>
             <span class="text-[11px] font-medium text-secondary">Verified Authors</span>
           </div>
           <div class="flex flex-col items-center gap-1.5 p-2 rounded-xl bg-surface-container/50">
             <div
-              class="w-7 h-7 rounded-lg bg-white flex items-center justify-center animate-gentle-float-slow text-primary border border-outline-variant/30 shadow-2xs">
+              class="w-7 h-7 rounded-lg bg-white flex items-center justify-center animate-gentle-float-slow text-primary border border-outline-variant/30 shadow-2xs"
+            >
               <span class="material-symbols-outlined text-[16px]">source</span>
             </div>
             <span class="text-[11px] font-medium text-secondary">Archived Folios</span>
@@ -358,7 +545,8 @@
   <!-- ==================== GROUNDED EDITORIAL FOOTER ==================== -->
   <footer class="w-full py-4 border-t border-outline-variant/40 bg-white/60 text-xs text-secondary">
     <div
-      class="max-w-7xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+      class="max-w-7xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left"
+    >
       <p>© 2025 Gather — The Literary Commons. Preserved for quiet deliberation.</p>
       <div class="flex items-center gap-4 text-xs font-medium">
         <a class="hover:text-primary transition-colors" href="#">Reading Charter</a>

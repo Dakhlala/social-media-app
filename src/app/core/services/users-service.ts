@@ -100,5 +100,13 @@ export class UsersService {
         })
       );
   }
+
+  // Change user password
+  changePassword(data: { password: string; newPassword: string }): Observable<ApiResponse<{ token?: string; message?: string }>> {
+    return this.httpClient.patch<ApiResponse<{ token?: string; message?: string }>>(
+      `${environment.baseUrl}/users/change-password`,
+      data
+    );
+  }
 }
 

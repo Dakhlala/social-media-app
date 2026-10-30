@@ -9,6 +9,7 @@ import { Post, PostComment } from '../../core/models/post.models';
 import { User } from '../../core/models/api.models';
 import { ConfirmModalComponent } from '../../shared/ui/confirm-modal/confirm-modal.component';
 import { EditPostModalComponent } from '../../shared/ui/edit-post-modal/edit-post-modal.component';
+import { SidebarComponent } from '../../shared/ui/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-post-detail',
@@ -20,6 +21,7 @@ import { EditPostModalComponent } from '../../shared/ui/edit-post-modal/edit-pos
     RouterLink,
     ConfirmModalComponent,
     EditPostModalComponent,
+    SidebarComponent,
   ],
   templateUrl: './post-detail.component.html',
 })
@@ -56,13 +58,9 @@ export class PostDetailComponent implements OnInit {
     const list = [...this.comments()];
     const sort = this.selectedSort();
     if (sort === 'earliest') {
-      return list.sort(
-        (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-      );
+      return list.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
     }
-    return list.sort(
-      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
+    return list.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   });
 
   readonly totalComments = computed(() => this.comments().length);
@@ -128,9 +126,7 @@ export class PostDetailComponent implements OnInit {
           const decorated: Post = {
             ...rawPost,
             isLikedByMe:
-              myId && Array.isArray(rawPost.likes)
-                ? rawPost.likes.includes(myId)
-                : false,
+              myId && Array.isArray(rawPost.likes) ? rawPost.likes.includes(myId) : false,
           };
           this.post.set(decorated);
 
@@ -144,7 +140,7 @@ export class PostDetailComponent implements OnInit {
         this.isLoadingPost.set(false);
         this.toastService.error(
           'Dispatch Folio Unavailable',
-          'Could not retrieve the requested dispatch.'
+          'Could not retrieve the requested dispatch.',
         );
       },
     });
@@ -160,8 +156,7 @@ export class PostDetailComponent implements OnInit {
 
         const decorated: PostComment[] = rawComments.map((c: any) => ({
           ...c,
-          isLikedByMe:
-            myId && Array.isArray(c.likes) ? c.likes.includes(myId) : false,
+          isLikedByMe: myId && Array.isArray(c.likes) ? c.likes.includes(myId) : false,
         }));
         this.comments.set(decorated);
         this.isLoadingComments.set(false);
@@ -179,7 +174,7 @@ export class PostDetailComponent implements OnInit {
 
     if (Array.isArray(me.following)) {
       const isFollowing = me.following.some(
-        (f: any) => (typeof f === 'string' ? f : f?._id || f?.id) === authorId
+        (f: any) => (typeof f === 'string' ? f : f?._id || f?.id) === authorId,
       );
       this.isFollowingAuthor.set(isFollowing);
     }
@@ -203,9 +198,7 @@ export class PostDetailComponent implements OnInit {
       const prevList = Array.isArray(me.following) ? [...me.following] : [];
       const updatedList = nextFollowing
         ? [...prevList, authorId]
-        : prevList.filter(
-            (id) => (typeof id === 'string' ? id : id?._id || id?.id) !== authorId
-          );
+        : prevList.filter((id) => (typeof id === 'string' ? id : id?._id || id?.id) !== authorId);
       const updated = {
         ...me,
         following: updatedList,
@@ -224,13 +217,10 @@ export class PostDetailComponent implements OnInit {
         if (nextFollowing) {
           this.toastService.info(
             'Following Author',
-            `You will now receive dispatches from ${name}.`
+            `You will now receive dispatches from ${name}.`,
           );
         } else {
-          this.toastService.info(
-            'Unfollowed Author',
-            `Removed ${name} from your following feed.`
-          );
+          this.toastService.info('Unfollowed Author', `Removed ${name} from your following feed.`);
         }
       },
       error: () => {
@@ -281,15 +271,9 @@ export class PostDetailComponent implements OnInit {
     });
 
     if (!prevBookmarked) {
-      this.toastService.info(
-        'Saved to Archives',
-        'Dispatch added to your preserved archives.'
-      );
+      this.toastService.info('Saved to Archives', 'Dispatch added to your preserved archives.');
     } else {
-      this.toastService.info(
-        'Removed from Archives',
-        'Dispatch removed from preserved archives.'
-      );
+      this.toastService.info('Removed from Archives', 'Dispatch removed from preserved archives.');
     }
 
     this.postsService.toggleBookmark(p._id).subscribe({
@@ -333,23 +317,18 @@ export class PostDetailComponent implements OnInit {
           };
 
           this.comments.update((list) => [populated, ...list]);
-          this.post.update((p) =>
-            p ? { ...p, commentsCount: (p.commentsCount || 0) + 1 } : p
-          );
+          this.post.update((p) => (p ? { ...p, commentsCount: (p.commentsCount || 0) + 1 } : p));
           this.newCommentContent.set('');
           this.toastService.success(
             'Annotation Recorded',
-            'Your commentary has been inscribed in the ledger.'
+            'Your commentary has been inscribed in the ledger.',
           );
         }
         this.isSubmittingComment.set(false);
       },
       error: () => {
         this.isSubmittingComment.set(false);
-        this.toastService.error(
-          'Failed to Post',
-          'Could not record your annotation.'
-        );
+        this.toastService.error('Failed to Post', 'Could not record your annotation.');
       },
     });
   }
@@ -362,21 +341,16 @@ export class PostDetailComponent implements OnInit {
     const previousList = this.comments();
     this.comments.update((list) => list.filter((c) => c._id !== comment._id));
     this.post.update((p) =>
-      p ? { ...p, commentsCount: Math.max(0, (p.commentsCount || 0) - 1) } : p
+      p ? { ...p, commentsCount: Math.max(0, (p.commentsCount || 0) - 1) } : p,
     );
 
     this.postsService.deleteComment(comment._id).subscribe({
       next: () => {
-        this.toastService.info(
-          'Annotation Removed',
-          'Your comment was deleted from the ledger.'
-        );
+        this.toastService.info('Annotation Removed', 'Your comment was deleted from the ledger.');
       },
       error: () => {
         this.comments.set(previousList);
-        this.post.update((p) =>
-          p ? { ...p, commentsCount: (p.commentsCount || 0) + 1 } : p
-        );
+        this.post.update((p) => (p ? { ...p, commentsCount: (p.commentsCount || 0) + 1 } : p));
         this.toastService.error('Action Failed', 'Could not delete comment.');
       },
     });
@@ -390,10 +364,8 @@ export class PostDetailComponent implements OnInit {
 
     this.comments.update((list) =>
       list.map((c) =>
-        c._id === comment._id
-          ? { ...c, isLikedByMe: !wasLiked, likesCount: newCount }
-          : c
-      )
+        c._id === comment._id ? { ...c, isLikedByMe: !wasLiked, likesCount: newCount } : c,
+      ),
     );
 
     this.postsService.toggleLikeComment(comment._id).subscribe({
@@ -401,10 +373,8 @@ export class PostDetailComponent implements OnInit {
       error: () => {
         this.comments.update((list) =>
           list.map((c) =>
-            c._id === comment._id
-              ? { ...c, isLikedByMe: wasLiked, likesCount: prevCount }
-              : c
-          )
+            c._id === comment._id ? { ...c, isLikedByMe: wasLiked, likesCount: prevCount } : c,
+          ),
         );
       },
     });
@@ -443,10 +413,7 @@ export class PostDetailComponent implements OnInit {
       next: () => {
         this.isDeleting.set(false);
         this.isDeleteModalOpen.set(false);
-        this.toastService.info(
-          'Dispatch Retracted',
-          'Your publication was permanently removed.'
-        );
+        this.toastService.info('Dispatch Retracted', 'Your publication was permanently removed.');
         this.router.navigate(['/home']);
       },
       error: () => {
@@ -462,7 +429,7 @@ export class PostDetailComponent implements OnInit {
       navigator.clipboard.writeText(window.location.href);
       this.toastService.info(
         'Folio Link Copied',
-        'Direct link to this dispatch copied to clipboard.'
+        'Direct link to this dispatch copied to clipboard.',
       );
     }
   }

@@ -1,0 +1,96 @@
+<!-- ==================== DESKTOP NAVIGATION SIDEBAR (Shared Component) ==================== -->
+<aside aria-label="Desktop Navigation"
+  class="fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-surface border-r border-outline-variant/60 hidden lg:flex flex-col justify-between p-4 z-20 overflow-y-auto">
+  <!-- Top Brand Snippet & Primary Navigation Links -->
+  <div class="flex flex-col gap-4">
+    <!-- Brand Header -->
+    <div class="px-2 pt-2 pb-1">
+      <a routerLink="/home"
+        class="font-serif text-2xl text-primary italic leading-none hover:opacity-90 transition-opacity inline-block">
+        Gather
+      </a>
+      <p class="text-xs text-secondary tracking-wide mt-1">The Literary Commons</p>
+    </div>
+
+    <!-- Navigation List -->
+    <nav aria-label="Primary Navigation" class="flex flex-col gap-1 mt-2">
+      <!-- 1. Feed -->
+      <a routerLink="/home" routerLinkActive="active text-primary font-bold bg-surface-container shadow-2xs"
+        [routerLinkActiveOptions]="{ paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }"
+        ariaCurrentWhenActive="page"
+        class="text-secondary hover:text-primary flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors duration-150 cursor-pointer">
+        <span class="material-symbols-outlined text-[20px]">newspaper</span>
+        <span class="text-sm font-medium">Feed</span>
+      </a>
+
+      <!-- 2. Notifications -->
+      <a routerLink="/notifications" routerLinkActive="active text-primary font-bold bg-surface-container shadow-2xs"
+        [routerLinkActiveOptions]="{ paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }"
+        ariaCurrentWhenActive="page"
+        class="text-secondary hover:text-primary flex items-center justify-between px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors duration-150 cursor-pointer">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-[20px]">notifications</span>
+          <span class="text-sm font-medium">Notifications</span>
+        </div>
+        @if (unreadCount() > 0) {
+        <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-primary text-white">
+          {{ unreadCount() > 99 ? '99+' : unreadCount() }}
+        </span>
+        }
+      </a>
+
+      <!-- 3. Archives -->
+      <a routerLink="/archives" routerLinkActive="active text-primary font-bold bg-surface-container shadow-2xs"
+        [routerLinkActiveOptions]="{ paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }"
+        ariaCurrentWhenActive="page"
+        class="text-secondary hover:text-primary flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors duration-150 cursor-pointer">
+        <span class="material-symbols-outlined text-[20px]">source</span>
+        <span class="text-sm font-medium">Archives</span>
+      </a>
+
+      <!-- 4. Profile -->
+      <a routerLink="/author" routerLinkActive="active text-primary font-bold bg-surface-container shadow-2xs"
+        [routerLinkActiveOptions]="{ paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }"
+        ariaCurrentWhenActive="page"
+        class="text-secondary hover:text-primary flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors duration-150 cursor-pointer">
+        <span class="material-symbols-outlined text-[20px]">account_circle</span>
+        <span class="text-sm font-medium">Profile</span>
+      </a>
+
+      <!-- Primary Action CTA: New Entry -->
+      <div class="pt-2">
+        <button type="button" (click)="onNewEntryClick()"
+          class="w-full flex items-center justify-center gap-2 bg-primary-container text-white text-sm font-medium px-4 py-2.5 rounded-xl hover:bg-primary transition-colors duration-150 cursor-pointer shadow-sm active:scale-[0.99]">
+          <span class="material-symbols-outlined text-[18px]">edit_square</span>
+          <span>New Entry</span>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Bottom Grouping: Authenticated Author Profile Card & Sign Out -->
+  <div class="flex flex-col gap-2 pt-4 border-t border-outline-variant/40">
+    <div
+      class="flex items-center justify-between gap-2 p-2 rounded-xl bg-surface-container-lowest/90 border border-outline-variant/40 hover:bg-surface-container-low transition-colors group">
+      <a routerLink="/author" title="View your folio" class="flex items-center gap-3 min-w-0 flex-1 cursor-pointer">
+        <img [alt]="currentUser()?.name || 'Author profile photo'"
+          class="w-9 h-9 rounded-full object-cover border border-outline-variant/50 group-hover:border-primary/50 transition-colors shrink-0"
+          [src]="currentUser()?.photo || defaultPhoto" (error)="onPhotoError($event)" />
+        <div class="flex flex-col min-w-0 flex-1">
+          <span class="text-sm font-semibold text-on-surface truncate group-hover:text-primary transition-colors">
+            {{ currentUser()?.name || 'Author' }}
+          </span>
+          <span class="text-xs text-secondary truncate">
+            &#64;{{ currentUser()?.username || 'member' }}
+          </span>
+        </div>
+      </a>
+
+      <!-- Sign Out Action Button -->
+      <button type="button" (click)="onSignOut($event)" title="Sign Out" aria-label="Sign Out"
+        class="p-1.5 text-secondary hover:text-error hover:bg-error-container/20 rounded-lg transition-colors cursor-pointer shrink-0">
+        <span class="material-symbols-outlined text-[18px]">logout</span>
+      </button>
+    </div>
+  </div>
+</aside>

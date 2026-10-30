@@ -8,6 +8,7 @@ import { PostsService } from '../../core/services/posts-service';
 import { ToastService } from '../../core/services/toast-service';
 import { NotificationItem } from '../../core/models/notification.models';
 import { User } from '../../core/models/api.models';
+import { SidebarComponent } from '../../shared/ui/sidebar/sidebar.component';
 
 export type NotificationTab = 'all' | 'comments' | 'likes' | 'follows';
 
@@ -30,7 +31,7 @@ export interface NotificationDisplayItem extends NotificationItem {
 @Component({
   selector: 'app-notifications',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, RouterLink, FormsModule, SidebarComponent],
   templateUrl: './notifications.component.html',
   styleUrl: './notifications.component.css',
 })
@@ -60,31 +61,27 @@ export class NotificationsComponent implements OnInit {
     if (tab === 'comments') {
       return list.filter(
         (n) =>
-          n.type.includes('comment') ||
-          n.type.includes('reply') ||
-          n.type.includes('annotation')
+          n.type.includes('comment') || n.type.includes('reply') || n.type.includes('annotation'),
       );
     }
     if (tab === 'likes') {
       return list.filter((n) => n.type.includes('like'));
     }
     if (tab === 'follows') {
-      return list.filter(
-        (n) => n.type.includes('follow') || n.type.includes('subscript')
-      );
+      return list.filter((n) => n.type.includes('follow') || n.type.includes('subscript'));
     }
     return list;
   });
 
   // Grouped by time bucket
   readonly todayNotifications = computed(() =>
-    this.filteredNotifications().filter((n) => n.timeBucket === 'Today')
+    this.filteredNotifications().filter((n) => n.timeBucket === 'Today'),
   );
   readonly yesterdayNotifications = computed(() =>
-    this.filteredNotifications().filter((n) => n.timeBucket === 'Yesterday')
+    this.filteredNotifications().filter((n) => n.timeBucket === 'Yesterday'),
   );
   readonly earlierNotifications = computed(() =>
-    this.filteredNotifications().filter((n) => n.timeBucket === 'Earlier this week')
+    this.filteredNotifications().filter((n) => n.timeBucket === 'Earlier this week'),
   );
 
   // Tab Badge Counts
@@ -93,19 +90,16 @@ export class NotificationsComponent implements OnInit {
     () =>
       this.notifications().filter(
         (n) =>
-          n.type.includes('comment') ||
-          n.type.includes('reply') ||
-          n.type.includes('annotation')
-      ).length
+          n.type.includes('comment') || n.type.includes('reply') || n.type.includes('annotation'),
+      ).length,
   );
   readonly countLikes = computed(
-    () => this.notifications().filter((n) => n.type.includes('like')).length
+    () => this.notifications().filter((n) => n.type.includes('like')).length,
   );
   readonly countFollows = computed(
     () =>
-      this.notifications().filter(
-        (n) => n.type.includes('follow') || n.type.includes('subscript')
-      ).length
+      this.notifications().filter((n) => n.type.includes('follow') || n.type.includes('subscript'))
+        .length,
   );
 
   ngOnInit(): void {
@@ -168,15 +162,11 @@ export class NotificationsComponent implements OnInit {
         if (typeof count === 'number') {
           this.unreadCount.set(count);
         } else {
-          this.unreadCount.set(
-            this.notifications().filter((n) => !n.read && !n.isRead).length
-          );
+          this.unreadCount.set(this.notifications().filter((n) => !n.read && !n.isRead).length);
         }
       },
       error: () => {
-        this.unreadCount.set(
-          this.notifications().filter((n) => !n.read && !n.isRead).length
-        );
+        this.unreadCount.set(this.notifications().filter((n) => !n.read && !n.isRead).length);
       },
     });
   }
@@ -193,7 +183,7 @@ export class NotificationsComponent implements OnInit {
 
     // Optimistically update all in state
     this.notifications.update((items) =>
-      items.map((item) => ({ ...item, read: true, isRead: true }))
+      items.map((item) => ({ ...item, read: true, isRead: true })),
     );
     this.unreadCount.set(0);
 
@@ -214,7 +204,7 @@ export class NotificationsComponent implements OnInit {
     if (item.read || item.isRead) return;
 
     this.notifications.update((items) =>
-      items.map((n) => (n._id === item._id ? { ...n, read: true, isRead: true } : n))
+      items.map((n) => (n._id === item._id ? { ...n, read: true, isRead: true } : n)),
     );
     this.unreadCount.update((c) => Math.max(0, c - 1));
 
@@ -246,9 +236,7 @@ export class NotificationsComponent implements OnInit {
     const nextFollowing = !item.isFollowingBack;
 
     this.notifications.update((items) =>
-      items.map((n) =>
-        n._id === item._id ? { ...n, isFollowingBack: nextFollowing } : n
-      )
+      items.map((n) => (n._id === item._id ? { ...n, isFollowingBack: nextFollowing } : n)),
     );
 
     // Update currentUser following state
@@ -257,9 +245,7 @@ export class NotificationsComponent implements OnInit {
       const prevList = Array.isArray(me.following) ? [...me.following] : [];
       const updatedList = nextFollowing
         ? [...prevList, actorId]
-        : prevList.filter(
-            (id) => (typeof id === 'string' ? id : id?._id || id?.id) !== actorId
-          );
+        : prevList.filter((id) => (typeof id === 'string' ? id : id?._id || id?.id) !== actorId);
       const updated = {
         ...me,
         following: updatedList,
@@ -277,15 +263,13 @@ export class NotificationsComponent implements OnInit {
           nextFollowing ? 'Subscribed to Author' : 'Unsubscribed',
           nextFollowing
             ? `You will now receive dispatches from ${item.actorName}.`
-            : `Removed ${item.actorName} from your following feed.`
+            : `Removed ${item.actorName} from your following feed.`,
         );
       },
       error: () => {
         // Rollback on failure
         this.notifications.update((items) =>
-          items.map((n) =>
-            n._id === item._id ? { ...n, isFollowingBack: !nextFollowing } : n
-          )
+          items.map((n) => (n._id === item._id ? { ...n, isFollowingBack: !nextFollowing } : n)),
         );
         this.toastService.error('Action Failed', 'Could not update subscription.');
       },
@@ -361,9 +345,7 @@ export class NotificationsComponent implements OnInit {
       const isFollowingBack =
         Array.isArray(myFollowing) &&
         actor._id &&
-        myFollowing.some(
-          (f: any) => (typeof f === 'string' ? f : f?._id || f?.id) === actor._id
-        );
+        myFollowing.some((f: any) => (typeof f === 'string' ? f : f?._id || f?.id) === actor._id);
 
       switch (notifType) {
         case 'comment_post':
@@ -372,10 +354,7 @@ export class NotificationsComponent implements OnInit {
         case 'reply':
           iconName = 'edit_document';
           actionText = 'annotated your dispatch';
-          quoteSnippet =
-            entity.topComment?.content ||
-            raw.comment?.content ||
-            raw.comment?.body;
+          quoteSnippet = entity.topComment?.content || raw.comment?.content || raw.comment?.body;
           break;
         case 'like_post':
         case 'like':

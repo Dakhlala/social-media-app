@@ -92,9 +92,23 @@
   vertical-align: middle;
 }
 
+/* Active navigation filled icon state */
+a.active .material-symbols-outlined,
+a[aria-current='page'] .material-symbols-outlined {
+  font-variation-settings: 'FILL' 1;
+}
+
+aside a.active,
+aside a[aria-current='page'] {
+  color: var(--color-primary);
+  background-color: var(--color-surface-container);
+  font-weight: 700;
+}
+
 /* ==================== LITERARY GENTLE MOTION SYSTEM ==================== */
 @keyframes gentle-float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) rotate(-2.5deg);
   }
   50% {
@@ -103,7 +117,8 @@
 }
 
 @keyframes gentle-float-reverse {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) rotate(2deg);
   }
   50% {
@@ -112,7 +127,8 @@
 }
 
 @keyframes gentle-float-slow {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) rotate(0deg);
   }
   50% {
@@ -145,7 +161,8 @@
 
 /* ==================== TYPEWRITER BLINKING CARET ==================== */
 @keyframes typewriter-caret-blink {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {

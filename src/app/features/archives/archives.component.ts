@@ -6,6 +6,7 @@ import { UsersService } from '../../core/services/users-service';
 import { PostsService } from '../../core/services/posts-service';
 import { ToastService } from '../../core/services/toast-service';
 import { Post } from '../../core/models/post.models';
+import { SidebarComponent } from '../../shared/ui/sidebar/sidebar.component';
 
 export interface ArchivalItem {
   _id: string;
@@ -29,7 +30,7 @@ export interface ArchivalItem {
 @Component({
   selector: 'app-archives',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, DatePipe],
+  imports: [CommonModule, RouterLink, FormsModule, DatePipe, SidebarComponent],
   templateUrl: './archives.component.html',
   styleUrl: './archives.component.css',
 })
@@ -68,8 +69,12 @@ export class ArchivesComponent implements OnInit {
 
   // Dynamic counts for category tabs
   readonly countAll = computed(() => this.items().length);
-  readonly countPlates = computed(() => this.items().filter((it) => it.hasAttachment || Boolean(it.image)).length);
-  readonly countDiscussions = computed(() => this.items().filter((it) => it.commentsCount > 0).length);
+  readonly countPlates = computed(
+    () => this.items().filter((it) => it.hasAttachment || Boolean(it.image)).length,
+  );
+  readonly countDiscussions = computed(
+    () => this.items().filter((it) => it.commentsCount > 0).length,
+  );
 
   ngOnInit(): void {
     this.loadBookmarks();
@@ -112,7 +117,10 @@ export class ArchivesComponent implements OnInit {
 
     // Optimistically remove
     this.items.update((list) => list.filter((i) => i._id !== item._id));
-    this.toastService.info('Removed from Archives', 'Dispatch removed from your permanent repository.');
+    this.toastService.info(
+      'Removed from Archives',
+      'Dispatch removed from your permanent repository.',
+    );
 
     this.postsService.toggleBookmark(item._id).subscribe({
       next: () => {},
@@ -145,7 +153,8 @@ export class ArchivesComponent implements OnInit {
   private transformPostsToArchivalItems(posts: Post[]): ArchivalItem[] {
     return posts.map((p, idx) => {
       const words = (p.body || '').trim().split(/\s+/);
-      const title = words.length > 8 ? words.slice(0, 8).join(' ') + '...' : p.body || 'Archival Record';
+      const title =
+        words.length > 8 ? words.slice(0, 8).join(' ') + '...' : p.body || 'Archival Record';
       const shortId = p._id ? p._id.slice(-6).toUpperCase() : `${100 + idx}-GL`;
 
       // Extract hashtags
@@ -160,7 +169,9 @@ export class ArchivesComponent implements OnInit {
         authorName: p.user?.name || 'Anonymous Author',
         authorUsername: p.user?.username || 'scholar',
         authorPhoto: p.user?.photo,
-        authorMeta: p.user?.username ? `@${p.user.username}` : `Record ${String(idx + 1).padStart(2, '0')}`,
+        authorMeta: p.user?.username
+          ? `@${p.user.username}`
+          : `Record ${String(idx + 1).padStart(2, '0')}`,
         archivalId: shortId,
         preservedDate: p.createdAt || new Date().toISOString(),
         citationsCount: p.likesCount ?? 0,

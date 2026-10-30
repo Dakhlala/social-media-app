@@ -19,6 +19,7 @@ import { User } from '../../core/models/api.models';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { ConfirmModalComponent } from '../../shared/ui/confirm-modal/confirm-modal.component';
 import { EditPostModalComponent } from '../../shared/ui/edit-post-modal/edit-post-modal.component';
+import { SidebarComponent } from '../../shared/ui/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-home-feed',
@@ -30,6 +31,7 @@ import { EditPostModalComponent } from '../../shared/ui/edit-post-modal/edit-pos
     RouterLink,
     ConfirmModalComponent,
     EditPostModalComponent,
+    SidebarComponent,
   ],
   templateUrl: './home-feed.component.html',
 })
@@ -215,7 +217,7 @@ export class HomeFeedComponent implements OnInit, AfterViewInit {
           this.loadNextPage();
         }
       },
-      { rootMargin: '300px' }
+      { rootMargin: '300px' },
     );
 
     if (this.scrollSentinel?.nativeElement) {
@@ -250,8 +252,8 @@ export class HomeFeedComponent implements OnInit, AfterViewInit {
     // 1. Instant optimistic update
     this.posts.update((items) =>
       items.map((p) =>
-        p._id === post._id ? { ...p, isLikedByMe: !wasLiked, likesCount: newCount } : p
-      )
+        p._id === post._id ? { ...p, isLikedByMe: !wasLiked, likesCount: newCount } : p,
+      ),
     );
 
     // 2. Background API call
@@ -263,8 +265,8 @@ export class HomeFeedComponent implements OnInit, AfterViewInit {
         // Rollback on failure
         this.posts.update((items) =>
           items.map((p) =>
-            p._id === post._id ? { ...p, isLikedByMe: wasLiked, likesCount: prevCount } : p
-          )
+            p._id === post._id ? { ...p, isLikedByMe: wasLiked, likesCount: prevCount } : p,
+          ),
         );
         this.toastService.error('Action Failed', 'Could not update like status.');
       },
@@ -277,7 +279,7 @@ export class HomeFeedComponent implements OnInit, AfterViewInit {
 
     // 1. Instant optimistic update
     this.posts.update((items) =>
-      items.map((p) => (p._id === post._id ? { ...p, bookmarked: !prevBookmarked } : p))
+      items.map((p) => (p._id === post._id ? { ...p, bookmarked: !prevBookmarked } : p)),
     );
 
     if (!prevBookmarked) {
@@ -294,7 +296,7 @@ export class HomeFeedComponent implements OnInit, AfterViewInit {
       error: () => {
         // Rollback on failure
         this.posts.update((items) =>
-          items.map((p) => (p._id === post._id ? { ...p, bookmarked: prevBookmarked } : p))
+          items.map((p) => (p._id === post._id ? { ...p, bookmarked: prevBookmarked } : p)),
         );
         this.toastService.error('Action Failed', 'Could not update bookmark.');
       },
@@ -308,7 +310,7 @@ export class HomeFeedComponent implements OnInit, AfterViewInit {
 
     // 1. Optimistic toggle of suggestions list
     this.suggestions.update((list) =>
-      list.map((a) => (a._id === author._id ? { ...a, isFollowing: nextFollowing } : a))
+      list.map((a) => (a._id === author._id ? { ...a, isFollowing: nextFollowing } : a)),
     );
 
     // 2. Optimistic toggle of currentUser following list
@@ -333,7 +335,7 @@ export class HomeFeedComponent implements OnInit, AfterViewInit {
       nextFollowing ? 'Following Author' : 'Unfollowed',
       nextFollowing
         ? `You will now receive dispatches from ${author.name}.`
-        : `Removed ${author.name} from your following feed.`
+        : `Removed ${author.name} from your following feed.`,
     );
 
     this.usersService.toggleFollow(author._id).subscribe({
@@ -346,7 +348,7 @@ export class HomeFeedComponent implements OnInit, AfterViewInit {
       error: () => {
         // Rollback
         this.suggestions.update((list) =>
-          list.map((a) => (a._id === author._id ? { ...a, isFollowing: prevFollowing } : a))
+          list.map((a) => (a._id === author._id ? { ...a, isFollowing: prevFollowing } : a)),
         );
 
         this.currentUser.update((me) => {
@@ -431,7 +433,7 @@ export class HomeFeedComponent implements OnInit, AfterViewInit {
 
         this.toastService.success(
           'Post published to your feed',
-          'Visible to your subscribers in The Reading Room'
+          'Visible to your subscribers in The Reading Room',
         );
       },
       error: () => {
@@ -531,8 +533,8 @@ export class HomeFeedComponent implements OnInit, AfterViewInit {
           // Update post comments count in feed
           this.posts.update((list) =>
             list.map((p) =>
-              p._id === postId ? { ...p, commentsCount: (p.commentsCount || 0) + 1 } : p
-            )
+              p._id === postId ? { ...p, commentsCount: (p.commentsCount || 0) + 1 } : p,
+            ),
           );
 
           // Clear text
@@ -565,8 +567,8 @@ export class HomeFeedComponent implements OnInit, AfterViewInit {
     // Optimistic decrement of post comments count
     this.posts.update((list) =>
       list.map((p) =>
-        p._id === postId ? { ...p, commentsCount: Math.max(0, (p.commentsCount || 0) - 1) } : p
-      )
+        p._id === postId ? { ...p, commentsCount: Math.max(0, (p.commentsCount || 0) - 1) } : p,
+      ),
     );
 
     this.postsService.deleteComment(comment._id).subscribe({
@@ -578,8 +580,8 @@ export class HomeFeedComponent implements OnInit, AfterViewInit {
         this.postComments.update((prev) => ({ ...prev, [postId]: previousComments }));
         this.posts.update((list) =>
           list.map((p) =>
-            p._id === postId ? { ...p, commentsCount: (p.commentsCount || 0) + 1 } : p
-          )
+            p._id === postId ? { ...p, commentsCount: (p.commentsCount || 0) + 1 } : p,
+          ),
         );
         this.toastService.error('Action Failed', 'Could not delete comment.');
       },
@@ -596,18 +598,18 @@ export class HomeFeedComponent implements OnInit, AfterViewInit {
     this.postComments.update((prev) => ({
       ...prev,
       [postId]: (prev[postId] || []).map((c) =>
-        c._id === comment._id ? { ...c, isLikedByMe: !wasLiked, likesCount: newCount } : c
+        c._id === comment._id ? { ...c, isLikedByMe: !wasLiked, likesCount: newCount } : c,
       ),
     }));
 
     this.postsService.toggleLikeComment(comment._id).subscribe({
-      next: () => { },
+      next: () => {},
       error: () => {
         // Rollback
         this.postComments.update((prev) => ({
           ...prev,
           [postId]: (prev[postId] || []).map((c) =>
-            c._id === comment._id ? { ...c, isLikedByMe: wasLiked, likesCount: prevCount } : c
+            c._id === comment._id ? { ...c, isLikedByMe: wasLiked, likesCount: prevCount } : c,
           ),
         }));
       },
@@ -653,7 +655,7 @@ export class HomeFeedComponent implements OnInit, AfterViewInit {
 
   onPostUpdated(updated: Post): void {
     this.posts.update((list) =>
-      list.map((p) => (p._id === updated._id ? { ...p, ...updated } : p))
+      list.map((p) => (p._id === updated._id ? { ...p, ...updated } : p)),
     );
   }
 
@@ -684,7 +686,7 @@ export class HomeFeedComponent implements OnInit, AfterViewInit {
         this.posts.update((list) => list.filter((p) => p._id !== postToDelete._id));
         this.toastService.info(
           'Dispatch Retracted',
-          'Your dispatch was permanently removed from the Commons.'
+          'Your dispatch was permanently removed from the Commons.',
         );
       },
       error: () => {

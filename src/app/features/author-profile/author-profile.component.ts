@@ -18,6 +18,7 @@ import { Post } from '../../core/models/post.models';
 import { ConfirmModalComponent } from '../../shared/ui/confirm-modal/confirm-modal.component';
 import { EditPostModalComponent } from '../../shared/ui/edit-post-modal/edit-post-modal.component';
 import { UpdatePhotoModalComponent } from '../../shared/ui/update-photo-modal/update-photo-modal.component';
+import { SidebarComponent } from '../../shared/ui/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-author-profile',
@@ -29,6 +30,7 @@ import { UpdatePhotoModalComponent } from '../../shared/ui/update-photo-modal/up
     ConfirmModalComponent,
     EditPostModalComponent,
     UpdatePhotoModalComponent,
+    SidebarComponent,
   ],
   templateUrl: './author-profile.component.html',
 })
@@ -80,9 +82,7 @@ export class AuthorProfileComponent implements OnInit {
   });
 
   readonly totalPosts = computed(() => this.posts().length);
-  readonly totalPlates = computed(
-    () => this.posts().filter((p) => Boolean(p.image)).length
-  );
+  readonly totalPlates = computed(() => this.posts().filter((p) => Boolean(p.image)).length);
 
   ngOnInit(): void {
     this.initCurrentUser();
@@ -182,7 +182,7 @@ export class AuthorProfileComponent implements OnInit {
           this.isLoading.set(false);
           this.toastService.error(
             'Author Folio Not Found',
-            'Could not retrieve the requested author profile.'
+            'Could not retrieve the requested author profile.',
           );
         },
       });
@@ -206,8 +206,7 @@ export class AuthorProfileComponent implements OnInit {
                     username: authorUser?.username || 'author',
                     photo: authorUser?.photo,
                   },
-            isLikedByMe:
-              myId && Array.isArray(p.likes) ? p.likes.includes(myId) : false,
+            isLikedByMe: myId && Array.isArray(p.likes) ? p.likes.includes(myId) : false,
           }));
           this.posts.set(decorated);
           this.isPostsLoading.set(false);
@@ -234,13 +233,10 @@ export class AuthorProfileComponent implements OnInit {
             if (user._id) {
               this.usersService.getUserPosts(user._id).subscribe({
                 next: (postRes) => {
-                  const rawPosts =
-                    postRes.data?.posts || (postRes as any).posts || [];
+                  const rawPosts = postRes.data?.posts || (postRes as any).posts || [];
                   const decorated: Post[] = rawPosts.map((p: any) => ({
                     ...p,
-                    isLikedByMe: Array.isArray(p.likes)
-                      ? p.likes.includes(user._id)
-                      : false,
+                    isLikedByMe: Array.isArray(p.likes) ? p.likes.includes(user._id) : false,
                   }));
                   this.posts.set(decorated);
                   this.isPostsLoading.set(false);
@@ -261,7 +257,7 @@ export class AuthorProfileComponent implements OnInit {
           this.isPostsLoading.set(false);
           this.toastService.error(
             'Profile Retrieval Failed',
-            'Could not load your author folio data.'
+            'Could not load your author folio data.',
           );
         },
       });
@@ -305,7 +301,9 @@ export class AuthorProfileComponent implements OnInit {
       const prevFollowing = Array.isArray(me.following) ? [...me.following] : [];
       const nextFollowingList = nextFollowing
         ? [...prevFollowing, currentAuthor._id]
-        : prevFollowing.filter((f: any) => (typeof f === 'string' ? f : f?._id || f?.id) !== currentAuthor._id);
+        : prevFollowing.filter(
+            (f: any) => (typeof f === 'string' ? f : f?._id || f?.id) !== currentAuthor._id,
+          );
       const updated = {
         ...me,
         following: nextFollowingList,
@@ -323,12 +321,12 @@ export class AuthorProfileComponent implements OnInit {
         if (nextFollowing) {
           this.toastService.info(
             'Following Author',
-            `You will now receive dispatches from ${currentAuthor.name}.`
+            `You will now receive dispatches from ${currentAuthor.name}.`,
           );
         } else {
           this.toastService.info(
             'Unfollowed Author',
-            `Removed ${currentAuthor.name} from your following feed.`
+            `Removed ${currentAuthor.name} from your following feed.`,
           );
         }
       },
@@ -342,7 +340,9 @@ export class AuthorProfileComponent implements OnInit {
           const prevFollowers = Array.isArray(curr.followers) ? [...curr.followers] : [];
           const rolledBackFollowers = wasFollowing
             ? [...prevFollowers, { _id: myId, name: this.currentUser()?.name }]
-            : prevFollowers.filter((f: any) => (typeof f === 'string' ? f : f?._id || f?.id) !== myId);
+            : prevFollowers.filter(
+                (f: any) => (typeof f === 'string' ? f : f?._id || f?.id) !== myId,
+              );
 
           return {
             ...curr,
@@ -358,7 +358,9 @@ export class AuthorProfileComponent implements OnInit {
           const prevFollowing = Array.isArray(me.following) ? [...me.following] : [];
           const nextFollowingList = wasFollowing
             ? [...prevFollowing, currentAuthor._id]
-            : prevFollowing.filter((f: any) => (typeof f === 'string' ? f : f?._id || f?.id) !== currentAuthor._id);
+            : prevFollowing.filter(
+                (f: any) => (typeof f === 'string' ? f : f?._id || f?.id) !== currentAuthor._id,
+              );
           const updated = {
             ...me,
             following: nextFollowingList,
@@ -383,10 +385,8 @@ export class AuthorProfileComponent implements OnInit {
 
     this.posts.update((items) =>
       items.map((p) =>
-        p._id === post._id
-          ? { ...p, isLikedByMe: !wasLiked, likesCount: newCount }
-          : p
-      )
+        p._id === post._id ? { ...p, isLikedByMe: !wasLiked, likesCount: newCount } : p,
+      ),
     );
 
     this.postsService.toggleLike(post._id).subscribe({
@@ -394,10 +394,8 @@ export class AuthorProfileComponent implements OnInit {
       error: () => {
         this.posts.update((items) =>
           items.map((p) =>
-            p._id === post._id
-              ? { ...p, isLikedByMe: wasLiked, likesCount: prevCount }
-              : p
-          )
+            p._id === post._id ? { ...p, isLikedByMe: wasLiked, likesCount: prevCount } : p,
+          ),
         );
         this.toastService.error('Action Failed', 'Could not update like.');
       },
@@ -409,30 +407,20 @@ export class AuthorProfileComponent implements OnInit {
     const prevBookmarked = Boolean(post.bookmarked);
 
     this.posts.update((items) =>
-      items.map((p) =>
-        p._id === post._id ? { ...p, bookmarked: !prevBookmarked } : p
-      )
+      items.map((p) => (p._id === post._id ? { ...p, bookmarked: !prevBookmarked } : p)),
     );
 
     if (!prevBookmarked) {
-      this.toastService.info(
-        'Saved to Archives',
-        'Dispatch added to your preserved archives.'
-      );
+      this.toastService.info('Saved to Archives', 'Dispatch added to your preserved archives.');
     } else {
-      this.toastService.info(
-        'Removed from Archives',
-        'Dispatch removed from preserved archives.'
-      );
+      this.toastService.info('Removed from Archives', 'Dispatch removed from preserved archives.');
     }
 
     this.postsService.toggleBookmark(post._id).subscribe({
       next: () => {},
       error: () => {
         this.posts.update((items) =>
-          items.map((p) =>
-            p._id === post._id ? { ...p, bookmarked: prevBookmarked } : p
-          )
+          items.map((p) => (p._id === post._id ? { ...p, bookmarked: prevBookmarked } : p)),
         );
         this.toastService.error('Action Failed', 'Could not update archive status.');
       },
@@ -443,10 +431,7 @@ export class AuthorProfileComponent implements OnInit {
   onShareProfile(): void {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
       navigator.clipboard.writeText(window.location.href);
-      this.toastService.info(
-        'Folio Link Copied',
-        'Author profile link copied to clipboard.'
-      );
+      this.toastService.info('Folio Link Copied', 'Author profile link copied to clipboard.');
     }
   }
 
@@ -494,7 +479,7 @@ export class AuthorProfileComponent implements OnInit {
 
   onPostUpdated(updated: Post): void {
     this.posts.update((list) =>
-      list.map((p) => (p._id === updated._id ? { ...p, ...updated } : p))
+      list.map((p) => (p._id === updated._id ? { ...p, ...updated } : p)),
     );
   }
 
@@ -525,7 +510,7 @@ export class AuthorProfileComponent implements OnInit {
         this.posts.update((list) => list.filter((p) => p._id !== postToDelete._id));
         this.toastService.info(
           'Dispatch Retracted',
-          'Your dispatch was permanently removed from your folio.'
+          'Your dispatch was permanently removed from your folio.',
         );
       },
       error: () => {
@@ -588,9 +573,8 @@ export class AuthorProfileComponent implements OnInit {
             return { ...p, user: { ...p.user, photo: newPhotoUrl } };
           }
           return p;
-        })
+        }),
       );
     }
   }
 }
-

@@ -1,19 +1,25 @@
 <div
-  class="bg-[#F7F7F2] text-[#202925] min-h-screen flex flex-col justify-between selection:bg-secondary-fixed selection:text-primary antialiased">
-
+  class="bg-[#F7F7F2] text-[#202925] min-h-screen flex flex-col justify-between selection:bg-secondary-fixed selection:text-primary antialiased"
+>
   <!-- ==================== TOP BRAND HEADER ==================== -->
-  <header class="w-full border-b border-outline-variant/60 bg-white/80 backdrop-blur-md sticky top-0 z-30 py-3.5 px-4 sm:px-8">
+  <header
+    class="w-full border-b border-outline-variant/60 bg-white/80 backdrop-blur-md sticky top-0 z-30 py-3.5 px-4 sm:px-8"
+  >
     <div class="max-w-7xl mx-auto flex items-center justify-between">
       <a routerLink="/sign-in" class="flex items-center gap-2 group">
         <span class="font-serif text-2xl text-primary italic font-bold">Gather</span>
-        <span class="text-xs text-secondary hidden sm:inline-block border-l border-outline-variant/60 pl-2 tracking-wide">
+        <span
+          class="text-xs text-secondary hidden sm:inline-block border-l border-outline-variant/60 pl-2 tracking-wide"
+        >
           The Literary Commons
         </span>
       </a>
       <div class="flex items-center gap-2 text-xs sm:text-sm">
         <span class="text-secondary hidden sm:inline">New scholar?</span>
-        <a routerLink="/sign-up"
-          class="font-semibold text-primary hover:text-[#1a5747] transition-colors underline underline-offset-4 decoration-outline-variant hover:decoration-primary">
+        <a
+          routerLink="/sign-up"
+          class="font-semibold text-primary hover:text-[#1a5747] transition-colors underline underline-offset-4 decoration-outline-variant hover:decoration-primary"
+        >
           Create Account
         </a>
       </div>
@@ -21,41 +27,63 @@
   </header>
 
   <!-- ==================== MAIN CANVAS ==================== -->
-  <main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12 flex items-center justify-center">
+  <main
+    class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12 flex items-center justify-center"
+  >
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full">
-
       <!-- LEFT COLUMN: EDITORIAL VIGNETTE (Shown on Desktop / Tablet) -->
       <section class="hidden lg:flex lg:col-span-7 flex-col justify-center pr-0 lg:pr-8 space-y-6">
         <div class="flex items-center justify-between">
-          <div class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container rounded-md w-fit">
+          <div
+            class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container rounded-md w-fit"
+          >
             <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            <span class="text-xs font-semibold text-primary tracking-wider uppercase">Issue No. XLVIII · Autumn Forum</span>
+            <span class="text-xs font-semibold text-primary tracking-wider uppercase"
+              >Issue No. XLVIII · Autumn Forum</span
+            >
           </div>
 
           <!-- Floating Literary Emblem Card -->
-          <div class="w-11 h-11 rounded-xl bg-white border border-outline-variant/60 shadow-xs flex items-center justify-center animate-gentle-float text-primary select-none">
-            <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+          <div
+            class="w-11 h-11 rounded-xl bg-white border border-outline-variant/60 shadow-xs flex items-center justify-center animate-gentle-float text-primary select-none"
+          >
+            <span
+              class="material-symbols-outlined text-[22px]"
+              style="font-variation-settings: 'FILL' 1"
+              >auto_stories</span
+            >
           </div>
         </div>
 
         <div class="space-y-3 min-h-[96px] lg:min-h-[110px]">
-          <h1 class="font-serif text-4xl lg:text-5xl text-[#151d1a] leading-tight tracking-tight inline-flex items-center">
+          <h1
+            class="font-serif text-4xl lg:text-5xl text-[#151d1a] leading-tight tracking-tight inline-flex items-center"
+          >
             <span>{{ typedHeadline() }}</span>
-            <span class="inline-block w-[3px] h-[0.9em] bg-primary ml-1.5 rounded-xs animate-caret-blink"></span>
+            <span
+              class="inline-block w-[3px] h-[0.9em] bg-primary ml-1.5 rounded-xs animate-caret-blink"
+            ></span>
           </h1>
           <p class="font-serif text-base lg:text-lg text-secondary max-w-xl leading-relaxed">
-            An unhurried space for essays, critique, and collective thought. Return to your active manuscripts, community annotations, and ongoing correspondence.
+            An unhurried space for essays, critique, and collective thought. Return to your active
+            manuscripts, community annotations, and ongoing correspondence.
           </p>
         </div>
 
         <!-- Editorial Quote Vignette -->
-        <div class="p-6 bg-white border-l-4 border-primary rounded-r-2xl border-y border-r border-outline-variant/50 shadow-xs space-y-3 relative overflow-hidden">
+        <div
+          class="p-6 bg-white border-l-4 border-primary rounded-r-2xl border-y border-r border-outline-variant/50 shadow-xs space-y-3 relative overflow-hidden"
+        >
           <p class="font-serif text-lg italic text-[#202925] leading-relaxed">
-            “To gather is not merely to amass words, but to prepare soil wherein slow convictions may strike deep root.”
+            “To gather is not merely to amass words, but to prepare soil wherein slow convictions
+            may strike deep root.”
           </p>
-          <div class="flex items-center justify-between text-secondary pt-3 border-t border-outline-variant/40 text-xs">
+          <div
+            class="flex items-center justify-between text-secondary pt-3 border-t border-outline-variant/40 text-xs"
+          >
             <span class="font-medium text-[#151d1a]">
-              H. V. Aris Thorne — <span class="italic text-secondary">The Architecture of Reading</span>
+              H. V. Aris Thorne —
+              <span class="italic text-secondary">The Architecture of Reading</span>
             </span>
             <span class="font-mono text-outline">Folio 112</span>
           </div>
@@ -64,8 +92,12 @@
         <!-- Feature Pillars with Animated Gentle Floating Icons -->
         <div class="grid grid-cols-3 gap-4 pt-2">
           <!-- Pillar 1 -->
-          <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/70 border border-outline-variant/40 hover:bg-white transition-colors">
-            <div class="w-8 h-8 rounded-lg bg-surface-container/90 flex items-center justify-center shrink-0 animate-gentle-float text-primary border border-outline-variant/40 shadow-2xs">
+          <div
+            class="flex items-start gap-2.5 p-3 rounded-xl bg-white/70 border border-outline-variant/40 hover:bg-white transition-colors"
+          >
+            <div
+              class="w-8 h-8 rounded-lg bg-surface-container/90 flex items-center justify-center shrink-0 animate-gentle-float text-primary border border-outline-variant/40 shadow-2xs"
+            >
               <span class="material-symbols-outlined text-[18px]">verified_user</span>
             </div>
             <div>
@@ -75,8 +107,12 @@
           </div>
 
           <!-- Pillar 2 -->
-          <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/70 border border-outline-variant/40 hover:bg-white transition-colors">
-            <div class="w-8 h-8 rounded-lg bg-surface-container/90 flex items-center justify-center shrink-0 animate-gentle-float-reverse text-primary border border-outline-variant/40 shadow-2xs">
+          <div
+            class="flex items-start gap-2.5 p-3 rounded-xl bg-white/70 border border-outline-variant/40 hover:bg-white transition-colors"
+          >
+            <div
+              class="w-8 h-8 rounded-lg bg-surface-container/90 flex items-center justify-center shrink-0 animate-gentle-float-reverse text-primary border border-outline-variant/40 shadow-2xs"
+            >
               <span class="material-symbols-outlined text-[18px]">history_edu</span>
             </div>
             <div>
@@ -86,8 +122,12 @@
           </div>
 
           <!-- Pillar 3 -->
-          <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/70 border border-outline-variant/40 hover:bg-white transition-colors">
-            <div class="w-8 h-8 rounded-lg bg-surface-container/90 flex items-center justify-center shrink-0 animate-gentle-float-slow text-primary border border-outline-variant/40 shadow-2xs">
+          <div
+            class="flex items-start gap-2.5 p-3 rounded-xl bg-white/70 border border-outline-variant/40 hover:bg-white transition-colors"
+          >
+            <div
+              class="w-8 h-8 rounded-lg bg-surface-container/90 flex items-center justify-center shrink-0 animate-gentle-float-slow text-primary border border-outline-variant/40 shadow-2xs"
+            >
               <span class="material-symbols-outlined text-[18px]">groups</span>
             </div>
             <div>
@@ -100,15 +140,22 @@
 
       <!-- RIGHT COLUMN: SIGN-IN CARD (Mobile-First Focus) -->
       <section class="w-full max-w-md mx-auto lg:max-w-none lg:col-span-5">
-
         <!-- Mobile-Only Context Header -->
         <div class="lg:hidden text-center mb-6 space-y-1.5">
           <div class="flex justify-center mb-2">
-            <div class="w-12 h-12 rounded-2xl bg-white border border-outline-variant/60 shadow-xs flex items-center justify-center animate-gentle-float text-primary">
-              <span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+            <div
+              class="w-12 h-12 rounded-2xl bg-white border border-outline-variant/60 shadow-xs flex items-center justify-center animate-gentle-float text-primary"
+            >
+              <span
+                class="material-symbols-outlined text-[24px]"
+                style="font-variation-settings: 'FILL' 1"
+                >auto_stories</span
+              >
             </div>
           </div>
-          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container text-primary text-xs font-medium mb-1">
+          <div
+            class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container text-primary text-xs font-medium mb-1"
+          >
             <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
             <span>The Literary Commons</span>
           </div>
@@ -119,34 +166,44 @@
         </div>
 
         <!-- Authentication Card -->
-        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-outline-variant/60 shadow-sm relative overflow-hidden">
-
+        <div
+          class="bg-white rounded-2xl p-6 sm:p-8 border border-outline-variant/60 shadow-sm relative overflow-hidden"
+        >
           <!-- Card Header with Subtle Floating Quill -->
-          <div class="hidden lg:flex items-center justify-between mb-4 pb-3 border-b border-outline-variant/40">
+          <div
+            class="hidden lg:flex items-center justify-between mb-4 pb-3 border-b border-outline-variant/40"
+          >
             <div>
-              <span class="text-xs font-semibold text-primary uppercase tracking-wider">Scholar Access</span>
+              <span class="text-xs font-semibold text-primary uppercase tracking-wider"
+                >Scholar Access</span
+              >
               <p class="text-xs text-secondary">Sign in to your author folio</p>
             </div>
-            <div class="w-9 h-9 rounded-xl bg-surface-container border border-outline-variant/50 flex items-center justify-center animate-gentle-float text-primary shadow-2xs">
+            <div
+              class="w-9 h-9 rounded-xl bg-surface-container border border-outline-variant/50 flex items-center justify-center animate-gentle-float text-primary shadow-2xs"
+            >
               <span class="material-symbols-outlined text-[19px]">history_edu</span>
             </div>
           </div>
 
           <!-- Tactile Segmented Tab Bar -->
           <div class="grid grid-cols-2 p-1 bg-surface-container rounded-xl mb-6">
-            <button type="button"
-              class="py-2.5 rounded-lg bg-primary text-white text-xs sm:text-sm font-semibold shadow-xs text-center transition-all cursor-default">
+            <button
+              type="button"
+              class="py-2.5 rounded-lg bg-primary text-white text-xs sm:text-sm font-semibold shadow-xs text-center transition-all cursor-default"
+            >
               Sign In
             </button>
-            <a routerLink="/sign-up"
-              class="py-2.5 rounded-lg text-secondary hover:text-primary text-xs sm:text-sm font-medium text-center transition-all">
+            <a
+              routerLink="/sign-up"
+              class="py-2.5 rounded-lg text-secondary hover:text-primary text-xs sm:text-sm font-medium text-center transition-all"
+            >
               Create Account
             </a>
           </div>
 
           <!-- Sign-In Form -->
           <form class="space-y-4" [formGroup]="signInForm" (ngSubmit)="onSubmit()" novalidate>
-
             <!-- Email Field -->
             <div class="space-y-1.5">
               <div class="flex items-center justify-between">
@@ -156,24 +213,44 @@
                 <span class="text-[11px] text-secondary">Author ID</span>
               </div>
               <div class="relative">
-                <input autocomplete="email"
+                <input
+                  autocomplete="email"
                   class="w-full h-12 bg-white border text-base text-[#151d1a] placeholder:text-secondary/70 px-4 pr-11 rounded-xl transition-all outline-none"
-                  [class.border-outline-variant]="!signInForm.get('email')?.invalid || (!signInForm.get('email')?.touched && !isSubmitted())"
-                  [class.border-red-500]="signInForm.get('email')?.invalid && (signInForm.get('email')?.touched || isSubmitted())"
+                  [class.border-outline-variant]="
+                    !signInForm.get('email')?.invalid ||
+                    (!signInForm.get('email')?.touched && !isSubmitted())
+                  "
+                  [class.border-red-500]="
+                    signInForm.get('email')?.invalid &&
+                    (signInForm.get('email')?.touched || isSubmitted())
+                  "
                   [class.focus:border-primary]="!signInForm.get('email')?.invalid"
                   [class.focus:ring-2]="true"
                   [class.focus:ring-primary/20]="!signInForm.get('email')?.invalid"
-                  [class.focus:ring-red-500/20]="signInForm.get('email')?.invalid && (signInForm.get('email')?.touched || isSubmitted())"
-                  id="email" name="email" placeholder="author@gather.org" type="email" formControlName="email">
-                <div class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-secondary">
+                  [class.focus:ring-red-500/20]="
+                    signInForm.get('email')?.invalid &&
+                    (signInForm.get('email')?.touched || isSubmitted())
+                  "
+                  id="email"
+                  name="email"
+                  placeholder="author@gather.org"
+                  type="email"
+                  formControlName="email"
+                />
+                <div
+                  class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-secondary"
+                >
                   <span class="material-symbols-outlined text-[18px]">alternate_email</span>
                 </div>
               </div>
-              @if (signInForm.get('email')?.invalid && (signInForm.get('email')?.touched || isSubmitted())) {
-              <p class="text-xs text-red-600 flex items-center gap-1 pt-0.5">
-                <span class="material-symbols-outlined text-[14px]">error</span>
-                <span>Please enter a valid email address.</span>
-              </p>
+              @if (
+                signInForm.get('email')?.invalid &&
+                (signInForm.get('email')?.touched || isSubmitted())
+              ) {
+                <p class="text-xs text-red-600 flex items-center gap-1 pt-0.5">
+                  <span class="material-symbols-outlined text-[14px]">error</span>
+                  <span>Please enter a valid email address.</span>
+                </p>
               }
             </div>
 
@@ -186,43 +263,69 @@
                 <span class="text-[11px] text-secondary">Secured</span>
               </div>
               <div class="relative">
-                <input autocomplete="current-password"
+                <input
+                  autocomplete="current-password"
                   class="w-full h-12 bg-white border text-base text-[#151d1a] placeholder:text-secondary/70 px-4 pr-12 rounded-xl transition-all outline-none"
-                  [class.border-outline-variant]="!signInForm.get('password')?.invalid || (!signInForm.get('password')?.touched && !isSubmitted())"
-                  [class.border-red-500]="signInForm.get('password')?.invalid && (signInForm.get('password')?.touched || isSubmitted())"
+                  [class.border-outline-variant]="
+                    !signInForm.get('password')?.invalid ||
+                    (!signInForm.get('password')?.touched && !isSubmitted())
+                  "
+                  [class.border-red-500]="
+                    signInForm.get('password')?.invalid &&
+                    (signInForm.get('password')?.touched || isSubmitted())
+                  "
                   [class.focus:border-primary]="!signInForm.get('password')?.invalid"
                   [class.focus:ring-2]="true"
                   [class.focus:ring-primary/20]="!signInForm.get('password')?.invalid"
-                  [class.focus:ring-red-500/20]="signInForm.get('password')?.invalid && (signInForm.get('password')?.touched || isSubmitted())"
-                  id="password" name="password" placeholder="Enter your password"
+                  [class.focus:ring-red-500/20]="
+                    signInForm.get('password')?.invalid &&
+                    (signInForm.get('password')?.touched || isSubmitted())
+                  "
+                  id="password"
+                  name="password"
+                  placeholder="Enter your password"
                   [type]="showPassword() ? 'text' : 'password'"
-                  formControlName="password">
-                <button aria-label="Toggle password visibility"
+                  formControlName="password"
+                />
+                <button
+                  aria-label="Toggle password visibility"
                   class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-secondary hover:text-primary transition-colors cursor-pointer w-11 justify-center active:scale-95"
-                  id="toggle-password" type="button" (click)="togglePasswordVisibility()">
+                  id="toggle-password"
+                  type="button"
+                  (click)="togglePasswordVisibility()"
+                >
                   <span class="material-symbols-outlined text-[20px]">
                     {{ showPassword() ? 'visibility_off' : 'visibility' }}
                   </span>
                 </button>
               </div>
-              @if (signInForm.get('password')?.invalid && (signInForm.get('password')?.touched || isSubmitted())) {
-              <p class="text-xs text-red-600 flex items-center gap-1 pt-0.5">
-                <span class="material-symbols-outlined text-[14px]">error</span>
-                <span>Password is required.</span>
-              </p>
+              @if (
+                signInForm.get('password')?.invalid &&
+                (signInForm.get('password')?.touched || isSubmitted())
+              ) {
+                <p class="text-xs text-red-600 flex items-center gap-1 pt-0.5">
+                  <span class="material-symbols-outlined text-[14px]">error</span>
+                  <span>Password is required.</span>
+                </p>
               }
             </div>
 
             <!-- Session Duration & Security Info -->
             <div class="flex items-center justify-between pt-1">
               <label class="flex items-center gap-2 cursor-pointer select-none">
-                <input checked
+                <input
+                  checked
                   class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary/30 accent-primary cursor-pointer"
-                  id="remember_session" name="remember_session" type="checkbox">
+                  id="remember_session"
+                  name="remember_session"
+                  type="checkbox"
+                />
                 <span class="text-xs text-[#202925]">Stay signed in for 7 days</span>
               </label>
-              <span class="text-[11px] text-secondary flex items-center gap-1"
-                title="Encrypted cookie storage with strict same-site safety">
+              <span
+                class="text-[11px] text-secondary flex items-center gap-1"
+                title="Encrypted cookie storage with strict same-site safety"
+              >
                 <span class="material-symbols-outlined text-[13px]">lock</span>
                 <span class="hidden sm:inline">Encrypted Session</span>
               </span>
@@ -232,13 +335,18 @@
             <div class="pt-2">
               <button
                 class="w-full h-12 bg-primary hover:bg-[#1a5747] text-white text-sm sm:text-base font-semibold rounded-xl flex items-center justify-center gap-2 shadow-sm transition-all duration-150 active:scale-[0.99] disabled:opacity-60 cursor-pointer"
-                id="submit-button" type="submit" [disabled]="isLoading()">
+                id="submit-button"
+                type="submit"
+                [disabled]="isLoading()"
+              >
                 @if (isLoading()) {
-                <span class="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>
-                <span>Signing in...</span>
+                  <span class="material-symbols-outlined animate-spin text-[18px]"
+                    >progress_activity</span
+                  >
+                  <span>Signing in...</span>
                 } @else {
-                <span>Sign In to Gather</span>
-                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                  <span>Sign In to Gather</span>
+                  <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
                 }
               </button>
             </div>
@@ -260,21 +368,25 @@
         </div>
 
         <!-- Mobile Literary Quote Card (Appears under form on phone screens) -->
-        <div class="lg:hidden mt-6 p-4 rounded-xl bg-white/70 border border-outline-variant/50 text-center space-y-1">
+        <div
+          class="lg:hidden mt-6 p-4 rounded-xl bg-white/70 border border-outline-variant/50 text-center space-y-1"
+        >
           <p class="font-serif text-xs italic text-secondary leading-relaxed">
             “To gather is to prepare soil wherein slow convictions may strike deep root.”
           </p>
-          <span class="text-[10px] text-outline font-mono">Folio 112 · The Architecture of Reading</span>
+          <span class="text-[10px] text-outline font-mono"
+            >Folio 112 · The Architecture of Reading</span
+          >
         </div>
       </section>
-
     </div>
   </main>
 
   <!-- ==================== EDITORIAL FOOTER ==================== -->
   <footer class="w-full py-4 border-t border-outline-variant/40 bg-white/60 text-xs text-secondary">
     <div
-      class="max-w-7xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+      class="max-w-7xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left"
+    >
       <div class="flex items-center gap-2">
         <span class="font-serif italic font-bold text-primary">Gather</span>
         <span class="text-outline-variant">·</span>

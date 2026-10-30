@@ -61,6 +61,14 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'change-password',
+        canActivate: [isAllowedAuthGuard],
+        loadComponent: () =>
+          import('./features/change-password/change-password.component').then(
+            (m) => m.ChangePasswordComponent
+          ),
+      },
+      {
         path: 'post-detail',
         canActivate: [isAllowedAuthGuard],
         loadComponent: () =>

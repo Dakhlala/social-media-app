@@ -72,7 +72,10 @@ export class SignInComponent implements OnInit, OnDestroy {
             localStorage.setItem('user', JSON.stringify(res.data.user));
           }
 
-          this.toastService.success('Welcome back!', res?.message || 'Signed in to Gather successfully.');
+          this.toastService.success(
+            'Welcome back!',
+            res?.message || 'Signed in to Gather successfully.',
+          );
           this.signInForm.reset();
           this.isSubmitted.set(false);
           this.router.navigate(['/home']);

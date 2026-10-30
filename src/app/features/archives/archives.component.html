@@ -1,83 +1,10 @@
 <div
-  class="bg-[#F7F7F2] text-[#202925] min-h-screen antialiased flex justify-center selection:bg-secondary-fixed selection:text-primary">
-
+  class="bg-[#F7F7F2] text-[#202925] min-h-screen antialiased flex justify-center selection:bg-secondary-fixed selection:text-primary"
+>
   <!-- ==================== MAIN PAGE CONTAINER WITH PERSISTENT SIDEBAR ==================== -->
   <div class="w-full max-w-7xl pt-16 flex justify-between min-h-screen">
-    <!-- LEFT SIDEBAR (Desktop) -->
-    <aside
-      class="fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-[#F7F7F2] border-r border-outline-variant/60 hidden lg:flex flex-col justify-between p-4 z-20">
-      <div class="flex flex-col gap-4">
-        <div class="px-2 pt-2 pb-1">
-          <h1 class="font-serif text-2xl text-primary italic leading-none">Gather</h1>
-          <p class="text-xs text-secondary tracking-wide mt-1">The Literary Commons</p>
-        </div>
-        <!-- Navigation Tabs: Archives is highlighted -->
-        <nav aria-label="Main Navigation" class="flex flex-col gap-1 mt-2">
-          <!-- Feed -->
-          <a routerLink="/home"
-            class="text-secondary flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors duration-150">
-            <span class="material-symbols-outlined">newspaper</span>
-            <span class="text-sm font-medium">Feed</span>
-          </a>
-          <!-- Notifications -->
-          <a routerLink="/notifications"
-            class="text-secondary flex items-center justify-between px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors duration-150">
-            <div class="flex items-center gap-3">
-              <span class="material-symbols-outlined">notifications</span>
-              <span class="text-sm font-medium">Notifications</span>
-            </div>
-          </a>
-          <!-- Archives (Active) -->
-          <a routerLink="/archives"
-            class="text-primary font-bold flex items-center justify-between px-4 py-3 rounded-xl bg-surface-container transition-colors duration-150">
-            <div class="flex items-center gap-3">
-              <span class="material-symbols-outlined text-primary"
-                style="font-variation-settings: 'FILL' 1;">source</span>
-              <span class="text-sm">Archives</span>
-            </div>
-            @if (items().length > 0) {
-            <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-primary text-white">
-              {{ items().length }}
-            </span>
-            }
-          </a>
-          <!-- Profile -->
-          <a routerLink="/author"
-            class="text-secondary flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors duration-150">
-            <span class="material-symbols-outlined">account_circle</span>
-            <span class="text-sm font-medium">Profile</span>
-          </a>
-        </nav>
-        <!-- CTA: New Entry -->
-        <div class="pt-2">
-          <button routerLink="/home" [queryParams]="{ compose: true }"
-            class="w-full flex items-center justify-center gap-2 bg-primary-container text-white text-sm font-medium px-4 py-2.5 rounded-xl hover:bg-primary transition-colors duration-150 cursor-pointer shadow-sm"
-            type="button">
-            <span class="material-symbols-outlined text-[18px]">edit_square</span>
-            <span>New Entry</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Footer & User Profile Preview -->
-      <div class="flex flex-col gap-2 pt-4 border-t border-outline-variant/40">
-        <div class="flex items-center gap-3 p-2 rounded-xl bg-white border border-outline-variant/30">
-          <a routerLink="/author">
-            <img [alt]="currentUser()?.name || 'Author profile photo'"
-              class="w-9 h-9 rounded-full object-cover border border-outline-variant/50"
-              [src]="currentUser()?.photo || 'https://pub-3cba56bacf9f4965bbb0989e07dada12.r2.dev/linkedPosts/default-profile.png'" />
-          </a>
-          <div class="flex flex-col min-w-0 flex-1">
-            <span class="text-sm font-semibold text-[#151d1a] truncate">
-              {{ currentUser()?.name || 'Julian Croft' }}
-            </span>
-            <span class="text-xs text-secondary truncate">
-              &#64;{{ currentUser()?.username || 'jcroft_press' }}
-            </span>
-          </div>
-        </div>
-      </div>
-    </aside>
+    <!-- LEFT SIDEBAR (Desktop Shared Component) -->
+    <app-sidebar></app-sidebar>
 
     <!-- MAIN CENTER CANVAS -->
     <div class="flex-1 lg:ml-64 px-4 sm:px-8 py-8 max-w-4xl mx-auto w-full">
@@ -86,19 +13,24 @@
         <div class="flex flex-col gap-2 pb-4 border-b border-outline-variant/60">
           <div class="flex items-center justify-between flex-wrap gap-2">
             <div class="flex items-center gap-3">
-              <h1 class="font-serif text-3xl sm:text-4xl text-[#151d1a] tracking-tight">Archival Repository</h1>
+              <h1 class="font-serif text-3xl sm:text-4xl text-[#151d1a] tracking-tight">
+                Archival Repository
+              </h1>
               @if (items().length > 0) {
-              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary text-white">
-                {{ items().length }} {{ items().length === 1 ? 'record' : 'records' }}
-              </span>
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary text-white">
+                  {{ items().length }} {{ items().length === 1 ? 'record' : 'records' }}
+                </span>
               }
             </div>
 
             <!-- Refresh Button -->
             <div class="flex items-center gap-2">
-              <button (click)="loadBookmarks()" title="Refresh archives"
+              <button
+                (click)="loadBookmarks()"
+                title="Refresh archives"
                 class="p-2 text-secondary hover:text-primary rounded-lg border border-outline-variant/60 bg-white hover:bg-surface-container transition-colors cursor-pointer"
-                type="button">
+                type="button"
+              >
                 <span class="material-symbols-outlined text-[18px]">refresh</span>
               </button>
             </div>
@@ -110,286 +42,395 @@
 
           <!-- CATEGORY FILTER TABS -->
           @if (items().length > 0) {
-          <div class="flex items-center gap-2 overflow-x-auto whitespace-nowrap pt-3 pb-1 scrollbar-none">
-            <!-- All Archives Tab -->
-            <button type="button" (click)="switchTab('all')"
-              class="px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5"
-              [class]="activeFilter() === 'all'
-                ? 'bg-primary text-white font-semibold shadow-xs'
-                : 'bg-white border border-outline-variant/60 text-secondary hover:text-[#151d1a] hover:bg-surface-container'">
-              <span>All Archives</span>
-              <span class="px-1.5 py-0.2 rounded-full text-[10px]"
-                [class]="activeFilter() === 'all' ? 'bg-white/20 text-white' : 'bg-surface-container text-secondary'">
-                {{ countAll() }}
-              </span>
-            </button>
+            <div
+              class="flex items-center gap-2 overflow-x-auto whitespace-nowrap pt-3 pb-1 scrollbar-none"
+            >
+              <!-- All Archives Tab -->
+              <button
+                type="button"
+                (click)="switchTab('all')"
+                class="px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5"
+                [class]="
+                  activeFilter() === 'all'
+                    ? 'bg-primary text-white font-semibold shadow-xs'
+                    : 'bg-white border border-outline-variant/60 text-secondary hover:text-[#151d1a] hover:bg-surface-container'
+                "
+              >
+                <span>All Archives</span>
+                <span
+                  class="px-1.5 py-0.2 rounded-full text-[10px]"
+                  [class]="
+                    activeFilter() === 'all'
+                      ? 'bg-white/20 text-white'
+                      : 'bg-surface-container text-secondary'
+                  "
+                >
+                  {{ countAll() }}
+                </span>
+              </button>
 
-            <!-- Media Plates Tab -->
-            <button type="button" (click)="switchTab('plates')"
-              class="px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5"
-              [class]="activeFilter() === 'plates'
-                ? 'bg-primary text-white font-semibold shadow-xs'
-                : 'bg-white border border-outline-variant/60 text-secondary hover:text-[#151d1a] hover:bg-surface-container'">
-              <span class="material-symbols-outlined text-[14px]">image</span>
-              <span>With Media</span>
-              <span class="px-1.5 py-0.2 rounded-full text-[10px]"
-                [class]="activeFilter() === 'plates' ? 'bg-white/20 text-white' : 'bg-surface-container text-secondary'">
-                {{ countPlates() }}
-              </span>
-            </button>
+              <!-- Media Plates Tab -->
+              <button
+                type="button"
+                (click)="switchTab('plates')"
+                class="px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5"
+                [class]="
+                  activeFilter() === 'plates'
+                    ? 'bg-primary text-white font-semibold shadow-xs'
+                    : 'bg-white border border-outline-variant/60 text-secondary hover:text-[#151d1a] hover:bg-surface-container'
+                "
+              >
+                <span class="material-symbols-outlined text-[14px]">image</span>
+                <span>With Media</span>
+                <span
+                  class="px-1.5 py-0.2 rounded-full text-[10px]"
+                  [class]="
+                    activeFilter() === 'plates'
+                      ? 'bg-white/20 text-white'
+                      : 'bg-surface-container text-secondary'
+                  "
+                >
+                  {{ countPlates() }}
+                </span>
+              </button>
 
-            <!-- With Annotations Tab -->
-            <button type="button" (click)="switchTab('discussions')"
-              class="px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5"
-              [class]="activeFilter() === 'discussions'
-                ? 'bg-primary text-white font-semibold shadow-xs'
-                : 'bg-white border border-outline-variant/60 text-secondary hover:text-[#151d1a] hover:bg-surface-container'">
-              <span class="material-symbols-outlined text-[14px]">chat_bubble</span>
-              <span>Annotated</span>
-              <span class="px-1.5 py-0.2 rounded-full text-[10px]"
-                [class]="activeFilter() === 'discussions' ? 'bg-white/20 text-white' : 'bg-surface-container text-secondary'">
-                {{ countDiscussions() }}
-              </span>
-            </button>
-          </div>
+              <!-- With Annotations Tab -->
+              <button
+                type="button"
+                (click)="switchTab('discussions')"
+                class="px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5"
+                [class]="
+                  activeFilter() === 'discussions'
+                    ? 'bg-primary text-white font-semibold shadow-xs'
+                    : 'bg-white border border-outline-variant/60 text-secondary hover:text-[#151d1a] hover:bg-surface-container'
+                "
+              >
+                <span class="material-symbols-outlined text-[14px]">chat_bubble</span>
+                <span>Annotated</span>
+                <span
+                  class="px-1.5 py-0.2 rounded-full text-[10px]"
+                  [class]="
+                    activeFilter() === 'discussions'
+                      ? 'bg-white/20 text-white'
+                      : 'bg-surface-container text-secondary'
+                  "
+                >
+                  {{ countDiscussions() }}
+                </span>
+              </button>
+            </div>
           }
         </div>
 
         <!-- LOADING SKELETON -->
         @if (isLoading()) {
-        <div class="flex flex-col gap-6 animate-pulse">
-          <div class="w-full h-56 bg-white rounded-xl border border-outline-variant/40 p-6 flex flex-col md:flex-row gap-6">
-            <div class="md:w-5/12 h-40 bg-surface-container rounded-lg"></div>
-            <div class="md:w-7/12 flex flex-col gap-3">
-              <div class="w-1/3 h-4 bg-surface-container rounded"></div>
-              <div class="w-3/4 h-6 bg-surface-container rounded"></div>
-              <div class="w-full h-16 bg-surface-container rounded"></div>
+          <div class="flex flex-col gap-6 animate-pulse">
+            <div
+              class="w-full h-56 bg-white rounded-xl border border-outline-variant/40 p-6 flex flex-col md:flex-row gap-6"
+            >
+              <div class="md:w-5/12 h-40 bg-surface-container rounded-lg"></div>
+              <div class="md:w-7/12 flex flex-col gap-3">
+                <div class="w-1/3 h-4 bg-surface-container rounded"></div>
+                <div class="w-3/4 h-6 bg-surface-container rounded"></div>
+                <div class="w-full h-16 bg-surface-container rounded"></div>
+              </div>
             </div>
+            <div class="w-full h-32 bg-white rounded-xl border border-outline-variant/40"></div>
           </div>
-          <div class="w-full h-32 bg-white rounded-xl border border-outline-variant/40"></div>
-        </div>
         } @else if (items().length === 0) {
-        <!-- EMPTY STATE (No archived posts) -->
-        <div
-          class="p-12 sm:p-16 rounded-2xl bg-white border border-outline-variant/50 text-center flex flex-col items-center justify-center gap-3.5 my-2">
-          <div class="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center text-primary">
-            <span class="material-symbols-outlined text-3xl">source</span>
-          </div>
-          <h3 class="font-serif text-2xl text-[#151d1a]">Your Archive Repository is Empty</h3>
-          <p class="font-body-md text-sm text-secondary max-w-md leading-relaxed">
-            You haven't archived any dispatches yet. Bookmark articles and dispatches from the feed to preserve them in your permanent archive.
-          </p>
-          <div class="flex items-center gap-3 pt-2">
-            <a routerLink="/home"
-              class="text-xs font-semibold text-white px-4 py-2 rounded-xl bg-primary hover:bg-[#1a5747] transition-colors cursor-pointer shadow-xs">
-              Explore Community Dispatches
-            </a>
-          </div>
-        </div>
-        } @else {
-        <!-- ARCHIVE CONTENT -->
-        <div class="flex flex-col gap-6">
-
-          <!-- Filter yielded zero items -->
-          @if (filteredItems().length === 0) {
+          <!-- EMPTY STATE (No archived posts) -->
           <div
-            class="p-10 rounded-2xl bg-white border border-outline-variant/50 text-center flex flex-col items-center justify-center gap-3 my-2">
-            <div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-primary">
-              <span class="material-symbols-outlined text-2xl">filter_alt_off</span>
+            class="p-12 sm:p-16 rounded-2xl bg-white border border-outline-variant/50 text-center flex flex-col items-center justify-center gap-3.5 my-2"
+          >
+            <div
+              class="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center text-primary"
+            >
+              <span class="material-symbols-outlined text-3xl">source</span>
             </div>
-            <h4 class="font-serif text-xl text-[#151d1a]">No Archives Match This Filter</h4>
-            <p class="font-body-md text-xs text-secondary max-w-sm">
-              None of your archived dispatches match the selected category.
+            <h3 class="font-serif text-2xl text-[#151d1a]">Your Archive Repository is Empty</h3>
+            <p class="font-body-md text-sm text-secondary max-w-md leading-relaxed">
+              You haven't archived any dispatches yet. Bookmark articles and dispatches from the
+              feed to preserve them in your permanent archive.
             </p>
-            <button (click)="switchTab('all')"
-              class="mt-2 text-xs font-semibold text-primary px-4 py-2 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer"
-              type="button">
-              View All Archives ({{ items().length }})
-            </button>
-          </div>
-          } @else {
-
-          <!-- FEATURED / LATEST ARCHIVED ITEM -->
-          @if (featuredItem(); as featured) {
-          <article class="bg-white border border-outline-variant/60 rounded-xl overflow-hidden p-6 relative shadow-xs">
-            <div class="flex flex-col gap-6" [class.md:flex-row]="!!featured.image">
-              <!-- Media Plate (Only rendered if image exists) -->
-              @if (featured.image) {
-              <div
-                class="md:w-5/12 shrink-0 relative rounded-lg overflow-hidden border border-outline-variant/60 bg-surface-container-low min-h-48">
-                <img [src]="featured.image" [alt]="featured.title" class="w-full h-full object-cover" />
-                <div
-                  class="absolute top-2 left-2 px-2 py-0.5 bg-white/90 backdrop-blur-sm rounded text-[11px] font-semibold text-primary border border-outline-variant/60 shadow-xs">
-                  Archived Plate
-                </div>
-              </div>
-              }
-
-              <!-- Content Description -->
-              <div class="flex-1 flex flex-col justify-between min-w-0">
-                <div>
-                  <div class="flex items-center gap-2 text-secondary text-xs mb-1.5 flex-wrap">
-                    <span class="material-symbols-outlined text-sm text-primary">verified</span>
-                    <span class="text-primary font-semibold">{{ featured.authorName }}</span>
-                    <span>•</span>
-                    <span>{{ featured.commentsCount }} {{ featured.commentsCount === 1 ? 'Annotation' : 'Annotations' }}</span>
-                  </div>
-                  <h2 [routerLink]="['/post-detail', featured._id]"
-                    class="font-serif text-2xl text-[#151d1a] hover:text-primary transition-colors cursor-pointer leading-snug">
-                    {{ featured.title }}
-                  </h2>
-                  <p class="font-serif text-sm text-secondary mt-2 line-clamp-3 leading-relaxed">
-                    {{ featured.body }}
-                  </p>
-                  @if (featured.quote) {
-                  <blockquote
-                    class="border-l-2 border-primary pl-4 py-1 mt-3 italic font-serif text-sm text-[#33443c] leading-relaxed">
-                    {{ featured.quote }}
-                  </blockquote>
-                  }
-                </div>
-
-                <div class="pt-4 mt-4 border-t border-outline-variant/40 flex flex-wrap items-center justify-between gap-3">
-                  <div class="flex items-center gap-3 text-secondary text-xs">
-                    <span class="flex items-center gap-1">
-                      <span class="material-symbols-outlined text-sm">folder_zip</span>
-                      Preserved Record
-                    </span>
-                    <span class="text-outline-variant">•</span>
-                    <span class="font-mono text-xs text-primary">{{ featured.doi }}</span>
-                  </div>
-
-                  <div class="flex items-center gap-2">
-                    <button (click)="onCopyBibtex(featured, $event)" title="Copy BibTeX Citation"
-                      class="px-2.5 py-1 text-secondary hover:text-primary text-xs transition-colors flex items-center gap-1 cursor-pointer font-medium"
-                      type="button">
-                      <span class="material-symbols-outlined text-sm">file_download</span>
-                      <span>BibTeX</span>
-                    </button>
-                    <button (click)="onRemoveBookmark(featured, $event)" title="Remove from Archives"
-                      class="p-1.5 text-secondary hover:text-red-700 rounded-lg border border-outline-variant/50 hover:bg-surface-container transition-colors cursor-pointer"
-                      type="button">
-                      <span class="material-symbols-outlined text-[18px]">bookmark_remove</span>
-                    </button>
-                    <a [routerLink]="['/post-detail', featured._id]"
-                      class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container text-primary text-xs font-semibold hover:bg-surface-container-high transition-colors">
-                      <span>Inspect Archive</span>
-                      <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
+            <div class="flex items-center gap-3 pt-2">
+              <a
+                routerLink="/home"
+                class="text-xs font-semibold text-white px-4 py-2 rounded-xl bg-primary hover:bg-[#1a5747] transition-colors cursor-pointer shadow-xs"
+              >
+                Explore Community Dispatches
+              </a>
             </div>
-          </article>
-          }
-
-          <!-- ADDITIONAL PRESERVED ENTRIES (When 2 or more archives exist) -->
-          @if (regularItems().length > 0) {
-          <div class="flex flex-col divide-y divide-outline-variant/60 border-y border-outline-variant/60">
-            @for (item of regularItems(); track item._id) {
-            <article class="py-6 flex flex-col gap-4">
-              <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
-                <div class="flex items-center gap-3">
-                  @if (item.authorPhoto) {
-                  <img [src]="item.authorPhoto" [alt]="item.authorName"
-                    class="w-8 h-8 rounded-full object-cover border border-outline-variant" />
-                  } @else {
-                  <div
-                    class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-primary font-semibold text-xs border border-outline-variant">
-                    {{ item.authorName.slice(0, 2).toUpperCase() }}
-                  </div>
-                  }
-                  <div>
-                    <div class="flex items-center gap-2 text-sm">
-                      <span class="font-semibold text-[#151d1a]">{{ item.authorName }}</span>
-                      <span class="text-secondary text-xs">•</span>
-                      <span class="text-xs text-secondary">{{ item.authorMeta }}</span>
-                    </div>
-                    <p class="text-xs text-secondary">
-                      Archival ID: {{ item.archivalId }} • Preserved {{ item.preservedDate | date: 'mediumDate' }}
-                    </p>
-                  </div>
+          </div>
+        } @else {
+          <!-- ARCHIVE CONTENT -->
+          <div class="flex flex-col gap-6">
+            <!-- Filter yielded zero items -->
+            @if (filteredItems().length === 0) {
+              <div
+                class="p-10 rounded-2xl bg-white border border-outline-variant/50 text-center flex flex-col items-center justify-center gap-3 my-2"
+              >
+                <div
+                  class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-primary"
+                >
+                  <span class="material-symbols-outlined text-2xl">filter_alt_off</span>
                 </div>
-
-                <!-- Citations Badge -->
-                <div class="flex items-center gap-2 self-start">
-                  <span
-                    class="px-2 py-0.5 rounded bg-surface-container-low border border-outline-variant/60 text-secondary text-xs font-semibold flex items-center gap-1">
-                    <span class="material-symbols-outlined text-xs text-primary">format_quote</span>
-                    {{ item.citationsCount }} {{ item.citationsCount === 1 ? 'citation' : 'citations' }}
-                  </span>
-                </div>
-              </div>
-
-              <!-- Media Attachment (if present) -->
-              @if (item.image) {
-              <div class="rounded-lg overflow-hidden border border-outline-variant/60 max-h-72 bg-surface-container-low">
-                <img [src]="item.image" [alt]="item.title" class="w-full h-full object-cover max-h-72" />
-              </div>
-              }
-
-              <div>
-                <h3 [routerLink]="['/post-detail', item._id]"
-                  class="font-serif text-xl text-[#151d1a] hover:text-primary transition-colors cursor-pointer leading-snug">
-                  {{ item.title }}
-                </h3>
-                <p class="font-serif text-sm text-secondary mt-1 leading-relaxed">
-                  {{ item.body }}
+                <h4 class="font-serif text-xl text-[#151d1a]">No Archives Match This Filter</h4>
+                <p class="font-body-md text-xs text-secondary max-w-sm">
+                  None of your archived dispatches match the selected category.
                 </p>
+                <button
+                  (click)="switchTab('all')"
+                  class="mt-2 text-xs font-semibold text-primary px-4 py-2 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer"
+                  type="button"
+                >
+                  View All Archives ({{ items().length }})
+                </button>
               </div>
+            } @else {
+              <!-- FEATURED / LATEST ARCHIVED ITEM -->
+              @if (featuredItem(); as featured) {
+                <article
+                  class="bg-white border border-outline-variant/60 rounded-xl overflow-hidden p-6 relative shadow-xs"
+                >
+                  <div class="flex flex-col gap-6" [class.md:flex-row]="!!featured.image">
+                    <!-- Media Plate (Only rendered if image exists) -->
+                    @if (featured.image) {
+                      <div
+                        class="md:w-5/12 shrink-0 relative rounded-lg overflow-hidden border border-outline-variant/60 bg-surface-container-low min-h-48"
+                      >
+                        <img
+                          [src]="featured.image"
+                          [alt]="featured.title"
+                          class="w-full h-full object-cover"
+                        />
+                        <div
+                          class="absolute top-2 left-2 px-2 py-0.5 bg-white/90 backdrop-blur-sm rounded text-[11px] font-semibold text-primary border border-outline-variant/60 shadow-xs"
+                        >
+                          Archived Plate
+                        </div>
+                      </div>
+                    }
 
-              @if (item.quote) {
-              <blockquote
-                class="border-l-2 border-primary pl-4 py-1 italic font-serif text-sm text-[#33443c] leading-relaxed">
-                {{ item.quote }}
-              </blockquote>
+                    <!-- Content Description -->
+                    <div class="flex-1 flex flex-col justify-between min-w-0">
+                      <div>
+                        <div
+                          class="flex items-center gap-2 text-secondary text-xs mb-1.5 flex-wrap"
+                        >
+                          <span class="material-symbols-outlined text-sm text-primary"
+                            >verified</span
+                          >
+                          <span class="text-primary font-semibold">{{ featured.authorName }}</span>
+                          <span>•</span>
+                          <span
+                            >{{ featured.commentsCount }}
+                            {{ featured.commentsCount === 1 ? 'Annotation' : 'Annotations' }}</span
+                          >
+                        </div>
+                        <h2
+                          [routerLink]="['/post-detail', featured._id]"
+                          class="font-serif text-2xl text-[#151d1a] hover:text-primary transition-colors cursor-pointer leading-snug"
+                        >
+                          {{ featured.title }}
+                        </h2>
+                        <p
+                          class="font-serif text-sm text-secondary mt-2 line-clamp-3 leading-relaxed"
+                        >
+                          {{ featured.body }}
+                        </p>
+                        @if (featured.quote) {
+                          <blockquote
+                            class="border-l-2 border-primary pl-4 py-1 mt-3 italic font-serif text-sm text-[#33443c] leading-relaxed"
+                          >
+                            {{ featured.quote }}
+                          </blockquote>
+                        }
+                      </div>
+
+                      <div
+                        class="pt-4 mt-4 border-t border-outline-variant/40 flex flex-wrap items-center justify-between gap-3"
+                      >
+                        <div class="flex items-center gap-3 text-secondary text-xs">
+                          <span class="flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">folder_zip</span>
+                            Preserved Record
+                          </span>
+                          <span class="text-outline-variant">•</span>
+                          <span class="font-mono text-xs text-primary">{{ featured.doi }}</span>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                          <button
+                            (click)="onCopyBibtex(featured, $event)"
+                            title="Copy BibTeX Citation"
+                            class="px-2.5 py-1 text-secondary hover:text-primary text-xs transition-colors flex items-center gap-1 cursor-pointer font-medium"
+                            type="button"
+                          >
+                            <span class="material-symbols-outlined text-sm">file_download</span>
+                            <span>BibTeX</span>
+                          </button>
+                          <button
+                            (click)="onRemoveBookmark(featured, $event)"
+                            title="Remove from Archives"
+                            class="p-1.5 text-secondary hover:text-red-700 rounded-lg border border-outline-variant/50 hover:bg-surface-container transition-colors cursor-pointer"
+                            type="button"
+                          >
+                            <span class="material-symbols-outlined text-[18px]"
+                              >bookmark_remove</span
+                            >
+                          </button>
+                          <a
+                            [routerLink]="['/post-detail', featured._id]"
+                            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container text-primary text-xs font-semibold hover:bg-surface-container-high transition-colors"
+                          >
+                            <span>Inspect Archive</span>
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
               }
 
-              <!-- Metadata & Actions -->
-              <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
-                <div class="flex items-center gap-1.5 flex-wrap">
-                  @for (tag of item.tags; track tag) {
-                  <span class="px-2 py-0.5 rounded bg-surface-container text-primary text-xs font-medium">
-                    {{ tag }}
-                  </span>
+              <!-- ADDITIONAL PRESERVED ENTRIES (When 2 or more archives exist) -->
+              @if (regularItems().length > 0) {
+                <div
+                  class="flex flex-col divide-y divide-outline-variant/60 border-y border-outline-variant/60"
+                >
+                  @for (item of regularItems(); track item._id) {
+                    <article class="py-6 flex flex-col gap-4">
+                      <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+                        <div class="flex items-center gap-3">
+                          @if (item.authorPhoto) {
+                            <img
+                              [src]="item.authorPhoto"
+                              [alt]="item.authorName"
+                              class="w-8 h-8 rounded-full object-cover border border-outline-variant"
+                            />
+                          } @else {
+                            <div
+                              class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-primary font-semibold text-xs border border-outline-variant"
+                            >
+                              {{ item.authorName.slice(0, 2).toUpperCase() }}
+                            </div>
+                          }
+                          <div>
+                            <div class="flex items-center gap-2 text-sm">
+                              <span class="font-semibold text-[#151d1a]">{{
+                                item.authorName
+                              }}</span>
+                              <span class="text-secondary text-xs">•</span>
+                              <span class="text-xs text-secondary">{{ item.authorMeta }}</span>
+                            </div>
+                            <p class="text-xs text-secondary">
+                              Archival ID: {{ item.archivalId }} • Preserved
+                              {{ item.preservedDate | date: 'mediumDate' }}
+                            </p>
+                          </div>
+                        </div>
+
+                        <!-- Citations Badge -->
+                        <div class="flex items-center gap-2 self-start">
+                          <span
+                            class="px-2 py-0.5 rounded bg-surface-container-low border border-outline-variant/60 text-secondary text-xs font-semibold flex items-center gap-1"
+                          >
+                            <span class="material-symbols-outlined text-xs text-primary"
+                              >format_quote</span
+                            >
+                            {{ item.citationsCount }}
+                            {{ item.citationsCount === 1 ? 'citation' : 'citations' }}
+                          </span>
+                        </div>
+                      </div>
+
+                      <!-- Media Attachment (if present) -->
+                      @if (item.image) {
+                        <div
+                          class="rounded-lg overflow-hidden border border-outline-variant/60 max-h-72 bg-surface-container-low"
+                        >
+                          <img
+                            [src]="item.image"
+                            [alt]="item.title"
+                            class="w-full h-full object-cover max-h-72"
+                          />
+                        </div>
+                      }
+
+                      <div>
+                        <h3
+                          [routerLink]="['/post-detail', item._id]"
+                          class="font-serif text-xl text-[#151d1a] hover:text-primary transition-colors cursor-pointer leading-snug"
+                        >
+                          {{ item.title }}
+                        </h3>
+                        <p class="font-serif text-sm text-secondary mt-1 leading-relaxed">
+                          {{ item.body }}
+                        </p>
+                      </div>
+
+                      @if (item.quote) {
+                        <blockquote
+                          class="border-l-2 border-primary pl-4 py-1 italic font-serif text-sm text-[#33443c] leading-relaxed"
+                        >
+                          {{ item.quote }}
+                        </blockquote>
+                      }
+
+                      <!-- Metadata & Actions -->
+                      <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                          @for (tag of item.tags; track tag) {
+                            <span
+                              class="px-2 py-0.5 rounded bg-surface-container text-primary text-xs font-medium"
+                            >
+                              {{ tag }}
+                            </span>
+                          }
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                          <button
+                            (click)="onCopyBibtex(item, $event)"
+                            class="px-2.5 py-1 text-secondary hover:text-primary text-xs transition-colors flex items-center gap-1 cursor-pointer font-medium"
+                            type="button"
+                          >
+                            <span class="material-symbols-outlined text-sm">file_download</span>
+                            <span>BibTeX</span>
+                          </button>
+
+                          <button
+                            (click)="onRemoveBookmark(item, $event)"
+                            title="Remove from Archives"
+                            class="px-2.5 py-1 text-secondary hover:text-red-700 text-xs transition-colors flex items-center gap-1 cursor-pointer font-medium"
+                            type="button"
+                          >
+                            <span class="material-symbols-outlined text-sm">bookmark_remove</span>
+                            <span>Unarchive</span>
+                          </button>
+
+                          <a
+                            [routerLink]="['/post-detail', item._id]"
+                            class="px-3 py-1 rounded bg-primary-container text-white hover:bg-primary text-xs font-semibold transition-colors"
+                          >
+                            <span>Read Monograph</span>
+                          </a>
+                        </div>
+                      </div>
+                    </article>
                   }
                 </div>
-
-                <div class="flex items-center gap-2">
-                  <button (click)="onCopyBibtex(item, $event)"
-                    class="px-2.5 py-1 text-secondary hover:text-primary text-xs transition-colors flex items-center gap-1 cursor-pointer font-medium"
-                    type="button">
-                    <span class="material-symbols-outlined text-sm">file_download</span>
-                    <span>BibTeX</span>
-                  </button>
-
-                  <button (click)="onRemoveBookmark(item, $event)" title="Remove from Archives"
-                    class="px-2.5 py-1 text-secondary hover:text-red-700 text-xs transition-colors flex items-center gap-1 cursor-pointer font-medium"
-                    type="button">
-                    <span class="material-symbols-outlined text-sm">bookmark_remove</span>
-                    <span>Unarchive</span>
-                  </button>
-
-                  <a [routerLink]="['/post-detail', item._id]"
-                    class="px-3 py-1 rounded bg-primary-container text-white hover:bg-primary text-xs font-semibold transition-colors">
-                    <span>Read Monograph</span>
-                  </a>
-                </div>
-              </div>
-            </article>
+              }
             }
           </div>
-          }
 
-          }
-        </div>
-
-        <!-- Pagination & Ledger Notice -->
-        <div class="pt-4 pb-8 flex flex-col items-center justify-center gap-2 text-center">
-          <span class="text-xs text-secondary">
-            Showing {{ filteredItems().length }} of {{ items().length }} preserved records in accordance with the Slow-Web Charter
-          </span>
-        </div>
+          <!-- Pagination & Ledger Notice -->
+          <div class="pt-4 pb-8 flex flex-col items-center justify-center gap-2 text-center">
+            <span class="text-xs text-secondary">
+              Showing {{ filteredItems().length }} of {{ items().length }} preserved records in
+              accordance with the Slow-Web Charter
+            </span>
+          </div>
         }
       </main>
     </div>

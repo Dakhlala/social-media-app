@@ -1,7 +1,13 @@
 import { Component, OnInit, OnDestroy, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../core/auth/services/auth';
 import { ToastService } from '../../core/services/toast-service';
@@ -67,11 +73,15 @@ export class SignUpComponent implements OnInit, OnDestroy {
       ]),
       rePassword: new FormControl('', [Validators.required]),
     },
-    { validators: this.confirmPassword }
+    { validators: this.confirmPassword },
   );
 
-  private passwordValue = toSignal(this.signUpForm.controls.password.valueChanges, { initialValue: '' });
-  private repasswordValue = toSignal(this.signUpForm.controls.rePassword.valueChanges, { initialValue: '' });
+  private passwordValue = toSignal(this.signUpForm.controls.password.valueChanges, {
+    initialValue: '',
+  });
+  private repasswordValue = toSignal(this.signUpForm.controls.rePassword.valueChanges, {
+    initialValue: '',
+  });
 
   passwordsMatch = computed(() => {
     const pass = this.passwordValue();
@@ -115,7 +125,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
         next: (res) => {
           this.toastService.success(
             'Welcome to The Commons!',
-            res?.message || 'Your author account has been created successfully!'
+            res?.message || 'Your author account has been created successfully!',
           );
           this.signUpForm.reset();
           this.isSubmitted.set(false);
@@ -130,7 +140,10 @@ export class SignUpComponent implements OnInit, OnDestroy {
       });
     } else {
       this.signUpForm.markAllAsTouched();
-      this.toastService.warning('Incomplete Form', 'Please review all required fields and try again.');
+      this.toastService.warning(
+        'Incomplete Form',
+        'Please review all required fields and try again.',
+      );
     }
   }
 }
