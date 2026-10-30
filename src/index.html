@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>SocialMediaApp</title>
+  <title>Gather — The Literary Commons</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -14,87 +14,108 @@
     href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500;1,6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=block"
     rel="stylesheet">
   <!-- Google Material Symbols Outlined -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block"
     rel="stylesheet">
+  <style>
+    .preloader-bg {
+      position: fixed;
+      inset: 0;
+      background-color: #F7F7F2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: Georgia, serif;
+      z-index: 99999;
+      color: #151d1a;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
+    }
+
+    .preloader-bg.preloader-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .preloader-brand {
+      font-size: 2.25rem;
+      font-style: italic;
+      font-weight: 700;
+      color: #1a5747;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.25rem;
+    }
+
+    .preloader-tagline {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #6a7770;
+      margin-bottom: 2rem;
+    }
+
+    .preloader-bar-wrap {
+      width: 140px;
+      height: 2px;
+      background: rgba(26, 87, 71, 0.15);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .preloader-bar {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 45%;
+      background: #1a5747;
+      border-radius: 999px;
+      animation: preloader-slide 1.4s ease-in-out infinite;
+    }
+
+    @keyframes preloader-slide {
+      0% {
+        left: -45%;
+      }
+
+      50% {
+        left: 40%;
+        width: 55%;
+      }
+
+      100% {
+        left: 100%;
+        width: 30%;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <app-root>
-    <style>
-      .preloader-bg {
-        position: fixed;
-        inset: 0;
-        background-color: #F7F7F2;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        font-family: Georgia, serif;
-        z-index: 99999;
-        color: #151d1a;
-      }
-
-      .preloader-brand {
-        font-size: 2.25rem;
-        font-style: italic;
-        font-weight: 700;
-        color: #1a5747;
-        letter-spacing: -0.02em;
-        margin-bottom: 0.25rem;
-      }
-
-      .preloader-tagline {
-        font-size: 0.8rem;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: #6a7770;
-        margin-bottom: 2rem;
-      }
-
-      .preloader-bar-wrap {
-        width: 140px;
-        height: 2px;
-        background: rgba(26, 87, 71, 0.15);
-        border-radius: 999px;
-        overflow: hidden;
-        position: relative;
-      }
-
-      .preloader-bar {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: 45%;
-        background: #1a5747;
-        border-radius: 999px;
-        animation: preloader-slide 1.4s ease-in-out infinite;
-      }
-
-      @keyframes preloader-slide {
-        0% {
-          left: -45%;
-        }
-
-        50% {
-          left: 40%;
-          width: 55%;
-        }
-
-        100% {
-          left: 100%;
-          width: 30%;
-        }
-      }
-    </style>
-    <div class="preloader-bg">
-      <div class="preloader-brand">Gather</div>
-      <div class="preloader-tagline">The Literary Commons</div>
-      <div class="preloader-bar-wrap">
-        <div class="preloader-bar"></div>
-      </div>
+  <!-- Persistent Initial Load Screen: Fades out only after the initial route component and fonts are ready -->
+  <div id="app-preloader" class="preloader-bg">
+    <div class="preloader-brand">Gather</div>
+    <div class="preloader-tagline">The Literary Commons</div>
+    <div class="preloader-bar-wrap">
+      <div class="preloader-bar"></div>
     </div>
-  </app-root>
+  </div>
+
+  <app-root></app-root>
+
+  <script>
+    // Fallback: Ensure preloader never hangs indefinitely on extreme network lag
+    setTimeout(function() {
+      var p = document.getElementById('app-preloader');
+      if (p && !p.classList.contains('preloader-hidden')) {
+        p.classList.add('preloader-hidden');
+        setTimeout(function() { p.remove(); }, 450);
+      }
+    }, 3500);
+  </script>
 </body>
 
 </html>

@@ -4,6 +4,7 @@ import {
   ViewChild,
   inject,
   signal,
+  computed,
   OnInit,
   AfterViewInit,
   DestroyRef,
@@ -56,6 +57,24 @@ export class HomeFeedComponent implements OnInit, AfterViewInit {
   readonly currentPage = signal<number>(1);
   readonly hasMorePages = signal<boolean>(true);
 
+  // Search Filter Query from URL (?q=...)
+  readonly searchQuery = signal<string>('');
+
+  // Filtered Posts computed from active searchQuery
+  readonly filteredPosts = computed<Post[]>(() => {
+    const q = this.searchQuery().trim().toLowerCase();
+    const all = this.posts();
+    if (!q) {
+      return all;
+    }
+    return all.filter((post) => {
+      const bodyMatches = post.body ? post.body.toLowerCase().includes(q) : false;
+      const authorNameMatches = post.user?.name ? post.user.name.toLowerCase().includes(q) : false;
+      const usernameMatches = post.user?.username ? post.user.username.toLowerCase().includes(q) : false;
+      return bodyMatches || authorNameMatches || usernameMatches;
+    });
+  });
+
   // Author Suggestions
   readonly suggestions = signal<SuggestionAuthor[]>([]);
   readonly isLoadingSuggestions = signal<boolean>(true);
@@ -91,7 +110,7 @@ export class HomeFeedComponent implements OnInit, AfterViewInit {
     this.initCurrentUser();
     this.loadPosts(1, false);
     this.loadSuggestions();
-    this.listenToComposeQueryParam();
+    this.listenToQueryParams();
   }
 
   ngAfterViewInit(): void {
@@ -113,12 +132,24 @@ export class HomeFeedComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // Listen to ?compose=true from Mobile Bottom Nav CTA
-  private listenToComposeQueryParam(): void {
+  // Listen to query parameters (?compose=true, ?q=...)
+  private listenToQueryParams(): void {
     this.route.queryParamMap.subscribe((params) => {
       if (params.get('compose') === 'true') {
         this.openMobileComposer();
       }
+      const q = params.get('q') || '';
+      this.searchQuery.set(q);
+    });
+  }
+
+  // Clear search filter and remove ?q= from URL
+  clearSearch(): void {
+    this.searchQuery.set('');
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { q: null },
+      queryParamsHandling: 'merge',
     });
   }
 

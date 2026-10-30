@@ -21,15 +21,31 @@
 
         <!-- Actions & User Profile -->
         <div class="flex items-center gap-3 sm:gap-4">
-            <!-- Search Input -->
+            <!-- Desktop Search Input -->
             <div class="relative hidden sm:block w-48 md:w-64">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-secondary">
                     <span class="material-symbols-outlined text-[18px]">search</span>
                 </span>
-                <input [ngModel]="searchQuery()" (ngModelChange)="searchQuery.set($event)" (keydown.enter)="onSearch()"
-                    class="w-full pl-9 pr-3 py-1.5 bg-surface-container-lowest text-xs text-on-surface placeholder:text-secondary/70 border border-outline-variant/60 rounded-xl focus:outline-none focus:border-primary transition-colors"
+                <input [ngModel]="searchQuery()" (ngModelChange)="searchQuery.set($event)" (keydown.enter)="onSearch()" (search)="onSearch()"
+                    class="w-full pl-9 pr-8 py-1.5 bg-surface-container-lowest text-xs text-on-surface placeholder:text-secondary/70 border border-outline-variant/60 rounded-xl focus:outline-none focus:border-primary transition-colors"
                     placeholder="Search essays, authors…" type="search" />
+                @if (searchQuery()) {
+                    <button type="button" (click)="clearSearch()"
+                        class="absolute inset-y-0 right-0 flex items-center pr-2.5 text-secondary hover:text-on-surface cursor-pointer"
+                        title="Clear search">
+                        <span class="material-symbols-outlined text-[16px]">close</span>
+                    </button>
+                }
             </div>
+
+            <!-- Mobile Search Toggle Button -->
+            <button type="button" (click)="toggleMobileSearch()"
+                class="sm:hidden p-2 text-secondary hover:text-primary rounded-xl hover:bg-surface-container transition-colors duration-150 inline-flex items-center justify-center cursor-pointer"
+                [attr.aria-expanded]="isMobileSearchOpen()" aria-label="Toggle mobile search">
+                <span class="material-symbols-outlined text-[20px]">
+                    {{ isMobileSearchOpen() ? 'close' : 'search' }}
+                </span>
+            </button>
 
             <!-- Notifications Icon with live unread badge -->
             <a routerLink="/notifications" aria-label="Notifications"
@@ -56,4 +72,31 @@
             </a>
         </div>
     </div>
+
+    <!-- Mobile Search Expandable Bar -->
+    @if (isMobileSearchOpen()) {
+        <div class="sm:hidden px-4 pb-3 pt-1 border-t border-outline-variant/30 bg-surface/98">
+            <div class="relative w-full flex items-center gap-2">
+                <div class="relative flex-1">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-secondary">
+                        <span class="material-symbols-outlined text-[18px]">search</span>
+                    </span>
+                    <input [ngModel]="searchQuery()" (ngModelChange)="searchQuery.set($event)" (keydown.enter)="onSearch()" (search)="onSearch()"
+                        class="w-full pl-9 pr-8 py-2 bg-surface-container-lowest text-xs text-on-surface placeholder:text-secondary/70 border border-outline-variant/60 rounded-xl focus:outline-none focus:border-primary transition-colors"
+                        placeholder="Search essays, authors…" type="search" />
+                    @if (searchQuery()) {
+                        <button type="button" (click)="clearSearch()"
+                            class="absolute inset-y-0 right-0 flex items-center pr-2.5 text-secondary hover:text-on-surface cursor-pointer"
+                            title="Clear search">
+                            <span class="material-symbols-outlined text-[16px]">close</span>
+                        </button>
+                    }
+                </div>
+                <button type="button" (click)="onSearch()"
+                    class="px-3.5 py-2 bg-primary text-on-primary text-xs font-semibold rounded-xl hover:bg-primary-container transition-colors cursor-pointer shrink-0">
+                    Search
+                </button>
+            </div>
+        </div>
+    }
 </header>

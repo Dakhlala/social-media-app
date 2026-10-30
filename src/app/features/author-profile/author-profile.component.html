@@ -427,11 +427,13 @@
                     <div
                       class="rounded-lg overflow-hidden border border-outline-variant mb-4 bg-surface-container"
                     >
-                      <img
-                        class="w-full h-72 md:h-96 object-cover"
-                        [src]="post.image"
-                        alt="Dispatch Image"
-                      />
+                      <div class="w-full flex items-center justify-center bg-surface-container-high max-h-120">
+                        <img
+                          class="w-full max-h-120 object-contain mx-auto"
+                          [src]="post.image"
+                          alt="Dispatch Image"
+                        />
+                      </div>
                       <div
                         class="px-4 py-2 bg-surface-container-low/70 border-t border-outline-variant flex items-center justify-between text-xs text-secondary font-medium"
                       >

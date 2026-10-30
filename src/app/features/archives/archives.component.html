@@ -338,12 +338,12 @@
                       <!-- Media Attachment (if present) -->
                       @if (item.image) {
                         <div
-                          class="rounded-lg overflow-hidden border border-outline-variant/60 max-h-72 bg-surface-container-low"
+                          class="rounded-lg overflow-hidden border border-outline-variant/60 max-h-96 bg-surface-container-high flex items-center justify-center"
                         >
                           <img
                             [src]="item.image"
                             [alt]="item.title"
-                            class="w-full h-full object-cover max-h-72"
+                            class="w-full max-h-96 object-contain mx-auto"
                           />
                         </div>
                       }

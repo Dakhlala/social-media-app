@@ -140,10 +140,12 @@
               <!-- Hero Image (if uploaded) -->
               @if (post()!.image) {
               <div class="overflow-hidden rounded-lg border border-outline-variant bg-surface-container">
-                <img class="w-full max-h-120 object-cover" [src]="post()!.image" alt="Dispatch Plate Image" />
+                <div class="w-full flex items-center justify-center bg-surface-container-high max-h-140">
+                  <img class="w-full max-h-140 object-contain mx-auto" [src]="post()!.image" alt="Dispatch Plate Image" />
+                </div>
                 <div
                   class="px-4 py-2 bg-surface-container-low text-secondary text-xs flex justify-between items-center border-t border-outline-variant/60">
-                  <span>Folio Plate Attachment</span>
+                  <span>Plate Attachment</span>
                   <span class="text-[11px] uppercase tracking-wider font-semibold text-primary">High-Res
                     Monograph</span>
                 </div>
