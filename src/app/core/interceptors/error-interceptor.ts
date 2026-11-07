@@ -31,9 +31,11 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           title = 'Validation Error';
         } else if (error.status === 401) {
           title = 'Authentication Failed';
-          localStorage.removeItem('userToken');
-          localStorage.removeItem('user');
-          router.navigate(['/sign-in'])
+          if (localStorage.getItem('userToken')) {
+            localStorage.removeItem('user');
+            localStorage.removeItem('userToken');
+            router.navigate(['/sign-in'])
+          }
 
         } else if (error.status === 403) {
           title = 'Access Forbidden';
